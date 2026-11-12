@@ -1,0 +1,1576 @@
+{
+ "kg": {
+  "version": "1.0",
+  "page": "sp1_reaction_race",
+  "series": "뉴런 반응 연구실",
+  "nodes": [
+   {
+    "id": "lab:topic/activation-function",
+    "type": "Concept",
+    "label": {
+     "ko": "활성화 함수",
+     "en": "activation function"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#three",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "곱하고 더한 값을 다음 층에 넘길 값으로 바꾸는 함수."
+    }
+   },
+   {
+    "id": "lab:concept/compute-speed",
+    "type": "Metric",
+    "label": {
+     "ko": "계산 속도(순발력)",
+     "en": "activation compute time"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv1",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "함수를 100만 번 계산하는 시간(이 기기 실측)."
+    }
+   },
+   {
+    "id": "lab:concept/signal-propagation",
+    "type": "Metric",
+    "label": {
+     "ko": "전달력",
+     "en": "gradient propagation ratio"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv2",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "마지막 층 기울기를 1로 볼 때 첫 층에 남은 비율."
+    }
+   },
+   {
+    "id": "lab:concept/learning-speed",
+    "type": "Metric",
+    "label": {
+     "ko": "학습 속도",
+     "en": "steps to 80% accuracy"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv3",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "검증 정답률 80%에 닿을 때까지의 학습 걸음."
+    }
+   },
+   {
+    "id": "lab:concept/validation-accuracy",
+    "type": "Metric",
+    "label": {
+     "ko": "검증 정답률",
+     "en": "validation accuracy"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv3",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "학습에 쓰지 않은 점의 정답 비율."
+    }
+   },
+   {
+    "id": "lab:concept/vanishing-gradient",
+    "type": "Concept",
+    "label": {
+     "ko": "기울기 소실",
+     "en": "vanishing gradient"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv2",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:concept/exploding-gradient",
+    "type": "Concept",
+    "label": {
+     "ko": "기울기 폭발",
+     "en": "exploding gradient"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv2",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:concept/chain-rule",
+    "type": "Concept",
+    "label": {
+     "ko": "연쇄 법칙",
+     "en": "chain rule"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv2",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "합성함수의 미분은 기울기의 곱."
+    }
+   },
+   {
+    "id": "lab:method/he-init",
+    "type": "Method",
+    "label": {
+     "ko": "He 출발 가중치",
+     "en": "He initialization"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv2",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "분산 2/n. ReLU 계열과 짝."
+    }
+   },
+   {
+    "id": "lab:method/xavier-init",
+    "type": "Method",
+    "label": {
+     "ko": "작은 출발 가중치(1/n 계열)",
+     "en": "Xavier/Glorot initialization"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv2",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:method/adam",
+    "type": "Method",
+    "label": {
+     "ko": "Adam",
+     "en": "Adam optimizer"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv3",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "걸음마다 보폭을 스스로 조절하는 경사하강 변형."
+    }
+   },
+   {
+    "id": "lab:method/relu",
+    "type": "Method",
+    "label": {
+     "ko": "ReLU",
+     "en": "rectified linear unit"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#cast",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:method/gelu",
+    "type": "Method",
+    "label": {
+     "ko": "GELU",
+     "en": "Gaussian error linear unit"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#cast",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:concept/sigmoid",
+    "type": "Method",
+    "label": {
+     "ko": "시그모이드",
+     "en": "sigmoid"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#cast",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:method/silu",
+    "type": "Method",
+    "label": {
+     "ko": "SiLU",
+     "en": "sigmoid linear unit"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#cast",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:method/backpropagation",
+    "type": "Method",
+    "label": {
+     "ko": "역전파",
+     "en": "backpropagation"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#outro",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:dataset/two-spirals",
+    "type": "Dataset",
+    "label": {
+     "ko": "두 갈래 나선 (학습 200·검증 150)",
+     "en": "two spirals"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv3",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:limitation/device-dependent-timing",
+    "type": "Limitation",
+    "label": {
+     "ko": "순발력 기록은 기기·브라우저마다 다름",
+     "en": "device-dependent timing"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv1",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:limitation/propagation-not-learning",
+    "type": "Limitation",
+    "label": {
+     "ko": "신호가 닿아도 잘 배운다는 보장은 없음",
+     "en": "propagation is not learning"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv2",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:limitation/single-depth",
+    "type": "Limitation",
+    "label": {
+     "ko": "층 수 하나만 본 결과",
+     "en": "single depth only"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv3",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:limitation/toy-task",
+    "type": "Limitation",
+    "label": {
+     "ko": "장난감 과제 한 가지의 결과",
+     "en": "toy task only"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#sum",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:claim/no-single-winner",
+    "type": "Claim",
+    "label": {
+     "ko": "한 함수가 모든 종목을 이기지는 않는다",
+     "en": "no single winner across speed, propagation and accuracy"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#final",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:claim/init-pairs-activation",
+    "type": "Claim",
+    "label": {
+     "ko": "전달력은 함수와 출발 가중치의 짝이 정한다",
+     "en": "propagation depends on activation-initialization pair"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv2",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:claim/sigmoid-deep-fails",
+    "type": "Claim",
+    "label": {
+     "ko": "깊은 숨은 층에서 시그모이드는 신호가 사라져 잘 배우지 못한다",
+     "en": "sigmoid struggles in deep hidden layers"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#stage",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:analogy/whisper-game",
+    "type": "Analogy",
+    "label": {
+     "ko": "귓속말 전달 게임 ↔ 기울기 전달",
+     "en": "whisper game"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv2",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:analogy/checkout-counter",
+    "type": "Analogy",
+    "label": {
+     "ko": "계산대 한 번 찍는 시간 ↔ 함수 계산 시간",
+     "en": "checkout counter"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv1",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:analogy/learning-route",
+    "type": "Analogy",
+    "label": {
+     "ko": "처음 가는 길 외우기 ↔ 학습 속도·정확도",
+     "en": "learning a route"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv3",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:question/core-sp1",
+    "type": "Question",
+    "label": {
+     "ko": "반응을 속도와 정확도로 나누면 어떤 함수가 무엇에 강할까?",
+     "en": "Which activation wins at what?"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#hero",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:question/beyond-toy",
+    "type": "Question",
+    "label": {
+     "ko": "실제 큰 모델·GPU에서는 순위가 어떻게 바뀔까?",
+     "en": "Does the ranking hold on real models and GPUs?"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#sum",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:sim/sp1-r1",
+    "type": "Simulation",
+    "label": {
+     "ko": "순발력 실측 경주",
+     "en": "sp1-r1"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv1",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:sim/sp1-r2",
+    "type": "Simulation",
+    "label": {
+     "ko": "3D 전달력 레인",
+     "en": "sp1-r2"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv2",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:sim/sp1-r3",
+    "type": "Simulation",
+    "label": {
+     "ko": "학습 레이스",
+     "en": "sp1-r3"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv3",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:sim/sp1-stage",
+    "type": "Simulation",
+    "label": {
+     "ko": "3D 종합 무대",
+     "en": "sp1-stage"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#stage",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:sim/sp1-final",
+    "type": "Simulation",
+    "label": {
+     "ko": "최종 점수판",
+     "en": "sp1-final"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#final",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/sp1-lv1a",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv1a",
+     "en": "quiz lv1a"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv1",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/sp1-lv1b",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv1b",
+     "en": "quiz lv1b"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv1",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/sp1-lv2a",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv2a",
+     "en": "quiz lv2a"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv2",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/sp1-lv2b",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv2b",
+     "en": "quiz lv2b"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv2",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/sp1-lv3a",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv3a",
+     "en": "quiz lv3a"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv3",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/sp1-lv3b",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv3b",
+     "en": "quiz lv3b"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#lv3",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/goodfellow2016deep",
+    "type": "Work",
+    "label": {
+     "ko": "Deep Learning (2016)",
+     "en": "goodfellow2016deep"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/glorot2010understanding",
+    "type": "Work",
+    "label": {
+     "ko": "Glorot·Bengio (2010)",
+     "en": "glorot2010understanding"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/he2015delving",
+    "type": "Work",
+    "label": {
+     "ko": "He 외 (2015)",
+     "en": "he2015delving"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/kingma2015adam",
+    "type": "Work",
+    "label": {
+     "ko": "Kingma·Ba (2015)",
+     "en": "kingma2015adam"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/hendrycks2016gelu",
+    "type": "Work",
+    "label": {
+     "ko": "Hendrycks·Gimpel (2016)",
+     "en": "hendrycks2016gelu"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/elfwing2018sigmoid",
+    "type": "Work",
+    "label": {
+     "ko": "Elfwing 외 (2018)",
+     "en": "elfwing2018sigmoid"
+    },
+    "page": "sp1_reaction_race",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   }
+  ],
+  "edges": [
+   {
+    "s": "lab:concept/compute-speed",
+    "p": "lab:prerequisiteOf",
+    "o": "lab:concept/signal-propagation",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/signal-propagation",
+    "p": "lab:prerequisiteOf",
+    "o": "lab:concept/learning-speed",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/learning-speed",
+    "p": "lab:prerequisiteOf",
+    "o": "lab:claim/no-single-winner",
+    "anchor": "#final",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/chain-rule",
+    "p": "lab:prerequisiteOf",
+    "o": "lab:concept/signal-propagation",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:topic/activation-function",
+    "p": "lab:prerequisiteOf",
+    "o": "lab:method/backpropagation",
+    "anchor": "#outro",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/compute-speed",
+    "p": "lab:hasLimitation",
+    "o": "lab:limitation/device-dependent-timing",
+    "anchor": "#lv1",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/signal-propagation",
+    "p": "lab:hasLimitation",
+    "o": "lab:limitation/propagation-not-learning",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/learning-speed",
+    "p": "lab:hasLimitation",
+    "o": "lab:limitation/single-depth",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/no-single-winner",
+    "p": "lab:hasLimitation",
+    "o": "lab:limitation/toy-task",
+    "anchor": "#sum",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:limitation/propagation-not-learning",
+    "p": "lab:addressedBy",
+    "o": "lab:concept/learning-speed",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:limitation/single-depth",
+    "p": "lab:addressedBy",
+    "o": "lab:sim/sp1-stage",
+    "anchor": "#stage",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/signal-propagation",
+    "p": "lab:relatedTo",
+    "o": "lab:concept/vanishing-gradient",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/vanishing-gradient",
+    "p": "lab:contrastsWith",
+    "o": "lab:concept/exploding-gradient",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/he-init",
+    "p": "lab:contrastsWith",
+    "o": "lab:method/xavier-init",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/learning-speed",
+    "p": "lab:contrastsWith",
+    "o": "lab:concept/validation-accuracy",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/relu",
+    "p": "lab:broader",
+    "o": "lab:topic/activation-function",
+    "anchor": "#cast",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/gelu",
+    "p": "lab:broader",
+    "o": "lab:topic/activation-function",
+    "anchor": "#cast",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/sigmoid",
+    "p": "lab:broader",
+    "o": "lab:topic/activation-function",
+    "anchor": "#cast",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/silu",
+    "p": "lab:broader",
+    "o": "lab:topic/activation-function",
+    "anchor": "#cast",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/adam",
+    "p": "lab:partOf",
+    "o": "lab:concept/learning-speed",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:analogy/whisper-game",
+    "p": "lab:analogyOf",
+    "o": "lab:concept/signal-propagation",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:analogy/checkout-counter",
+    "p": "lab:analogyOf",
+    "o": "lab:concept/compute-speed",
+    "anchor": "#lv1",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:analogy/learning-route",
+    "p": "lab:analogyOf",
+    "o": "lab:concept/learning-speed",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/init-pairs-activation",
+    "p": "lab:supports",
+    "o": "lab:method/he-init",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/sigmoid-deep-fails",
+    "p": "lab:supports",
+    "o": "lab:concept/vanishing-gradient",
+    "anchor": "#stage",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/validation-accuracy",
+    "p": "lab:evaluatedOn",
+    "o": "lab:dataset/two-spirals",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/no-single-winner",
+    "p": "lab:evaluatedBy",
+    "o": "lab:concept/validation-accuracy",
+    "anchor": "#final",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:topic/activation-function",
+    "p": "lab:raises",
+    "o": "lab:question/beyond-toy",
+    "anchor": "#sum",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/compute-speed",
+    "p": "lab:demonstratedBy",
+    "o": "lab:sim/sp1-r1",
+    "anchor": "#lv1",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/signal-propagation",
+    "p": "lab:demonstratedBy",
+    "o": "lab:sim/sp1-r2",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/learning-speed",
+    "p": "lab:demonstratedBy",
+    "o": "lab:sim/sp1-r3",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/sigmoid-deep-fails",
+    "p": "lab:demonstratedBy",
+    "o": "lab:sim/sp1-stage",
+    "anchor": "#stage",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/no-single-winner",
+    "p": "lab:demonstratedBy",
+    "o": "lab:sim/sp1-final",
+    "anchor": "#final",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/sp1-lv1a",
+    "p": "lab:assesses",
+    "o": "lab:concept/compute-speed",
+    "anchor": "#lv1",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/sp1-lv1b",
+    "p": "lab:assesses",
+    "o": "lab:concept/compute-speed",
+    "anchor": "#lv1",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/sp1-lv2a",
+    "p": "lab:assesses",
+    "o": "lab:concept/signal-propagation",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/sp1-lv2b",
+    "p": "lab:assesses",
+    "o": "lab:concept/signal-propagation",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/sp1-lv3a",
+    "p": "lab:assesses",
+    "o": "lab:concept/validation-accuracy",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/sp1-lv3b",
+    "p": "lab:assesses",
+    "o": "lab:concept/validation-accuracy",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/init-pairs-activation",
+    "p": "lab:assertedIn",
+    "o": "lab:work/he2015delving",
+    "anchor": "#foot",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/sigmoid-deep-fails",
+    "p": "lab:assertedIn",
+    "o": "lab:work/glorot2010understanding",
+    "anchor": "#foot",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/no-single-winner",
+    "p": "lab:assertedIn",
+    "o": "lab:work/goodfellow2016deep",
+    "anchor": "#foot",
+    "evidence": [],
+    "confidence": "high"
+   }
+  ]
+ },
+ "refs": [
+  {
+   "id": "goodfellow2016deep",
+   "type": "book",
+   "title": "Deep Learning",
+   "author": [
+    {
+     "family": "Goodfellow",
+     "given": "Ian"
+    },
+    {
+     "family": "Bengio",
+     "given": "Yoshua"
+    },
+    {
+     "family": "Courville",
+     "given": "Aaron"
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2016
+     ]
+    ]
+   },
+   "publisher": "MIT Press",
+   "URL": "https://www.deeplearningbook.org/",
+   "lab": {
+    "work": "lab:work/goodfellow2016deep",
+    "role": "background",
+    "supports": [
+     "lab:concept/chain-rule",
+     "lab:claim/no-single-winner"
+    ],
+    "locs": [
+     {
+      "claim": "lab:claim/no-single-winner",
+      "loc": "6.3 은닉 유닛(어느 함수가 최선인지는 실험으로 정한다는 취지) — 정확한 문장 위치 확인 필요"
+     }
+    ],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "glorot2010understanding",
+   "type": "paper-conference",
+   "title": "Understanding the difficulty of training deep feedforward neural networks",
+   "author": [
+    {
+     "family": "Glorot",
+     "given": "Xavier"
+    },
+    {
+     "family": "Bengio",
+     "given": "Yoshua"
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2010
+     ]
+    ]
+   },
+   "container-title": "Proceedings of AISTATS",
+   "lab": {
+    "work": "lab:work/glorot2010understanding",
+    "role": "primary",
+    "supports": [
+     "lab:method/xavier-init",
+     "lab:claim/sigmoid-deep-fails"
+    ],
+    "locs": [
+     {
+      "claim": "lab:claim/sigmoid-deep-fails",
+      "loc": "시그모이드 깊은 망의 포화"
+     }
+    ],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "he2015delving",
+   "type": "paper-conference",
+   "title": "Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification",
+   "author": [
+    {
+     "family": "He",
+     "given": "Kaiming"
+    },
+    {
+     "family": "Zhang",
+     "given": "Xiangyu"
+    },
+    {
+     "family": "Ren",
+     "given": "Shaoqing"
+    },
+    {
+     "family": "Sun",
+     "given": "Jian"
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2015
+     ]
+    ]
+   },
+   "container-title": "Proceedings of ICCV",
+   "lab": {
+    "work": "lab:work/he2015delving",
+    "role": "primary",
+    "supports": [
+     "lab:method/he-init",
+     "lab:claim/init-pairs-activation"
+    ],
+    "locs": [
+     {
+      "claim": "lab:claim/init-pairs-activation",
+      "loc": "ReLU용 초기화(분산 2/n)"
+     }
+    ],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "kingma2015adam",
+   "type": "paper-conference",
+   "title": "Adam: A Method for Stochastic Optimization",
+   "author": [
+    {
+     "family": "Kingma",
+     "given": "Diederik P."
+    },
+    {
+     "family": "Ba",
+     "given": "Jimmy"
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2015
+     ]
+    ]
+   },
+   "container-title": "ICLR",
+   "URL": "https://arxiv.org/abs/1412.6980",
+   "lab": {
+    "work": "lab:work/kingma2015adam",
+    "role": "background",
+    "supports": [
+     "lab:method/adam"
+    ],
+    "locs": [],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "hendrycks2016gelu",
+   "type": "article",
+   "title": "Gaussian Error Linear Units (GELUs)",
+   "author": [
+    {
+     "family": "Hendrycks",
+     "given": "Dan"
+    },
+    {
+     "family": "Gimpel",
+     "given": "Kevin"
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2016
+     ]
+    ]
+   },
+   "container-title": "arXiv",
+   "number": "1606.08415",
+   "URL": "https://arxiv.org/abs/1606.08415",
+   "lab": {
+    "work": "lab:work/hendrycks2016gelu",
+    "role": "background",
+    "supports": [
+     "lab:method/gelu"
+    ],
+    "locs": [],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "elfwing2018sigmoid",
+   "type": "article-journal",
+   "title": "Sigmoid-weighted linear units for neural network function approximation in reinforcement learning",
+   "author": [
+    {
+     "family": "Elfwing",
+     "given": "Stefan"
+    },
+    {
+     "family": "Uchibe",
+     "given": "Eiji"
+    },
+    {
+     "family": "Doya",
+     "given": "Kenji"
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2018
+     ]
+    ]
+   },
+   "container-title": "Neural Networks",
+   "volume": "107",
+   "lab": {
+    "work": "lab:work/elfwing2018sigmoid",
+    "role": "background",
+    "supports": [
+     "lab:method/silu"
+    ],
+    "locs": [],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  }
+ ],
+ "meta": {
+  "title": "연구실 반응속도 대회 — 빨리 반응하는 문, 끝까지 전하는 문, 정확히 배우는 문",
+  "series": "뉴런 반응 연구실",
+  "number": "SP1",
+  "creator": [
+   {
+    "name": "안상선",
+    "role": "author",
+    "affiliation": "(주)M-Robo 대표",
+    "nameEn": "Ahn Sangsun"
+   }
+  ],
+  "contributor": [
+   {
+    "name": "AI 보조 제작",
+    "role": "assistant"
+   }
+  ],
+  "date": "2026-11-12",
+  "version": "1.0",
+  "language": [
+   "ko"
+  ],
+  "license": "",
+  "url": "https://adminmrobo.github.io/neuron_reaction/sp1_reaction_race.html",
+  "repository": "https://github.com/adminmrobo/neuron_reaction",
+  "domain": [
+   "ai"
+  ],
+  "domainNote": "주 분야 인공지능(딥러닝 기초)",
+  "about": [
+   "lab:concept/compute-speed",
+   "lab:concept/signal-propagation",
+   "lab:concept/learning-speed",
+   "lab:concept/validation-accuracy"
+  ],
+  "educationalLevel": "입문",
+  "learningResourceType": "interactive explainer",
+  "basedOn": [
+   "glorot2010understanding",
+   "he2015delving"
+  ],
+  "suggestedCitation": "안상선 (2026). 연구실 반응속도 대회 — 빨리 반응하는 문, 끝까지 전하는 문, 정확히 배우는 문. 뉴런 반응 연구실 특별편, v1.0. https://adminmrobo.github.io/neuron_reaction/sp1_reaction_race.html"
+ }
+}

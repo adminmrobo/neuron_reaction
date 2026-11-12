@@ -1,0 +1,271 @@
+{
+ "series_ko": "뉴런 반응 연구실",
+ "title_ko": "뉴런 반응 연구실 — 신경망 칸은 어떻게 반응하고 배울까",
+ "site_title": "뉴런 반응 연구실",
+ "site_url": "https://adminmrobo.github.io/neuron_reaction/",
+ "ontology": {
+  "pages": [
+   {
+    "path": "index.html",
+    "kg": false,
+    "export": false
+   },
+   {
+    "path": "01_activation.html",
+    "kg": true,
+    "export": true
+   },
+   {
+    "path": "sp1_reaction_race.html",
+    "kg": true,
+    "export": true
+   }
+  ],
+  "files": [
+   "data/kg_01.json",
+   "data/kg_SP1.json"
+  ]
+ },
+ "i18n": {
+  "langs": [
+   "ko"
+  ],
+  "pages": {
+   "ko": 3
+  },
+  "readme_langs": [
+   "ko"
+  ]
+ },
+ "languages": [
+  "ko"
+ ],
+ "items": [
+  {
+   "id": "cover_01",
+   "role": "cover",
+   "path": "assets/img/cover_01.webp",
+   "size": [
+    1600,
+    900
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": "see docs/COVER_01_activation.md",
+   "source_of": null,
+   "status": "ok",
+   "bytes": 124842,
+   "received": "2026-11-12"
+  },
+  {
+   "id": "cover_01_960",
+   "role": "cover",
+   "path": "assets/img/cover_01_960.webp",
+   "size": [
+    960,
+    540
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": null,
+   "source_of": "cover_01",
+   "status": "ok",
+   "bytes": 68480,
+   "received": "2026-11-12"
+  },
+  {
+   "id": "og_01",
+   "role": "og",
+   "path": "assets/img/og_01.jpg",
+   "size": [
+    1200,
+    630
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": null,
+   "source_of": "cover_01",
+   "status": "ok",
+   "bytes": 137292,
+   "received": "2026-11-12"
+  },
+  {
+   "id": "og_index",
+   "role": "og",
+   "path": "assets/img/og_index.jpg",
+   "size": [
+    1200,
+    630
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": null,
+   "source_of": "cover_01",
+   "status": "ok",
+   "bytes": 137292,
+   "received": "2026-11-12"
+  },
+  {
+   "id": "thumb_01",
+   "role": "thumb",
+   "path": "assets/img/thumb_01.webp",
+   "size": [
+    600,
+    400
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": null,
+   "source_of": "cover_01",
+   "status": "ok",
+   "bytes": 40652,
+   "received": "2026-11-12"
+  },
+  {
+   "id": "cover_SP1",
+   "role": "cover",
+   "path": "assets/img/cover_SP1.webp",
+   "size": [
+    1600,
+    900
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": "see docs/COVER_sp1_reaction_race.md",
+   "source_of": null,
+   "status": "ok",
+   "bytes": 114298,
+   "received": "2026-11-12"
+  },
+  {
+   "id": "cover_SP1_960",
+   "role": "cover",
+   "path": "assets/img/cover_SP1_960.webp",
+   "size": [
+    960,
+    540
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": null,
+   "source_of": "cover_SP1",
+   "status": "ok",
+   "bytes": 62164,
+   "received": "2026-11-12"
+  },
+  {
+   "id": "og_SP1",
+   "role": "og",
+   "path": "assets/img/og_SP1.jpg",
+   "size": [
+    1200,
+    630
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": null,
+   "source_of": "cover_SP1",
+   "status": "ok",
+   "bytes": 127783,
+   "received": "2026-11-12"
+  },
+  {
+   "id": "thumb_SP1",
+   "role": "thumb",
+   "path": "assets/img/thumb_SP1.webp",
+   "size": [
+    600,
+    400
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": null,
+   "source_of": "cover_SP1",
+   "status": "ok",
+   "bytes": 36610,
+   "received": "2026-11-12"
+  }
+ ],
+ "updated": "2026-11-12"
+}

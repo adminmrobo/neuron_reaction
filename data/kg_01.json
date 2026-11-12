@@ -1,0 +1,2282 @@
+{
+ "kg": {
+  "version": "1.0",
+  "page": "01_activation",
+  "series": "뉴런 반응 연구실",
+  "nodes": [
+   {
+    "id": "lab:topic/activation-function",
+    "type": "Concept",
+    "label": {
+     "ko": "활성화 함수",
+     "en": "activation function"
+    },
+    "page": "01_activation",
+    "anchor": "#three",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "곱하고 더한 값 z를 다음 층에 넘길 값 a로 바꾸는 함수."
+    }
+   },
+   {
+    "id": "lab:concept/nonlinearity",
+    "type": "Concept",
+    "label": {
+     "ko": "비선형성",
+     "en": "nonlinearity"
+    },
+    "page": "01_activation",
+    "anchor": "#lv1",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "곱하고 더하기만으로는 만들 수 없는 굽은 관계."
+    }
+   },
+   {
+    "id": "lab:concept/linear-collapse",
+    "type": "Concept",
+    "label": {
+     "ko": "선형 층의 합성은 선형",
+     "en": "composition of linear layers is linear"
+    },
+    "page": "01_activation",
+    "anchor": "#lv1",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "W₂(W₁x + b₁) + b₂ = Wx + b."
+    }
+   },
+   {
+    "id": "lab:concept/sigmoid",
+    "type": "Method",
+    "label": {
+     "ko": "시그모이드",
+     "en": "sigmoid"
+    },
+    "page": "01_activation",
+    "anchor": "#lv2",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "σ(z) = 1/(1 + e^(−z)), 값 0~1, 기울기 최대 0.25."
+    }
+   },
+   {
+    "id": "lab:method/tanh",
+    "type": "Method",
+    "label": {
+     "ko": "tanh",
+     "en": "hyperbolic tangent"
+    },
+    "page": "01_activation",
+    "anchor": "#lv2",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "값 −1~1, 0이 가운데, 기울기 최대 1."
+    }
+   },
+   {
+    "id": "lab:concept/saturation",
+    "type": "Concept",
+    "label": {
+     "ko": "포화",
+     "en": "saturation"
+    },
+    "page": "01_activation",
+    "anchor": "#lv2",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "입력이 크거나 작아 곡선이 평평해지는 구간."
+    }
+   },
+   {
+    "id": "lab:concept/vanishing-gradient",
+    "type": "Concept",
+    "label": {
+     "ko": "기울기 소실",
+     "en": "vanishing gradient"
+    },
+    "page": "01_activation",
+    "anchor": "#lv2",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "층을 거꾸로 지나며 기울기가 곱해져 앞쪽 층에 거의 닿지 않음."
+    }
+   },
+   {
+    "id": "lab:method/relu",
+    "type": "Method",
+    "label": {
+     "ko": "ReLU",
+     "en": "rectified linear unit"
+    },
+    "page": "01_activation",
+    "anchor": "#lv3",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "max(0, z)."
+    }
+   },
+   {
+    "id": "lab:method/leaky-relu",
+    "type": "Method",
+    "label": {
+     "ko": "Leaky ReLU",
+     "en": "leaky ReLU"
+    },
+    "page": "01_activation",
+    "anchor": "#lv3",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "max(αz, z), 흔한 기본 α = 0.01."
+    }
+   },
+   {
+    "id": "lab:method/gelu",
+    "type": "Method",
+    "label": {
+     "ko": "GELU",
+     "en": "Gaussian error linear unit"
+    },
+    "page": "01_activation",
+    "anchor": "#lv4",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "z·Φ(z), 최저 약 −0.170 (z ≈ −0.75)."
+    }
+   },
+   {
+    "id": "lab:method/silu",
+    "type": "Method",
+    "label": {
+     "ko": "SiLU (Swish)",
+     "en": "sigmoid linear unit"
+    },
+    "page": "01_activation",
+    "anchor": "#lv4",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "z·σ(z), 최저 약 −0.278 (z ≈ −1.28)."
+    }
+   },
+   {
+    "id": "lab:method/swiglu",
+    "type": "Method",
+    "label": {
+     "ko": "SwiGLU",
+     "en": "Swish-gated linear unit"
+    },
+    "page": "01_activation",
+    "anchor": "#lv4",
+    "level": 4,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "SiLU를 문으로 써서 다른 곱셈 결과에 곱하는 FFN 변형."
+    }
+   },
+   {
+    "id": "lab:method/softmax",
+    "type": "Method",
+    "label": {
+     "ko": "소프트맥스",
+     "en": "softmax"
+    },
+    "page": "01_activation",
+    "anchor": "#lv5",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "e^(zᵢ)/Σe^(zⱼ), 합이 1인 확률."
+    }
+   },
+   {
+    "id": "lab:concept/logit",
+    "type": "Term",
+    "label": {
+     "ko": "로짓",
+     "en": "logit"
+    },
+    "page": "01_activation",
+    "anchor": "#lv5",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "출력 함수 전의 점수."
+    }
+   },
+   {
+    "id": "lab:concept/output-activation-choice",
+    "type": "Concept",
+    "label": {
+     "ko": "출력 칸 함수 고르기",
+     "en": "choosing the output activation"
+    },
+    "page": "01_activation",
+    "anchor": "#lv5",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "숫자는 그대로, 예·아니오·다중 레이블은 시그모이드, 하나 고르기는 소프트맥스."
+    }
+   },
+   {
+    "id": "lab:method/backpropagation",
+    "type": "Method",
+    "label": {
+     "ko": "역전파",
+     "en": "backpropagation"
+    },
+    "page": "01_activation",
+    "anchor": "#outro",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "기울기를 출력에서 입력 쪽으로 거꾸로 한꺼번에 계산."
+    }
+   },
+   {
+    "id": "lab:method/gradient-descent",
+    "type": "Method",
+    "label": {
+     "ko": "경사하강법",
+     "en": "gradient descent"
+    },
+    "page": "01_activation",
+    "anchor": "#why",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high",
+    "definition": {
+     "ko": "텐서 연구실 4장. 기울기 반대 방향으로 조금씩 옮기기."
+    }
+   },
+   {
+    "id": "lab:limitation/line-only",
+    "type": "Limitation",
+    "label": {
+     "ko": "함수 없이 쌓으면 직선뿐",
+     "en": "linear only"
+    },
+    "page": "01_activation",
+    "anchor": "#lv1",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:limitation/saturation-small-gradient",
+    "type": "Limitation",
+    "label": {
+     "ko": "양 끝 포화로 기울기가 사라짐",
+     "en": "saturation kills gradient"
+    },
+    "page": "01_activation",
+    "anchor": "#lv2",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:limitation/dead-unit",
+    "type": "Limitation",
+    "label": {
+     "ko": "음수 쪽 기울기 0, 죽은 칸",
+     "en": "dead units"
+    },
+    "page": "01_activation",
+    "anchor": "#lv3",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:limitation/heavier-compute",
+    "type": "Limitation",
+    "label": {
+     "ko": "ReLU보다 계산이 무거움",
+     "en": "heavier compute"
+    },
+    "page": "01_activation",
+    "anchor": "#lv4",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:limitation/softmax-single-label",
+    "type": "Limitation",
+    "label": {
+     "ko": "소프트맥스는 정답 하나를 가정",
+     "en": "single-label assumption"
+    },
+    "page": "01_activation",
+    "anchor": "#lv5",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:claim/sigmoid-max-slope",
+    "type": "Claim",
+    "label": {
+     "ko": "시그모이드 기울기의 최댓값은 0.25",
+     "en": "max slope of sigmoid is 1/4"
+    },
+    "page": "01_activation",
+    "anchor": "#lv2",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:claim/silu-deeper-min",
+    "type": "Claim",
+    "label": {
+     "ko": "SiLU의 최저점(−0.278)이 GELU(−0.170)보다 낮다",
+     "en": "SiLU minimum is lower than GELU"
+    },
+    "page": "01_activation",
+    "anchor": "#lv4",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:claim/llm-swiglu",
+    "type": "Claim",
+    "label": {
+     "ko": "최근 공개 언어모델은 FFN에 SwiGLU를 많이 쓴다",
+     "en": "recent open LLMs use SwiGLU"
+    },
+    "page": "01_activation",
+    "anchor": "#lv4",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:claim/relu-deep-signal",
+    "type": "Claim",
+    "label": {
+     "ko": "깊은 망에서 ReLU가 시그모이드보다 학습 신호를 더 많이 전한다",
+     "en": "ReLU preserves gradient better than sigmoid in deep nets"
+    },
+    "page": "01_activation",
+    "anchor": "#duel",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:claim/loss-takes-logits",
+    "type": "Claim",
+    "label": {
+     "ko": "분류 손실은 흔히 로짓을 바로 받는다",
+     "en": "losses take logits"
+    },
+    "page": "01_activation",
+    "anchor": "#lv5",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:analogy/folded-ruler",
+    "type": "Analogy",
+    "label": {
+     "ko": "곧은 자 이어 붙이기 ↔ 선형 층 쌓기",
+     "en": "ruler"
+    },
+    "page": "01_activation",
+    "anchor": "#lv1",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:analogy/speaker-volume",
+    "type": "Analogy",
+    "label": {
+     "ko": "스피커 최대 음량 ↔ 포화",
+     "en": "speaker"
+    },
+    "page": "01_activation",
+    "anchor": "#lv2",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:analogy/leaky-faucet",
+    "type": "Analogy",
+    "label": {
+     "ko": "새는 수도꼭지 ↔ Leaky ReLU",
+     "en": "faucet"
+    },
+    "page": "01_activation",
+    "anchor": "#lv3",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:analogy/auto-door",
+    "type": "Analogy",
+    "label": {
+     "ko": "자동문 ↔ 자기 문 열기(GELU·SiLU)",
+     "en": "auto door"
+    },
+    "page": "01_activation",
+    "anchor": "#lv4",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:analogy/bowls",
+    "type": "Analogy",
+    "label": {
+     "ko": "메뉴에 맞는 그릇 ↔ 출력 칸 함수",
+     "en": "bowls"
+    },
+    "page": "01_activation",
+    "anchor": "#lv5",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:question/core-05",
+    "type": "Question",
+    "label": {
+     "ko": "직선뿐인 층 사이에 무엇을 끼워야 곡선을 배울까?",
+     "en": "What makes layers learn curves?"
+    },
+    "page": "01_activation",
+    "anchor": "#hero",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:question/which-hidden-activation",
+    "type": "Question",
+    "label": {
+     "ko": "숨은 층의 기본 함수는 과제와 모델 크기에 따라 어떻게 고를까?",
+     "en": "How to choose hidden activations?"
+    },
+    "page": "01_activation",
+    "anchor": "#sum",
+    "level": 3,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:dataset/ad-orders-toy",
+    "type": "Dataset",
+    "label": {
+     "ko": "광고비·주문 수 장난감 데이터 (시드 7, 24점)",
+     "en": "toy ad-orders data"
+    },
+    "page": "01_activation",
+    "anchor": "#lv1",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:metric/first-layer-gradient-ratio",
+    "type": "Metric",
+    "label": {
+     "ko": "첫 층까지 남은 학습 신호 비율",
+     "en": "first-layer gradient ratio"
+    },
+    "page": "01_activation",
+    "anchor": "#duel",
+    "level": 2,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:sim/t05-big",
+    "type": "Simulation",
+    "label": {
+     "ko": "뉴런 한 칸",
+     "en": "t05-big"
+    },
+    "page": "01_activation",
+    "anchor": "#big",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:sim/t05-lv1",
+    "type": "Simulation",
+    "label": {
+     "ko": "숨은 칸 수와 굽히기",
+     "en": "t05-lv1"
+    },
+    "page": "01_activation",
+    "anchor": "#lv1",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:sim/t05-lv2",
+    "type": "Simulation",
+    "label": {
+     "ko": "S자와 포화",
+     "en": "t05-lv2"
+    },
+    "page": "01_activation",
+    "anchor": "#lv2",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:sim/t05-lv3",
+    "type": "Simulation",
+    "label": {
+     "ko": "죽은 칸 살려 보기",
+     "en": "t05-lv3"
+    },
+    "page": "01_activation",
+    "anchor": "#lv3",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:sim/t05-lv4",
+    "type": "Simulation",
+    "label": {
+     "ko": "GELU·SiLU 바닥 비교",
+     "en": "t05-lv4"
+    },
+    "page": "01_activation",
+    "anchor": "#lv4",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:sim/t05-lv5",
+    "type": "Simulation",
+    "label": {
+     "ko": "과제별 출력 칸",
+     "en": "t05-lv5"
+    },
+    "page": "01_activation",
+    "anchor": "#lv5",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:sim/t05-duel",
+    "type": "Simulation",
+    "label": {
+     "ko": "깊은 망 학습 신호 대결",
+     "en": "t05-duel"
+    },
+    "page": "01_activation",
+    "anchor": "#duel",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/t05-lv1a",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv1a",
+     "en": "quiz lv1a"
+    },
+    "page": "01_activation",
+    "anchor": "#lv1",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/t05-lv1b",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv1b",
+     "en": "quiz lv1b"
+    },
+    "page": "01_activation",
+    "anchor": "#lv1",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/t05-lv2a",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv2a",
+     "en": "quiz lv2a"
+    },
+    "page": "01_activation",
+    "anchor": "#lv2",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/t05-lv2b",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv2b",
+     "en": "quiz lv2b"
+    },
+    "page": "01_activation",
+    "anchor": "#lv2",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/t05-lv3a",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv3a",
+     "en": "quiz lv3a"
+    },
+    "page": "01_activation",
+    "anchor": "#lv3",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/t05-lv3b",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv3b",
+     "en": "quiz lv3b"
+    },
+    "page": "01_activation",
+    "anchor": "#lv3",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/t05-lv4a",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv4a",
+     "en": "quiz lv4a"
+    },
+    "page": "01_activation",
+    "anchor": "#lv4",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/t05-lv4b",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv4b",
+     "en": "quiz lv4b"
+    },
+    "page": "01_activation",
+    "anchor": "#lv4",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/t05-lv5a",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv5a",
+     "en": "quiz lv5a"
+    },
+    "page": "01_activation",
+    "anchor": "#lv5",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:quiz/t05-lv5b",
+    "type": "QuizItem",
+    "label": {
+     "ko": "확인 퀴즈 lv5b",
+     "en": "quiz lv5b"
+    },
+    "page": "01_activation",
+    "anchor": "#lv5",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/goodfellow2016deep",
+    "type": "Work",
+    "label": {
+     "ko": "Deep Learning (2016)",
+     "en": "goodfellow2016deep"
+    },
+    "page": "01_activation",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/glorot2010understanding",
+    "type": "Work",
+    "label": {
+     "ko": "Glorot·Bengio (2010)",
+     "en": "glorot2010understanding"
+    },
+    "page": "01_activation",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/nair2010rectified",
+    "type": "Work",
+    "label": {
+     "ko": "Nair·Hinton (2010)",
+     "en": "nair2010rectified"
+    },
+    "page": "01_activation",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/glorot2011deep",
+    "type": "Work",
+    "label": {
+     "ko": "Glorot 외 (2011)",
+     "en": "glorot2011deep"
+    },
+    "page": "01_activation",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/hendrycks2016gelu",
+    "type": "Work",
+    "label": {
+     "ko": "Hendrycks·Gimpel (2016)",
+     "en": "hendrycks2016gelu"
+    },
+    "page": "01_activation",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/elfwing2018sigmoid",
+    "type": "Work",
+    "label": {
+     "ko": "Elfwing 외 (2018)",
+     "en": "elfwing2018sigmoid"
+    },
+    "page": "01_activation",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/shazeer2020glu",
+    "type": "Work",
+    "label": {
+     "ko": "Shazeer (2020)",
+     "en": "shazeer2020glu"
+    },
+    "page": "01_activation",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/touvron2023llama",
+    "type": "Work",
+    "label": {
+     "ko": "Touvron 외 (2023)",
+     "en": "touvron2023llama"
+    },
+    "page": "01_activation",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/devlin2019bert",
+    "type": "Work",
+    "label": {
+     "ko": "Devlin 외 (2019)",
+     "en": "devlin2019bert"
+    },
+    "page": "01_activation",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/ramachandran2017searching",
+    "type": "Work",
+    "label": {
+     "ko": "Ramachandran 외 (2017)",
+     "en": "ramachandran2017searching"
+    },
+    "page": "01_activation",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   },
+   {
+    "id": "lab:work/maas2013rectifier",
+    "type": "Work",
+    "label": {
+     "ko": "Maas 외 (2013)",
+     "en": "maas2013rectifier"
+    },
+    "page": "01_activation",
+    "anchor": "#foot",
+    "level": 1,
+    "family": "nn",
+    "domain": [
+     "ai"
+    ],
+    "anchorType": "D",
+    "flyStrength": "none",
+    "status": "known",
+    "confidence": "high"
+   }
+  ],
+  "edges": [
+   {
+    "s": "lab:concept/linear-collapse",
+    "p": "lab:prerequisiteOf",
+    "o": "lab:concept/sigmoid",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/sigmoid",
+    "p": "lab:prerequisiteOf",
+    "o": "lab:method/relu",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/relu",
+    "p": "lab:prerequisiteOf",
+    "o": "lab:method/gelu",
+    "anchor": "#lv4",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/gelu",
+    "p": "lab:prerequisiteOf",
+    "o": "lab:concept/output-activation-choice",
+    "anchor": "#lv5",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/gradient-descent",
+    "p": "lab:prerequisiteOf",
+    "o": "lab:topic/activation-function",
+    "anchor": "#why",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:topic/activation-function",
+    "p": "lab:prerequisiteOf",
+    "o": "lab:method/backpropagation",
+    "anchor": "#outro",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/linear-collapse",
+    "p": "lab:hasLimitation",
+    "o": "lab:limitation/line-only",
+    "anchor": "#lv1",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/sigmoid",
+    "p": "lab:hasLimitation",
+    "o": "lab:limitation/saturation-small-gradient",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/relu",
+    "p": "lab:hasLimitation",
+    "o": "lab:limitation/dead-unit",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/gelu",
+    "p": "lab:hasLimitation",
+    "o": "lab:limitation/heavier-compute",
+    "anchor": "#lv4",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/softmax",
+    "p": "lab:hasLimitation",
+    "o": "lab:limitation/softmax-single-label",
+    "anchor": "#lv5",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:limitation/line-only",
+    "p": "lab:addressedBy",
+    "o": "lab:topic/activation-function",
+    "anchor": "#lv1",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:limitation/saturation-small-gradient",
+    "p": "lab:addressedBy",
+    "o": "lab:method/relu",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:limitation/dead-unit",
+    "p": "lab:addressedBy",
+    "o": "lab:method/leaky-relu",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:limitation/softmax-single-label",
+    "p": "lab:addressedBy",
+    "o": "lab:concept/sigmoid",
+    "anchor": "#lv5",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/saturation",
+    "p": "lab:relatedTo",
+    "o": "lab:concept/vanishing-gradient",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/nonlinearity",
+    "p": "lab:broader",
+    "o": "lab:topic/activation-function",
+    "anchor": "#lv1",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/leaky-relu",
+    "p": "lab:broader",
+    "o": "lab:method/relu",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/swiglu",
+    "p": "lab:broader",
+    "o": "lab:method/silu",
+    "anchor": "#lv4",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/tanh",
+    "p": "lab:contrastsWith",
+    "o": "lab:concept/sigmoid",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/gelu",
+    "p": "lab:contrastsWith",
+    "o": "lab:method/silu",
+    "anchor": "#lv4",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/softmax",
+    "p": "lab:contrastsWith",
+    "o": "lab:concept/sigmoid",
+    "anchor": "#lv5",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/logit",
+    "p": "lab:partOf",
+    "o": "lab:concept/output-activation-choice",
+    "anchor": "#lv5",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/softmax",
+    "p": "lab:partOf",
+    "o": "lab:concept/output-activation-choice",
+    "anchor": "#lv5",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:analogy/folded-ruler",
+    "p": "lab:analogyOf",
+    "o": "lab:concept/linear-collapse",
+    "anchor": "#lv1",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:analogy/speaker-volume",
+    "p": "lab:analogyOf",
+    "o": "lab:concept/saturation",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:analogy/leaky-faucet",
+    "p": "lab:analogyOf",
+    "o": "lab:method/leaky-relu",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:analogy/auto-door",
+    "p": "lab:analogyOf",
+    "o": "lab:method/gelu",
+    "anchor": "#lv4",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:analogy/bowls",
+    "p": "lab:analogyOf",
+    "o": "lab:concept/output-activation-choice",
+    "anchor": "#lv5",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/sigmoid-max-slope",
+    "p": "lab:supports",
+    "o": "lab:concept/vanishing-gradient",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/relu-deep-signal",
+    "p": "lab:evaluatedBy",
+    "o": "lab:metric/first-layer-gradient-ratio",
+    "anchor": "#duel",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/relu",
+    "p": "lab:evaluatedOn",
+    "o": "lab:dataset/ad-orders-toy",
+    "anchor": "#lv1",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:topic/activation-function",
+    "p": "lab:raises",
+    "o": "lab:question/which-hidden-activation",
+    "anchor": "#sum",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:topic/activation-function",
+    "p": "lab:demonstratedBy",
+    "o": "lab:sim/t05-big",
+    "anchor": "#big",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/linear-collapse",
+    "p": "lab:demonstratedBy",
+    "o": "lab:sim/t05-lv1",
+    "anchor": "#lv1",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/saturation",
+    "p": "lab:demonstratedBy",
+    "o": "lab:sim/t05-lv2",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:limitation/dead-unit",
+    "p": "lab:demonstratedBy",
+    "o": "lab:sim/t05-lv3",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:method/silu",
+    "p": "lab:demonstratedBy",
+    "o": "lab:sim/t05-lv4",
+    "anchor": "#lv4",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:concept/output-activation-choice",
+    "p": "lab:demonstratedBy",
+    "o": "lab:sim/t05-lv5",
+    "anchor": "#lv5",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/relu-deep-signal",
+    "p": "lab:demonstratedBy",
+    "o": "lab:sim/t05-duel",
+    "anchor": "#duel",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/t05-lv1a",
+    "p": "lab:assesses",
+    "o": "lab:concept/linear-collapse",
+    "anchor": "#lv1",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/t05-lv1b",
+    "p": "lab:assesses",
+    "o": "lab:concept/linear-collapse",
+    "anchor": "#lv1",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/t05-lv2a",
+    "p": "lab:assesses",
+    "o": "lab:concept/sigmoid",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/t05-lv2b",
+    "p": "lab:assesses",
+    "o": "lab:concept/sigmoid",
+    "anchor": "#lv2",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/t05-lv3a",
+    "p": "lab:assesses",
+    "o": "lab:method/leaky-relu",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/t05-lv3b",
+    "p": "lab:assesses",
+    "o": "lab:method/leaky-relu",
+    "anchor": "#lv3",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/t05-lv4a",
+    "p": "lab:assesses",
+    "o": "lab:method/silu",
+    "anchor": "#lv4",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/t05-lv4b",
+    "p": "lab:assesses",
+    "o": "lab:method/silu",
+    "anchor": "#lv4",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/t05-lv5a",
+    "p": "lab:assesses",
+    "o": "lab:method/softmax",
+    "anchor": "#lv5",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:quiz/t05-lv5b",
+    "p": "lab:assesses",
+    "o": "lab:method/softmax",
+    "anchor": "#lv5",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/sigmoid-max-slope",
+    "p": "lab:assertedIn",
+    "o": "lab:work/goodfellow2016deep",
+    "anchor": "#foot",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/silu-deeper-min",
+    "p": "lab:assertedIn",
+    "o": "lab:work/elfwing2018sigmoid",
+    "anchor": "#foot",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/llm-swiglu",
+    "p": "lab:assertedIn",
+    "o": "lab:work/touvron2023llama",
+    "anchor": "#foot",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/relu-deep-signal",
+    "p": "lab:assertedIn",
+    "o": "lab:work/glorot2011deep",
+    "anchor": "#foot",
+    "evidence": [],
+    "confidence": "high"
+   },
+   {
+    "s": "lab:claim/loss-takes-logits",
+    "p": "lab:assertedIn",
+    "o": "lab:work/goodfellow2016deep",
+    "anchor": "#foot",
+    "evidence": [],
+    "confidence": "high"
+   }
+  ]
+ },
+ "refs": [
+  {
+   "id": "goodfellow2016deep",
+   "type": "book",
+   "title": "Deep Learning",
+   "author": [
+    {
+     "family": "Goodfellow",
+     "given": "Ian"
+    },
+    {
+     "family": "Bengio",
+     "given": "Yoshua"
+    },
+    {
+     "family": "Courville",
+     "given": "Aaron"
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2016
+     ]
+    ]
+   },
+   "publisher": "MIT Press",
+   "URL": "https://www.deeplearningbook.org/",
+   "lab": {
+    "work": "lab:work/goodfellow2016deep",
+    "role": "primary",
+    "supports": [
+     "lab:concept/linear-collapse",
+     "lab:claim/sigmoid-max-slope",
+     "lab:claim/loss-takes-logits",
+     "lab:concept/output-activation-choice"
+    ],
+    "locs": [
+     {
+      "claim": "lab:claim/sigmoid-max-slope",
+      "loc": "6장 6.2 출력 유닛, 6.3 은닉 유닛"
+     },
+     {
+      "claim": "lab:claim/loss-takes-logits",
+      "loc": "6장 6.2 출력 유닛, 6.3 은닉 유닛"
+     }
+    ],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "glorot2010understanding",
+   "type": "paper-conference",
+   "title": "Understanding the difficulty of training deep feedforward neural networks",
+   "author": [
+    {
+     "family": "Glorot",
+     "given": "Xavier"
+    },
+    {
+     "family": "Bengio",
+     "given": "Yoshua"
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2010
+     ]
+    ]
+   },
+   "container-title": "Proceedings of AISTATS",
+   "lab": {
+    "work": "lab:work/glorot2010understanding",
+    "role": "background",
+    "supports": [
+     "lab:concept/saturation",
+     "lab:concept/vanishing-gradient"
+    ],
+    "locs": [],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "nair2010rectified",
+   "type": "paper-conference",
+   "title": "Rectified Linear Units Improve Restricted Boltzmann Machines",
+   "author": [
+    {
+     "family": "Nair",
+     "given": "Vinod"
+    },
+    {
+     "family": "Hinton",
+     "given": "Geoffrey E."
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2010
+     ]
+    ]
+   },
+   "container-title": "Proceedings of ICML",
+   "lab": {
+    "work": "lab:work/nair2010rectified",
+    "role": "background",
+    "supports": [
+     "lab:method/relu"
+    ],
+    "locs": [],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "glorot2011deep",
+   "type": "paper-conference",
+   "title": "Deep Sparse Rectifier Neural Networks",
+   "author": [
+    {
+     "family": "Glorot",
+     "given": "Xavier"
+    },
+    {
+     "family": "Bordes",
+     "given": "Antoine"
+    },
+    {
+     "family": "Bengio",
+     "given": "Yoshua"
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2011
+     ]
+    ]
+   },
+   "container-title": "Proceedings of AISTATS",
+   "lab": {
+    "work": "lab:work/glorot2011deep",
+    "role": "background",
+    "supports": [
+     "lab:method/relu",
+     "lab:claim/relu-deep-signal"
+    ],
+    "locs": [
+     {
+      "claim": "lab:claim/relu-deep-signal",
+      "loc": "실험 결론(깊은 망에서 ReLU 학습) — 이 페이지의 대결 수치는 페이지 자체 계산"
+     }
+    ],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "hendrycks2016gelu",
+   "type": "article",
+   "title": "Gaussian Error Linear Units (GELUs)",
+   "author": [
+    {
+     "family": "Hendrycks",
+     "given": "Dan"
+    },
+    {
+     "family": "Gimpel",
+     "given": "Kevin"
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2016
+     ]
+    ]
+   },
+   "container-title": "arXiv",
+   "number": "1606.08415",
+   "URL": "https://arxiv.org/abs/1606.08415",
+   "lab": {
+    "work": "lab:work/hendrycks2016gelu",
+    "role": "primary",
+    "supports": [
+     "lab:method/gelu"
+    ],
+    "locs": [],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "elfwing2018sigmoid",
+   "type": "article-journal",
+   "title": "Sigmoid-weighted linear units for neural network function approximation in reinforcement learning",
+   "author": [
+    {
+     "family": "Elfwing",
+     "given": "Stefan"
+    },
+    {
+     "family": "Uchibe",
+     "given": "Eiji"
+    },
+    {
+     "family": "Doya",
+     "given": "Kenji"
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2018
+     ]
+    ]
+   },
+   "container-title": "Neural Networks",
+   "volume": "107",
+   "lab": {
+    "work": "lab:work/elfwing2018sigmoid",
+    "role": "primary",
+    "supports": [
+     "lab:method/silu",
+     "lab:claim/silu-deeper-min"
+    ],
+    "locs": [
+     {
+      "claim": "lab:claim/silu-deeper-min",
+      "loc": "SiLU 정의(최저점 수치는 이 페이지에서 직접 계산)"
+     }
+    ],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "shazeer2020glu",
+   "type": "article",
+   "title": "GLU Variants Improve Transformer",
+   "author": [
+    {
+     "family": "Shazeer",
+     "given": "Noam"
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2020
+     ]
+    ]
+   },
+   "container-title": "arXiv",
+   "number": "2002.05202",
+   "URL": "https://arxiv.org/abs/2002.05202",
+   "lab": {
+    "work": "lab:work/shazeer2020glu",
+    "role": "primary",
+    "supports": [
+     "lab:method/swiglu"
+    ],
+    "locs": [],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "touvron2023llama",
+   "type": "article",
+   "title": "LLaMA: Open and Efficient Foundation Language Models",
+   "author": [
+    {
+     "family": "Touvron",
+     "given": "Hugo"
+    },
+    {
+     "literal": "et al."
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2023
+     ]
+    ]
+   },
+   "container-title": "arXiv",
+   "number": "2302.13971",
+   "URL": "https://arxiv.org/abs/2302.13971",
+   "lab": {
+    "work": "lab:work/touvron2023llama",
+    "role": "background",
+    "supports": [
+     "lab:claim/llm-swiglu"
+    ],
+    "locs": [
+     {
+      "claim": "lab:claim/llm-swiglu",
+      "loc": "2.2절 아키텍처(SwiGLU 사용)"
+     }
+    ],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "devlin2019bert",
+   "type": "paper-conference",
+   "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+   "author": [
+    {
+     "family": "Devlin",
+     "given": "Jacob"
+    },
+    {
+     "family": "Chang",
+     "given": "Ming-Wei"
+    },
+    {
+     "family": "Lee",
+     "given": "Kenton"
+    },
+    {
+     "family": "Toutanova",
+     "given": "Kristina"
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2019
+     ]
+    ]
+   },
+   "container-title": "Proceedings of NAACL-HLT",
+   "lab": {
+    "work": "lab:work/devlin2019bert",
+    "role": "background",
+    "supports": [
+     "lab:method/gelu"
+    ],
+    "locs": [],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "ramachandran2017searching",
+   "type": "article",
+   "title": "Searching for Activation Functions",
+   "author": [
+    {
+     "family": "Ramachandran",
+     "given": "Prajit"
+    },
+    {
+     "family": "Zoph",
+     "given": "Barret"
+    },
+    {
+     "family": "Le",
+     "given": "Quoc V."
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2017
+     ]
+    ]
+   },
+   "container-title": "arXiv",
+   "number": "1710.05941",
+   "URL": "https://arxiv.org/abs/1710.05941",
+   "lab": {
+    "work": "lab:work/ramachandran2017searching",
+    "role": "background",
+    "supports": [
+     "lab:method/silu"
+    ],
+    "locs": [],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  },
+  {
+   "id": "maas2013rectifier",
+   "type": "paper-conference",
+   "title": "Rectifier Nonlinearities Improve Neural Network Acoustic Models",
+   "author": [
+    {
+     "family": "Maas",
+     "given": "Andrew L."
+    },
+    {
+     "family": "Hannun",
+     "given": "Awni Y."
+    },
+    {
+     "family": "Ng",
+     "given": "Andrew Y."
+    }
+   ],
+   "issued": {
+    "date-parts": [
+     [
+      2013
+     ]
+    ]
+   },
+   "container-title": "ICML Workshop on Deep Learning for Audio, Speech and Language Processing",
+   "lab": {
+    "work": "lab:work/maas2013rectifier",
+    "role": "background",
+    "supports": [
+     "lab:method/leaky-relu"
+    ],
+    "locs": [],
+    "verified": {
+     "title": true,
+     "authors": true,
+     "year": true,
+     "venue": true,
+     "doi": false,
+     "pages": false
+    },
+    "checkedBy": "작성자 지식 (원문 쪽수·DOI 미확인)",
+    "note": "쪽수·DOI 확인 필요"
+   }
+  }
+ ],
+ "meta": {
+  "title": "활성화 함수 — 계산 결과에 굽이를 넣는 문",
+  "series": "뉴런 반응 연구실",
+  "number": "01",
+  "creator": [
+   {
+    "name": "안상선",
+    "role": "author",
+    "affiliation": "(주)M-Robo 대표",
+    "nameEn": "Ahn Sangsun"
+   }
+  ],
+  "contributor": [
+   {
+    "name": "AI 보조 제작",
+    "role": "assistant"
+   }
+  ],
+  "date": "2026-11-12",
+  "version": "1.0",
+  "language": [
+   "ko"
+  ],
+  "license": "",
+  "url": "https://adminmrobo.github.io/neuron_reaction/01_activation.html",
+  "repository": "https://github.com/adminmrobo/neuron_reaction",
+  "domain": [
+   "ai"
+  ],
+  "domainNote": "주 분야 인공지능(딥러닝 기초)",
+  "about": [
+   "lab:topic/activation-function",
+   "lab:concept/sigmoid",
+   "lab:method/relu",
+   "lab:method/gelu",
+   "lab:method/silu",
+   "lab:method/softmax"
+  ],
+  "educationalLevel": "입문",
+  "learningResourceType": "interactive explainer",
+  "basedOn": [
+   "goodfellow2016deep",
+   "hendrycks2016gelu",
+   "elfwing2018sigmoid"
+  ],
+  "isBasedOnNote": "@eeanimation 인포그래픽 4쪽(Why Activation Functions? / Sigmoid & Tanh / ReLU & Leaky ReLU / GELU, SiLU & Output Choices)으로 개념 구성, 그림은 새로 그림",
+  "suggestedCitation": "안상선 (2026). 활성화 함수 — 계산 결과에 굽이를 넣는 문. 뉴런 반응 연구실 01, v1.0. https://adminmrobo.github.io/neuron_reaction/01_activation.html"
+ }
+}
