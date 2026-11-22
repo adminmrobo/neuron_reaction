@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>뉴런 반응 연구실 2부 · 연구실 반응속도 대회</title>
-<meta name="description" content="ReLU·tanh(주판봇 USER팀)와 GELU·SiLU(블랙팀)가 계산 속도, 학습 신호 전달, 학습 경주, 시드 재경기로 겨룹니다. 출발 가중치와 Adam을 처음 오신 분 눈높이로 풀고, 모든 기록을 이 페이지에서 직접 잽니다.">
+<meta name="description" content="ReLU·tanh(주판봇 USER팀)와 GELU·SiLU(초파리와 features팀)가 계산 속도, 학습 신호 전달, 학습 경주, 시드 재경기로 겨룹니다. 출발 가중치와 Adam을 처음 오신 분 눈높이로 풀고, 모든 기록을 이 페이지에서 직접 잽니다.">
 <meta name="author" content="안상선">
 <meta name="citation_title" content="연구실 반응속도 대회 — 빠른 문, 끝까지 전하는 문, 정확히 배우는 문">
 <meta name="citation_author" content="안상선">
@@ -17,7 +17,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://adminmrobo.github.io/neuron_reaction/02_reaction_race.html">
 <meta property="og:title" content="뉴런 반응 연구실 2부 · 연구실 반응속도 대회">
-<meta property="og:description" content="ReLU·tanh(주판봇 USER팀)와 GELU·SiLU(블랙팀)가 계산 속도, 학습 신호 전달, 학습 경주, 시드 재경기로 겨룹니다. 출발 가중치와 Adam을 처음 오신 분 눈높이로 풀고, 모든 기록을 이 페이지에서 직접 잽니다.">
+<meta property="og:description" content="ReLU·tanh(주판봇 USER팀)와 GELU·SiLU(초파리와 features팀)가 계산 속도, 학습 신호 전달, 학습 경주, 시드 재경기로 겨룹니다. 출발 가중치와 Adam을 처음 오신 분 눈높이로 풀고, 모든 기록을 이 페이지에서 직접 잽니다.">
 <meta property="og:image" content="https://adminmrobo.github.io/neuron_reaction/assets/img/og_v2_02.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -243,13 +243,13 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="nojs" id="nojs" role="alert"><b>스크립트가 실행되지 않아 버튼·슬라이더·그림이 멈춰 있습니다.</b> 브라우저(크롬·사파리·엣지)로 <a href="https://adminmrobo.github.io/neuron_reaction/02_reaction_race.html">https://adminmrobo.github.io/neuron_reaction/02_reaction_race.html</a> 를 열어 주세요.</div><script>(function(){var n=document.getElementById('nojs');if(n)n.parentNode.removeChild(n)})();</script>
 <div id="prog"></div>
 <nav class="top" aria-label="페이지 이동"><a class="logo" href="index.html">뉴런 반응 연구실</a><a href="#three">3줄 요약</a><a href="#cast">선수 소개</a><a href="#rule">경기 규칙</a><a href="#lv1">종목 1</a><a href="#lv2">종목 2</a><a href="#lv3">종목 3</a><a href="#lv4">재경기</a><a href="#duel">종합</a><a href="#sum">정리</a><a href="#kg">지식 색인</a></nav>
-<div class="cover" aria-label="표지: 주판봇 USER팀과 블랙팀, 가운데 심판 박사">
+<div class="cover" aria-label="표지: 주판봇 USER팀과 초파리와 features팀, 가운데 심판 박사">
 <div class="court">
  <div class="team u"><img class="px" data-s="robo_e16" alt="주판봇"><img class="px" data-s="asst_e01" alt="조수 하루"><img class="px" data-s="sia_e13" alt="인턴1 시아"><img class="px" data-s="moa_e01" alt="인턴2 모아"></div>
  <div class="ref"><img class="px" data-s="doc_e08" alt="심판 박사"></div>
  <div class="team b"><img class="px" data-s="fly_e09" alt="초파리 연구원"><img class="px" data-s="x1_e13" alt="X1"><img class="px" data-s="x2_e16" alt="X2"><img class="px" data-s="x3_e13" alt="X3"></div>
 </div>
-<div class="lab"><span class="u">주판봇 USER팀</span><span class="j">심판 · 박사</span><span class="b">블랙팀</span></div>
+<div class="lab"><span class="u">주판봇 USER팀</span><span class="j">심판 · 박사</span><span class="b">초파리와 features팀</span></div>
 </div>
 <header class="hero" id="hero"><div class="wrap">
 <div class="kicker">뉴런 반응 연구실 · 2부 (비전공자판 v2.0)</div>
@@ -257,9 +257,9 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <p class="q">어떤 문이 "가장 좋은 문"일까? 무엇으로 재느냐에 따라 답이 바뀔까?</p>
 <p class="byline">글 · 안상선 ((주)M-Robo 대표) · 2026-11-22 · 읽는 시간 약 30분 · 실험 도구 5개</p>
 <div class="sernav"><a href="01_activation.html">1부 활성화 함수</a><a class="now" href="02_reaction_race.html">2부 반응속도 대회</a><a href="03_backprop.html">3부 역전파</a><a href="practice/index.html">실전 연습장</a></div>
-<div class="say " data-team="j"><img class="who" data-s="doc_e08" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>1부에서 문 모양을 하나씩 봤어요. 오늘은 네 가지 문이 직접 겨룹니다. USER팀은 ReLU와 tanh, 블랙팀은 GELU와 SiLU를 내보냈어요. 저는 이번에도 심판입니다.</p></div></div>
+<div class="say " data-team="j"><img class="who" data-s="doc_e08" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>1부에서 문 모양을 하나씩 봤어요. 오늘은 네 가지 문이 직접 겨룹니다. USER팀은 ReLU와 tanh, 초파리와 features팀은 GELU와 SiLU를 내보냈어요. 저는 이번에도 심판입니다.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="robo_e16" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>단순한 게 최고! ReLU가 세 종목 다 가져갑니다!</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">블랙팀 주장</small></div><p>요즘 언어모델은 GELU·SiLU를 쓴다고. 재 보기 전에는 아무도 몰라.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">초파리와 features팀 주장</small></div><p>요즘 언어모델은 GELU·SiLU를 쓴다고. 재 보기 전에는 아무도 몰라.</p></div></div>
 </div></header>
 
 <main class="wrap">
@@ -289,7 +289,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div><img data-s="asst_e13" alt="조수 하루"><b>조수(하루)</b><small>수식이 어려운 질문 담당</small></div>
 <div><img data-s="sia_e13" alt="인턴1 시아"><b>인턴1 시아</b><small>꼼꼼한 기록</small></div>
 <div><img data-s="moa_e13" alt="인턴2 모아"><b>인턴2 모아</b><small>현장 사례 담당</small></div></div></div>
-<div class="teamcard b"><h4>블랙팀 — "정말 그럴까? 눌러 보고 말하자"</h4><div class="members">
+<div class="teamcard b"><h4>초파리와 features팀 — "정말 그럴까? 눌러 보고 말하자"</h4><div class="members">
 <div><img data-s="fly_e09" alt="초파리 연구원"><b>초파리 연구원</b><small>주장 · 의심 담당</small></div>
 <div><img data-s="x1_e13" alt="X1"><b>X1</b><small>반례 찾기</small></div>
 <div><img data-s="x2_e13" alt="X2"><b>X2</b><small>숫자 확인</small></div>
@@ -300,8 +300,8 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <tr><th>팀</th><th>문</th><th>대표</th><th>한 줄 특징</th></tr>
 <tr><td style="color:var(--user);font-weight:700">USER팀</td><td>ReLU</td><td>주판봇</td><td>음수는 0, 양수는 그대로. 계산이 가장 단순</td></tr>
 <tr><td style="color:var(--user);font-weight:700">USER팀</td><td>tanh</td><td>인턴1 시아</td><td>−1~1 S자. 가운데 기울기 최대 1</td></tr>
-<tr><td style="font-weight:700">블랙팀</td><td>GELU</td><td>초파리 연구원</td><td>z × (통과 비율). BERT 같은 언어모델의 숨은 문</td></tr>
-<tr><td style="font-weight:700">블랙팀</td><td>SiLU</td><td>X1</td><td>z × 시그모이드(z). 최근 언어모델 SwiGLU의 재료</td></tr>
+<tr><td style="font-weight:700">초파리와 features팀</td><td>GELU</td><td>초파리 연구원</td><td>z × (통과 비율). BERT 같은 언어모델의 숨은 문</td></tr>
+<tr><td style="font-weight:700">초파리와 features팀</td><td>SiLU</td><td>X1</td><td>z × 시그모이드(z). 최근 언어모델 SwiGLU의 재료</td></tr>
 <tr><td style="color:var(--muted)">번외</td><td>시그모이드</td><td>—</td><td>종목 ②에서 비교용으로만 함께 뜁니다(점수 없음)</td></tr>
 </table></div>
 </section>
@@ -346,7 +346,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="talk">
 <div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>어느 문이 가장 빠를까요?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="robo_e16" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>그야 ReLU죠! 비교 한 번이면 끝이에요.</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">블랙팀 주장</small></div><p>요즘 기기는 지수 계산도 빠르다던데. 직접 재 보자.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">초파리와 features팀 주장</small></div><p>요즘 기기는 지수 계산도 빠르다던데. 직접 재 보자.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>"측정 시작"을 누르면 네 문을 각각 100만 번씩, 세 번 재요. 1초쯤 걸려요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 1</span>문 속도 측정기 (내 기기 실측)</h3>
@@ -356,7 +356,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <p class="msg" id="spMsg"></p>
 <p class="lim">이 종목의 한계: 브라우저 안에서 잰 시간이라 그래픽 칩(GPU)에서의 실제 속도와 다릅니다. 순서를 보는 참고 기록으로만 씁니다.</p>
 </div>
-<div class="round" data-win="d" id="r1"><h4><span>라운드 1</span> · 종목 ① 계산 속도 1위는?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>ReLU가 제일 빨라요. 비교 한 번이면 끝!</p></div></div><div class="b"><b>블랙팀 · 초파리 연구원</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="fly_e09" alt="초파리 연구원" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>GELU도 충분히 빠를 수 있어. 재 보기 전엔 몰라.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 무승부 · 두 팀 0.5점씩</b></p><span class="vtext"></span></div></div></div></div>
+<div class="round" data-win="d" id="r1"><h4><span>라운드 1</span> · 종목 ① 계산 속도 1위는?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>ReLU가 제일 빨라요. 비교 한 번이면 끝!</p></div></div><div class="b"><b>초파리와 features팀 · 초파리 연구원</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="fly_e09" alt="초파리 연구원" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>GELU도 충분히 빠를 수 있어. 재 보기 전엔 몰라.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 무승부 · 두 팀 0.5점씩</b></p><span class="vtext"></span></div></div></div></div>
 <div class="quiz"><div class="qitem" data-ans="b" data-ok="ReLU는 0과 비교만 하고, 나머지 문들은 지수함수 계산이 들어갑니다." data-no="정확도와는 상관없이, 계산 단계 수의 차이입니다."><p class="qq">ReLU가 tanh·GELU보다 계산이 가벼운 이유는?</p><div class="opts"><button class="bt" data-v="a">정확도가 낮아서</button><button class="bt" data-v="b">지수 계산 없이 비교 한 번이면 돼서</button><button class="bt" data-v="c">출력이 0~1이라서</button></div><p class="fb" aria-live="polite"></p></div></div>
 <details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>timeit(lambda: F.gelu(x), number=100)</code> — 같은 입력으로 여러 번 계산해 시간을 재는 방식입니다.</p></details>
 </section>
@@ -389,7 +389,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="talk">
 <div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>숨은 층 12개, He 출발 가중치. 첫 층까지 신호가 100%에 가장 가깝게 남는 문은?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="sia_e07" alt="인턴1 시아" width="62" height="62"><div><div class="name sia">인턴1 시아<small class="u">USER팀</small></div><p>tanh요. 가운데 기울기가 1이라 신호를 그대로 넘겨요.</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="x1_e09" alt="X1" width="62" height="62"><div><div class="name x1">X1<small class="b">블랙팀</small></div><p>SiLU가 100%에 제일 가까울걸. 조건을 바꿔 가며 확인해 봐.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="x1_e09" alt="X1" width="62" height="62"><div><div class="name x1">X1<small class="b">초파리와 features팀</small></div><p>SiLU가 100%에 제일 가까울걸. 조건을 바꿔 가며 확인해 봐.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>도구 2에서 층 수와 출발 가중치를 바꿀 수 있어요. 공식 기록은 12층·He 조건이에요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 2</span>학습 신호 전달 레인</h3>
@@ -402,7 +402,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <p class="msg" id="sgMsg"></p>
 <p class="lim">이 종목의 한계: 비율만 봅니다. "고정 0.05"는 비율은 100% 근처여도 신호의 절대 크기가 아주 작아 학습이 느립니다. 또 입력 16개·시드 하나의 결과라, 시드를 바꾸면 순위가 조금 바뀔 수 있어요.</p>
 </div>
-<div class="round" data-win="d" id="r2"><h4><span>라운드 2</span> · 종목 ② (12층·He) 신호가 100%에 가장 가깝게 남는 문은?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 인턴1 시아</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="sia_e07" alt="인턴1 시아" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>tanh! 가운데 기울기 1이라 신호를 그대로 넘겨요.</p></div></div><div class="b"><b>블랙팀 · X1</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x1_e09" alt="X1" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>SiLU가 가장 100%에 가까울 거야.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 무승부 · 두 팀 0.5점씩</b></p><span class="vtext"></span></div></div></div></div>
+<div class="round" data-win="d" id="r2"><h4><span>라운드 2</span> · 종목 ② (12층·He) 신호가 100%에 가장 가깝게 남는 문은?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 인턴1 시아</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="sia_e07" alt="인턴1 시아" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>tanh! 가운데 기울기 1이라 신호를 그대로 넘겨요.</p></div></div><div class="b"><b>초파리와 features팀 · X1</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x1_e09" alt="X1" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>SiLU가 가장 100%에 가까울 거야.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 무승부 · 두 팀 0.5점씩</b></p><span class="vtext"></span></div></div></div></div>
 <div class="quiz"><div class="qitem" data-ans="a" data-ok="ReLU가 음수 쪽 절반을 0으로 만들어 신호가 반으로 줄어드는 것을 보충합니다." data-no="ReLU가 음수 절반을 0으로 만드는 점을 떠올려 보세요."><p class="qq">He 출발 가중치가 '분산 2/n'으로 1/n의 두 배인 이유는?</p><div class="opts"><button class="bt" data-v="a">ReLU가 신호의 절반을 0으로 만드는 것을 보충하려고</button><button class="bt" data-v="b">계산을 빠르게 하려고</button><button class="bt" data-v="c">출력을 0~1로 만들려고</button></div><p class="fb" aria-live="polite"></p></div></div>
 <details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>nn.init.kaiming_normal_(layer.weight)</code> — He 방법으로 출발 가중치를 뽑는다는 뜻입니다(He의 이름이 Kaiming).</p></details>
 </section>
@@ -434,7 +434,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="talk">
 <div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>95%에 가장 먼저 닿는 문은?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="robo_e16" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>ReLU가 1등으로 골인합니다!</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">블랙팀 주장</small></div><p>부드러운 GELU가 먼저일걸. 학습 방법을 일반 경사하강으로 바꾸면 어떻게 되는지도 봐.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">초파리와 features팀 주장</small></div><p>부드러운 GELU가 먼저일걸. 학습 방법을 일반 경사하강으로 바꾸면 어떻게 되는지도 봐.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>"경주 시작"을 누르면 네 망이 동시에 배워요. 공식 기록은 Adam·나선 조건이에요. 몇 초 걸려요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 3</span>학습 경주장</h3>
@@ -449,7 +449,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <p class="msg" id="rcMsg">"경주 시작"을 눌러 주세요.</p>
 <p class="lim">이 종목의 한계: 점 160개짜리 작은 문제, 시드 하나의 결과입니다. 큰 데이터·큰 망에서는 순위가 달라질 수 있어요. 그래서 다음 종목에서 시드를 바꿔 다시 봅니다.</p>
 </div>
-<div class="round" data-win="d" id="r3"><h4><span>라운드 3</span> · 종목 ③ 학습 경주 (나선·Adam) 1위는?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>ReLU가 제일 먼저 95%에 골인!</p></div></div><div class="b"><b>블랙팀 · 초파리 연구원</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="fly_e09" alt="초파리 연구원" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>부드러운 GELU가 먼저 닿을 거야.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 무승부 · 두 팀 0.5점씩</b></p><span class="vtext"></span></div></div></div></div>
+<div class="round" data-win="d" id="r3"><h4><span>라운드 3</span> · 종목 ③ 학습 경주 (나선·Adam) 1위는?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>ReLU가 제일 먼저 95%에 골인!</p></div></div><div class="b"><b>초파리와 features팀 · 초파리 연구원</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="fly_e09" alt="초파리 연구원" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>부드러운 GELU가 먼저 닿을 거야.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 무승부 · 두 팀 0.5점씩</b></p><span class="vtext"></span></div></div></div></div>
 <div class="quiz"><div class="qitem" data-ans="c" data-ok="학습 데이터를 외운 것인지, 처음 보는 데이터에도 통하는지 구분하려는 것입니다." data-no="계산 속도와는 상관없고, 외운 것과 배운 것을 구분하려는 목적이에요."><p class="qq">정확도를 '학습에 쓰지 않은 시험 데이터'로 재는 이유는?</p><div class="opts"><button class="bt" data-v="a">계산이 빨라서</button><button class="bt" data-v="b">점수가 높게 나와서</button><button class="bt" data-v="c">외운 것이 아니라 일반화했는지 보려고</button></div><p class="fb" aria-live="polite"></p></div></div>
 <details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>torch.optim.Adam(model.parameters(), lr=0.01)</code> — 학습률 0.01로 Adam을 쓰겠다는 뜻입니다.</p></details>
 </section>
@@ -480,7 +480,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="talk">
 <div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>시드 다섯 개로 재경기하면 1위가 그대로일까요?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="robo_e16" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>한 번 이긴 문은 계속 이겨요!</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="x3_e09" alt="X3" width="62" height="62"><div><div class="name x3">X3<small class="b">블랙팀</small></div><p>조건 하나만 바꿔 보자. 시드만 바꿔도 1위가 바뀔 수 있어.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="x3_e09" alt="X3" width="62" height="62"><div><div class="name x3">X3<small class="b">초파리와 features팀</small></div><p>조건 하나만 바꿔 보자. 시드만 바꿔도 1위가 바뀔 수 있어.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>도구 4는 시드 다섯 개 × 네 문, 모두 스무 번 학습해요. 조금 기다려 주세요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 4</span>시드 재경기표</h3>
@@ -490,7 +490,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <p class="msg" id="sdMsg"></p>
 <p class="lim">이 도구의 한계: 시드 다섯 개도 많은 편은 아닙니다. 연구에서는 더 많이 재고, 차이가 우연인지 통계 검정으로도 확인합니다.</p>
 </div>
-<div class="round" data-win="d" id="r4"><h4><span>라운드 4</span> · 재경기: 시드를 바꿔도 1위가 그대로일까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>한 번 이긴 문은 계속 이겨요!</p></div></div><div class="b"><b>블랙팀 · X3</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x3_e09" alt="X3" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>시드만 바꿔도 1위가 바뀔 수 있어.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 무승부 · 두 팀 0.5점씩</b></p><span class="vtext"></span></div></div></div></div>
+<div class="round" data-win="d" id="r4"><h4><span>라운드 4</span> · 재경기: 시드를 바꿔도 1위가 그대로일까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>한 번 이긴 문은 계속 이겨요!</p></div></div><div class="b"><b>초파리와 features팀 · X3</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x3_e09" alt="X3" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>시드만 바꿔도 1위가 바뀔 수 있어.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 무승부 · 두 팀 0.5점씩</b></p><span class="vtext"></span></div></div></div></div>
 <div class="quiz"><div class="qitem" data-ans="b" data-ok="차이가 흩어짐보다 훨씬 작으니 &#x27;비슷하다&#x27;고 보는 것이 맞습니다." data-no="흩어짐(0.03)이 차이(0.005)보다 크면 우연일 가능성이 큽니다."><p class="qq">두 문의 평균 정확도 차이가 0.005이고, 시드마다 정확도 범위가 0.03이라면?</p><div class="opts"><button class="bt" data-v="a">확실히 한쪽이 낫다</button><button class="bt" data-v="b">비슷하다고 보고 더 재 본다</button><button class="bt" data-v="c">시드는 상관없다</button></div><p class="fb" aria-live="polite"></p></div></div>
 </section>
 
@@ -526,13 +526,13 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <section class="level" id="outro">
 <h2>아웃트로</h2>
 <div class="say " data-team="u"><img class="who" data-s="robo_e20" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>세 종목을 다 가져간다고 했는데… 재경기는 생각도 못 했어요.</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="fly_e10" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">블랙팀 주장</small></div><p>우리도 "요즘 쓰니까 최고"라고 할 뻔했지. 재 보니 조건마다 달랐어.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="fly_e10" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">초파리와 features팀 주장</small></div><p>우리도 "요즘 쓰니까 최고"라고 할 뻔했지. 재 보니 조건마다 달랐어.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="moa_e07" alt="인턴2 모아" width="62" height="62"><div><div class="name moa">인턴2 모아<small class="u">USER팀</small></div><p>오늘 계속 나온 "신호가 끝 층에서 앞 층으로 전해진다"는 말, 그게 어떻게 계산되는지 궁금해요.</p></div></div>
 <div class="say " data-team="j"><img class="who" data-s="doc_e08" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>그게 3부 「역전파」입니다. 역전파를 쓸 때와 안 쓸 때를 직접 겨뤄 볼 거예요. 여기서 한 번 쉬어 가도 괜찮아요.</p></div></div>
 <div class="sernav"><a href="01_activation.html">← 1부 활성화 함수</a><a href="index.html">목차</a><a class="now" href="03_backprop.html">다음: 3부 역전파 →</a></div>
 </section>
 </main>
-<div class="board" id="board" aria-live="polite"><span class="u">USER팀 <b>0</b></span><span class="b">블랙팀 <b>0</b></span><span class="me">내 예측 0/0</span></div>
+<div class="board" id="board" aria-live="polite"><span class="u">USER팀 <b>0</b></span><span class="b">초파리와 features팀 <b>0</b></span><span class="me">내 예측 0/0</span></div>
 
 
 <!-- lab-kg:body -->
@@ -796,7 +796,7 @@ L.rounds = function(){
       b.addEventListener('click',function(){
         if(done) return; done=true;
         if (L.hooks[r.id]){ var h=L.hooks[r.id](); win=h.win; r.setAttribute('data-win',win); var vt=r.querySelector('.vtext'); if(vt) vt.innerHTML=h.html; }
-        var wt=r.querySelector('.wtxt'); if(wt) wt.textContent='판정: '+{u:'주판봇 USER팀 1점',b:'블랙팀 1점',d:'무승부 · 두 팀 0.5점씩'}[win];
+        var wt=r.querySelector('.wtxt'); if(wt) wt.textContent='판정: '+{u:'주판봇 USER팀 1점',b:'초파리와 features팀 1점',d:'무승부 · 두 팀 0.5점씩'}[win];
         var me=b.getAttribute('data-v'); r.classList.add('open','win-'+win);
         r.querySelectorAll('.pick .bt').forEach(function(x){x.disabled=true;}); b.classList.add('on');
         if (win==='u') SC.u+=1; else if (win==='b') SC.b+=1; else { SC.u+=0.5; SC.b+=0.5; }
@@ -833,7 +833,7 @@ window.LAB.small = function(v){ var a=Math.abs(v); if (a===0) return '0'; if (a>
 var A=LAB.ACT, P4=['relu','tanh','gelu','silu'], TEAM={relu:'u',tanh:'u',gelu:'b',silu:'b'}, WHO={relu:'주판봇',tanh:'시아',gelu:'초파리 연구원',silu:'X1'};
 var COL={relu:'#2563eb',tanh:'#7c3aed',gelu:'#20222b',silu:'#15803d',sigmoid:'#ea580c'};
 var REC={};
-function tn(t){return t==='u'?'주판봇 USER팀':'블랙팀';}
+function tn(t){return t==='u'?'주판봇 USER팀':'초파리와 features팀';}
 function nm(k){return A[k].ko;}
 /* 종목 1: 속도 */
 function speedRun(){
@@ -868,7 +868,7 @@ function sgDraw(){
   var P=new LAB.Plot(document.getElementById('cvS'),{x0:1,x1:D+1,y0:-8,y1:3,ratio:0.46,minH:240,maxH:360,gy:1,gx:D>16?4:2,xlab:'층 (왼쪽 = 첫 층)',yfmt:function(v){return v===0?'100%':'10^'+v;}}); P.clear();
   P.hline(0,'#b45309',[5,4]);
   list.forEach(function(k){ P.line(res[k].map(function(v,i){return [i+1,Math.max(-8,Math.log10(Math.max(v,1e-30)))];}),COL[k],k==='sigmoid'?1.8:2.6,k==='sigmoid'?[4,4]:null); });
-  document.getElementById('sgLeg').innerHTML=list.map(function(k){return '<span><i style="background:'+COL[k]+'"></i>'+nm(k)+(k==='sigmoid'?' (번외)':' ('+(TEAM[k]==='u'?'USER':'블랙')+')')+'</span>';}).join('');
+  document.getElementById('sgLeg').innerHTML=list.map(function(k){return '<span><i style="background:'+COL[k]+'"></i>'+nm(k)+(k==='sigmoid'?' (번외)':' ('+(TEAM[k]==='u'?'USER':'features')+')')+'</span>';}).join('');
   var dist=function(k){return Math.abs(Math.log10(res[k][0]));};
   var order=P4.slice().sort(function(a,b){return dist(a)-dist(b);});
   document.getElementById('sgOut').innerHTML=list.map(function(k){ var g=dist(k)<0.3; return '<div class="'+(g?'good':(dist(k)>1?'bad':''))+'">'+nm(k)+' · 첫 층<b>'+pct(res[k][0])+'</b></div>'; }).join('');
@@ -937,7 +937,7 @@ function sdDraw(){
 }
 document.getElementById('sdRun').onclick=function(){ var b=this; b.disabled=true; document.getElementById('sdInfo').textContent='학습 중… (스무 번)'; setTimeout(function(){ sdRunAll(); sdDraw(); b.disabled=false; document.getElementById('sdInfo').textContent='완료'; },30); };
 LAB.hooks.r4=function(){ if(!REC.seeds){ sdRunAll(); sdDraw(); } var S=REC.seeds;
-  return S.changed ? {win:'b', html:'시드 다섯 개 중 1위가 '+S.winners.map(nm).join(', ')+'(으)로 바뀌었습니다. 시드만 바꿔도 순위가 흔들려요. 블랙팀 X3의 말이 맞습니다. 한 번의 기록으로 "최고"라고 하면 안 되는 이유예요.'}
+  return S.changed ? {win:'b', html:'시드 다섯 개 중 1위가 '+S.winners.map(nm).join(', ')+'(으)로 바뀌었습니다. 시드만 바꿔도 순위가 흔들려요. 초파리와 features팀 X3의 말이 맞습니다. 한 번의 기록으로 "최고"라고 하면 안 되는 이유예요.'}
    : {win:'u', html:'이번 조건에서는 다섯 시드 모두 '+nm(S.rows[0].win)+'이 1위였어요. 주판봇 말대로 결과가 안정적이었습니다. 다만 다른 데이터·조건에서는 바뀔 수 있으니, 늘 여러 번 재 보고 말해야 합니다.'}; };
 /* 종합 */
 function allDraw(){
@@ -950,7 +950,7 @@ function allDraw(){
     if(t==='u')u++; else if(t==='b')b++; h+='<tr><td>'+r[0]+'</td><td>'+(r[1]?label:'아직 안 잼')+'</td><td>'+(t?tn(t):'-')+'</td><td>'+r[2]+'</td></tr>'; });
   document.getElementById('allTab').innerHTML=h+'</table>';
   var done=rows.every(function(r){return r[1];}), f=document.getElementById('allFinal');
-  f.innerHTML = done ? '<b style="color:var(--judge)">박사의 최종 판정</b><p style="margin:.3em 0 0">공식 기록 기준 점수는 USER팀 '+u+' : 블랙팀 '+b+'입니다. '+(u===b?'동점이에요. ':(u>b?'USER팀이 앞섰어요. ':'블랙팀이 앞섰어요. '))+'하지만 진짜 결론은 따로 있어요. <b>종목마다 1위가 다를 수 있고, 같은 종목도 조건과 시드에 따라 바뀝니다.</b> "최고의 문" 대신 "이 조건에서 이 기준으로는 이 문"이라고 말하는 것이 오늘의 판정입니다.</p>'
+  f.innerHTML = done ? '<b style="color:var(--judge)">박사의 최종 판정</b><p style="margin:.3em 0 0">공식 기록 기준 점수는 USER팀 '+u+' : 초파리와 features팀 '+b+'입니다. '+(u===b?'동점이에요. ':(u>b?'USER팀이 앞섰어요. ':'초파리와 features팀이 앞섰어요. '))+'하지만 진짜 결론은 따로 있어요. <b>종목마다 1위가 다를 수 있고, 같은 종목도 조건과 시드에 따라 바뀝니다.</b> "최고의 문" 대신 "이 조건에서 이 기준으로는 이 문"이라고 말하는 것이 오늘의 판정입니다.</p>'
     : '<p style="margin:0">아직 재지 않은 종목이 있어요. 위 도구들을 돌리거나 "공식 기록 계산"을 눌러 주세요.</p>';
 }
 document.getElementById('allRun').onclick=function(){ var bt=this; bt.disabled=true; document.getElementById('allInfo').textContent='계산 중… 몇 초 걸려요';

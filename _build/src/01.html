@@ -1,4 +1,4 @@
-<!--META {"title":"뉴런 반응 연구실 1부 · 활성화 함수","ctitle":"활성화 함수 — 뉴런의 반응을 정하는 문","file":"01_activation.html","og":"og_v2_01.jpg","cite":"1부 활성화 함수 — 뉴런의 반응을 정하는 문","desc":"뉴런 하나가 곱하고 더한 숫자를 '문'에 통과시키는 이유를, 주판봇 USER팀과 블랙팀의 라운드 대결과 여섯 개의 실험 도구로 직접 확인하는 비전공자용 활성화 함수 해설.","nav":"<a href=\"#three\">3줄 요약</a><a href=\"#cast\">팀 소개</a><a href=\"#big\">큰 그림</a><a href=\"#lv1\">단계 1</a><a href=\"#lv2\">단계 2</a><a href=\"#lv3\">단계 3</a><a href=\"#lv4\">단계 4</a><a href=\"#lv5\">단계 5</a><a href=\"#duel\">대결</a><a href=\"#sum\">정리</a><a href=\"#kg\">지식 색인</a>"} -->
+<!--META {"title":"뉴런 반응 연구실 1부 · 활성화 함수","ctitle":"활성화 함수 — 뉴런의 반응을 정하는 문","file":"01_activation.html","og":"og_v2_01.jpg","cite":"1부 활성화 함수 — 뉴런의 반응을 정하는 문","desc":"뉴런 하나가 곱하고 더한 숫자를 '문'에 통과시키는 이유를, 주판봇 USER팀과 초파리와 features팀의 라운드 대결과 여섯 개의 실험 도구로 직접 확인하는 비전공자용 활성화 함수 해설.","nav":"<a href=\"#three\">3줄 요약</a><a href=\"#cast\">팀 소개</a><a href=\"#big\">큰 그림</a><a href=\"#lv1\">단계 1</a><a href=\"#lv2\">단계 2</a><a href=\"#lv3\">단계 3</a><a href=\"#lv4\">단계 4</a><a href=\"#lv5\">단계 5</a><a href=\"#duel\">대결</a><a href=\"#sum\">정리</a><a href=\"#kg\">지식 색인</a>"} -->
 <cover/>
 <header class="hero" id="hero"><div class="wrap">
 <div class="kicker">뉴런 반응 연구실 · 1부 (비전공자판 v2.0)</div>
@@ -6,9 +6,9 @@
 <p class="q">곱하고 더한 숫자를 그대로 다음으로 넘기면 안 될까?</p>
 <p class="byline">글 · 안상선 ((주)M-Robo 대표) · 2026-11-22 · 읽는 시간 약 30분 · 실험 도구 6개</p>
 <div class="sernav"><a class="now" href="01_activation.html">1부 활성화 함수</a><a href="02_reaction_race.html">2부 반응속도 대회</a><a href="03_backprop.html">3부 역전파</a><a href="practice/index.html">실전 연습장</a></div>
-<say who="doc" e="e08">오늘은 두 팀이 겨룹니다. 주판봇 USER팀은 빨리 결론을 내고, 블랙팀은 눌러 보고 의심합니다. 저는 심판이에요. 라운드마다 실험으로 확인하고 판정하겠습니다.</say>
+<say who="doc" e="e08">오늘은 두 팀이 겨룹니다. 주판봇 USER팀은 빨리 결론을 내고, 초파리와 features팀은 눌러 보고 의심합니다. 저는 심판이에요. 라운드마다 실험으로 확인하고 판정하겠습니다.</say>
 <say who="robo" e="e16">숫자를 곱하고 더하면 끝이죠! 문 같은 건 장식이에요. 우리 USER팀이 이깁니다!</say>
-<say who="fly" e="e09">장식이라고? 그 문을 떼고 한 번 돌려 보자. 블랙팀은 결과를 보고 말할게.</say>
+<say who="fly" e="e09">장식이라고? 그 문을 떼고 한 번 돌려 보자. 초파리와 features팀은 결과를 보고 말할게.</say>
 </div></header>
 
 <main class="wrap">
@@ -321,7 +321,7 @@
 <!-- 대결 -->
 <section class="level" id="duel">
 <h2>대결 — 깊은 망에서 학습 신호가 첫 층까지 더 많이 남는 문은?</h2>
-<say who="doc" e="e08">마지막 라운드입니다. 숨은 층이 여러 겹인 망을 만들고, 맨 끝의 학습 신호가 맨 앞 층까지 얼마나 남는지 잽니다. USER팀은 시그모이드, 블랙팀은 ReLU를 골랐어요. 조건은 같습니다. 폭 32, 같은 출발 가중치(크기 1/n), 같은 입력 16개입니다.</say>
+<say who="doc" e="e08">마지막 라운드입니다. 숨은 층이 여러 겹인 망을 만들고, 맨 끝의 학습 신호가 맨 앞 층까지 얼마나 남는지 잽니다. USER팀은 시그모이드, 초파리와 features팀은 ReLU를 골랐어요. 조건은 같습니다. 폭 32, 같은 출발 가중치(크기 1/n), 같은 입력 16개입니다.</say>
 <div class="talk">
 <say who="sia" e="e16">부드러운 시그모이드가 안정적이에요. 신호도 고르게 전할 거예요.</say>
 <say who="fly" e="e09">3단계에서 봤잖아. 시그모이드 기울기는 최대 0.25야. 층마다 곱해지면 어떻게 될까?</say>
@@ -333,13 +333,13 @@
 <button class="bt primary" id="duRun">대결 시작</button></div>
 <div class="readout"><div class="bad">시그모이드 · 첫 층에 남은 신호<b id="duS">-</b></div><div class="good">ReLU · 첫 층에 남은 신호<b id="duR">-</b></div><div>차이<b id="duX">-</b></div></div>
 <div class="cwrap"><canvas id="cvD" aria-label="층마다 남은 학습 신호 비율"></canvas></div>
-<div class="legend"><span><i style="background:#2563eb"></i>시그모이드 (USER팀)</span><span><i style="background:#20222b"></i>ReLU (블랙팀)</span></div>
+<div class="legend"><span><i style="background:#2563eb"></i>시그모이드 (USER팀)</span><span><i style="background:#20222b"></i>ReLU (초파리와 features팀)</span></div>
 <p class="msg" id="duMsg">아직 계산하지 않았어요. "대결 시작"을 눌러 주세요.</p>
 </div>
 <round no="6" title="대결: 깊은 망에서 신호가 첫 층까지 더 많이 남는 문은?" win="b">
 <cu who="sia" e="e16">부드러운 시그모이드가 신호를 고르게 전해요.</cu>
 <cb who="fly" e="e09">층마다 0.25 이하가 곱해지는 시그모이드는 금방 사라져. ReLU가 더 남아.</cb>
-<verdict e="e10">숨은 층 10개 기준으로 ReLU는 첫 층에 약 3분의 1(32%)이 남지만, 시그모이드는 0.0001%보다도 작아집니다. 층 수를 바꿔도 순서는 같아요. 블랙팀 승리입니다. 다만 출발 가중치를 바꾸면 남는 양이 크게 달라져요. 그 이야기는 2부 종목 ②에서 겨룹니다.</verdict>
+<verdict e="e10">숨은 층 10개 기준으로 ReLU는 첫 층에 약 3분의 1(32%)이 남지만, 시그모이드는 0.0001%보다도 작아집니다. 층 수를 바꿔도 순서는 같아요. 초파리와 features팀 승리입니다. 다만 출발 가중치를 바꾸면 남는 양이 크게 달라져요. 그 이야기는 2부 종목 ②에서 겨룹니다.</verdict>
 </round>
 <div class="aicheck"><h4>AI 판단 코너 — AI가 낸 추천, 그대로 써도 될까?</h4>
 <p>AI 코딩 도우미에게 "15층 분류 모델을 만들어 줘"라고 했더니, 숨은 층 15개 모두에 시그모이드를 단 코드를 줬다고 해 봐요. 학습을 돌리니 손실이 거의 줄지 않습니다.</p>

@@ -1,4 +1,4 @@
-<!--META {"title":"뉴런 반응 연구실 2부 · 연구실 반응속도 대회","ctitle":"연구실 반응속도 대회 — 빠른 문, 끝까지 전하는 문, 정확히 배우는 문","file":"02_reaction_race.html","og":"og_v2_02.jpg","cite":"2부 연구실 반응속도 대회","desc":"ReLU·tanh(주판봇 USER팀)와 GELU·SiLU(블랙팀)가 계산 속도, 학습 신호 전달, 학습 경주, 시드 재경기로 겨룹니다. 출발 가중치와 Adam을 처음 오신 분 눈높이로 풀고, 모든 기록을 이 페이지에서 직접 잽니다.","nav":"<a href=\"#three\">3줄 요약</a><a href=\"#cast\">선수 소개</a><a href=\"#rule\">경기 규칙</a><a href=\"#lv1\">종목 1</a><a href=\"#lv2\">종목 2</a><a href=\"#lv3\">종목 3</a><a href=\"#lv4\">재경기</a><a href=\"#duel\">종합</a><a href=\"#sum\">정리</a><a href=\"#kg\">지식 색인</a>"} -->
+<!--META {"title":"뉴런 반응 연구실 2부 · 연구실 반응속도 대회","ctitle":"연구실 반응속도 대회 — 빠른 문, 끝까지 전하는 문, 정확히 배우는 문","file":"02_reaction_race.html","og":"og_v2_02.jpg","cite":"2부 연구실 반응속도 대회","desc":"ReLU·tanh(주판봇 USER팀)와 GELU·SiLU(초파리와 features팀)가 계산 속도, 학습 신호 전달, 학습 경주, 시드 재경기로 겨룹니다. 출발 가중치와 Adam을 처음 오신 분 눈높이로 풀고, 모든 기록을 이 페이지에서 직접 잽니다.","nav":"<a href=\"#three\">3줄 요약</a><a href=\"#cast\">선수 소개</a><a href=\"#rule\">경기 규칙</a><a href=\"#lv1\">종목 1</a><a href=\"#lv2\">종목 2</a><a href=\"#lv3\">종목 3</a><a href=\"#lv4\">재경기</a><a href=\"#duel\">종합</a><a href=\"#sum\">정리</a><a href=\"#kg\">지식 색인</a>"} -->
 <cover/>
 <header class="hero" id="hero"><div class="wrap">
 <div class="kicker">뉴런 반응 연구실 · 2부 (비전공자판 v2.0)</div>
@@ -6,7 +6,7 @@
 <p class="q">어떤 문이 "가장 좋은 문"일까? 무엇으로 재느냐에 따라 답이 바뀔까?</p>
 <p class="byline">글 · 안상선 ((주)M-Robo 대표) · 2026-11-22 · 읽는 시간 약 30분 · 실험 도구 5개</p>
 <div class="sernav"><a href="01_activation.html">1부 활성화 함수</a><a class="now" href="02_reaction_race.html">2부 반응속도 대회</a><a href="03_backprop.html">3부 역전파</a><a href="practice/index.html">실전 연습장</a></div>
-<say who="doc" e="e08">1부에서 문 모양을 하나씩 봤어요. 오늘은 네 가지 문이 직접 겨룹니다. USER팀은 ReLU와 tanh, 블랙팀은 GELU와 SiLU를 내보냈어요. 저는 이번에도 심판입니다.</say>
+<say who="doc" e="e08">1부에서 문 모양을 하나씩 봤어요. 오늘은 네 가지 문이 직접 겨룹니다. USER팀은 ReLU와 tanh, 초파리와 features팀은 GELU와 SiLU를 내보냈어요. 저는 이번에도 심판입니다.</say>
 <say who="robo" e="e16">단순한 게 최고! ReLU가 세 종목 다 가져갑니다!</say>
 <say who="fly" e="e09">요즘 언어모델은 GELU·SiLU를 쓴다고. 재 보기 전에는 아무도 몰라.</say>
 </div></header>
@@ -37,8 +37,8 @@
 <tr><th>팀</th><th>문</th><th>대표</th><th>한 줄 특징</th></tr>
 <tr><td style="color:var(--user);font-weight:700">USER팀</td><td>ReLU</td><td>주판봇</td><td>음수는 0, 양수는 그대로. 계산이 가장 단순</td></tr>
 <tr><td style="color:var(--user);font-weight:700">USER팀</td><td>tanh</td><td>인턴1 시아</td><td>−1~1 S자. 가운데 기울기 최대 1</td></tr>
-<tr><td style="font-weight:700">블랙팀</td><td>GELU</td><td>초파리 연구원</td><td>z × (통과 비율). BERT 같은 언어모델의 숨은 문</td></tr>
-<tr><td style="font-weight:700">블랙팀</td><td>SiLU</td><td>X1</td><td>z × 시그모이드(z). 최근 언어모델 SwiGLU의 재료</td></tr>
+<tr><td style="font-weight:700">초파리와 features팀</td><td>GELU</td><td>초파리 연구원</td><td>z × (통과 비율). BERT 같은 언어모델의 숨은 문</td></tr>
+<tr><td style="font-weight:700">초파리와 features팀</td><td>SiLU</td><td>X1</td><td>z × 시그모이드(z). 최근 언어모델 SwiGLU의 재료</td></tr>
 <tr><td style="color:var(--muted)">번외</td><td>시그모이드</td><td>—</td><td>종목 ②에서 비교용으로만 함께 뜁니다(점수 없음)</td></tr>
 </table></div>
 </section>
@@ -291,7 +291,7 @@
 var A=LAB.ACT, P4=['relu','tanh','gelu','silu'], TEAM={relu:'u',tanh:'u',gelu:'b',silu:'b'}, WHO={relu:'주판봇',tanh:'시아',gelu:'초파리 연구원',silu:'X1'};
 var COL={relu:'#2563eb',tanh:'#7c3aed',gelu:'#20222b',silu:'#15803d',sigmoid:'#ea580c'};
 var REC={};
-function tn(t){return t==='u'?'주판봇 USER팀':'블랙팀';}
+function tn(t){return t==='u'?'주판봇 USER팀':'초파리와 features팀';}
 function nm(k){return A[k].ko;}
 /* 종목 1: 속도 */
 function speedRun(){
@@ -326,7 +326,7 @@ function sgDraw(){
   var P=new LAB.Plot(document.getElementById('cvS'),{x0:1,x1:D+1,y0:-8,y1:3,ratio:0.46,minH:240,maxH:360,gy:1,gx:D>16?4:2,xlab:'층 (왼쪽 = 첫 층)',yfmt:function(v){return v===0?'100%':'10^'+v;}}); P.clear();
   P.hline(0,'#b45309',[5,4]);
   list.forEach(function(k){ P.line(res[k].map(function(v,i){return [i+1,Math.max(-8,Math.log10(Math.max(v,1e-30)))];}),COL[k],k==='sigmoid'?1.8:2.6,k==='sigmoid'?[4,4]:null); });
-  document.getElementById('sgLeg').innerHTML=list.map(function(k){return '<span><i style="background:'+COL[k]+'"></i>'+nm(k)+(k==='sigmoid'?' (번외)':' ('+(TEAM[k]==='u'?'USER':'블랙')+')')+'</span>';}).join('');
+  document.getElementById('sgLeg').innerHTML=list.map(function(k){return '<span><i style="background:'+COL[k]+'"></i>'+nm(k)+(k==='sigmoid'?' (번외)':' ('+(TEAM[k]==='u'?'USER':'features')+')')+'</span>';}).join('');
   var dist=function(k){return Math.abs(Math.log10(res[k][0]));};
   var order=P4.slice().sort(function(a,b){return dist(a)-dist(b);});
   document.getElementById('sgOut').innerHTML=list.map(function(k){ var g=dist(k)<0.3; return '<div class="'+(g?'good':(dist(k)>1?'bad':''))+'">'+nm(k)+' · 첫 층<b>'+pct(res[k][0])+'</b></div>'; }).join('');
@@ -395,7 +395,7 @@ function sdDraw(){
 }
 document.getElementById('sdRun').onclick=function(){ var b=this; b.disabled=true; document.getElementById('sdInfo').textContent='학습 중… (스무 번)'; setTimeout(function(){ sdRunAll(); sdDraw(); b.disabled=false; document.getElementById('sdInfo').textContent='완료'; },30); };
 LAB.hooks.r4=function(){ if(!REC.seeds){ sdRunAll(); sdDraw(); } var S=REC.seeds;
-  return S.changed ? {win:'b', html:'시드 다섯 개 중 1위가 '+S.winners.map(nm).join(', ')+'(으)로 바뀌었습니다. 시드만 바꿔도 순위가 흔들려요. 블랙팀 X3의 말이 맞습니다. 한 번의 기록으로 "최고"라고 하면 안 되는 이유예요.'}
+  return S.changed ? {win:'b', html:'시드 다섯 개 중 1위가 '+S.winners.map(nm).join(', ')+'(으)로 바뀌었습니다. 시드만 바꿔도 순위가 흔들려요. 초파리와 features팀 X3의 말이 맞습니다. 한 번의 기록으로 "최고"라고 하면 안 되는 이유예요.'}
    : {win:'u', html:'이번 조건에서는 다섯 시드 모두 '+nm(S.rows[0].win)+'이 1위였어요. 주판봇 말대로 결과가 안정적이었습니다. 다만 다른 데이터·조건에서는 바뀔 수 있으니, 늘 여러 번 재 보고 말해야 합니다.'}; };
 /* 종합 */
 function allDraw(){
@@ -408,7 +408,7 @@ function allDraw(){
     if(t==='u')u++; else if(t==='b')b++; h+='<tr><td>'+r[0]+'</td><td>'+(r[1]?label:'아직 안 잼')+'</td><td>'+(t?tn(t):'-')+'</td><td>'+r[2]+'</td></tr>'; });
   document.getElementById('allTab').innerHTML=h+'</table>';
   var done=rows.every(function(r){return r[1];}), f=document.getElementById('allFinal');
-  f.innerHTML = done ? '<b style="color:var(--judge)">박사의 최종 판정</b><p style="margin:.3em 0 0">공식 기록 기준 점수는 USER팀 '+u+' : 블랙팀 '+b+'입니다. '+(u===b?'동점이에요. ':(u>b?'USER팀이 앞섰어요. ':'블랙팀이 앞섰어요. '))+'하지만 진짜 결론은 따로 있어요. <b>종목마다 1위가 다를 수 있고, 같은 종목도 조건과 시드에 따라 바뀝니다.</b> "최고의 문" 대신 "이 조건에서 이 기준으로는 이 문"이라고 말하는 것이 오늘의 판정입니다.</p>'
+  f.innerHTML = done ? '<b style="color:var(--judge)">박사의 최종 판정</b><p style="margin:.3em 0 0">공식 기록 기준 점수는 USER팀 '+u+' : 초파리와 features팀 '+b+'입니다. '+(u===b?'동점이에요. ':(u>b?'USER팀이 앞섰어요. ':'초파리와 features팀이 앞섰어요. '))+'하지만 진짜 결론은 따로 있어요. <b>종목마다 1위가 다를 수 있고, 같은 종목도 조건과 시드에 따라 바뀝니다.</b> "최고의 문" 대신 "이 조건에서 이 기준으로는 이 문"이라고 말하는 것이 오늘의 판정입니다.</p>'
     : '<p style="margin:0">아직 재지 않은 종목이 있어요. 위 도구들을 돌리거나 "공식 기록 계산"을 눌러 주세요.</p>';
 }
 document.getElementById('allRun').onclick=function(){ var bt=this; bt.disabled=true; document.getElementById('allInfo').textContent='계산 중… 몇 초 걸려요';

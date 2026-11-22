@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>뉴런 반응 연구실 1부 · 활성화 함수</title>
-<meta name="description" content="뉴런 하나가 곱하고 더한 숫자를 '문'에 통과시키는 이유를, 주판봇 USER팀과 블랙팀의 라운드 대결과 여섯 개의 실험 도구로 직접 확인하는 비전공자용 활성화 함수 해설.">
+<meta name="description" content="뉴런 하나가 곱하고 더한 숫자를 '문'에 통과시키는 이유를, 주판봇 USER팀과 초파리와 features팀의 라운드 대결과 여섯 개의 실험 도구로 직접 확인하는 비전공자용 활성화 함수 해설.">
 <meta name="author" content="안상선">
 <meta name="citation_title" content="활성화 함수 — 뉴런의 반응을 정하는 문">
 <meta name="citation_author" content="안상선">
@@ -17,7 +17,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://adminmrobo.github.io/neuron_reaction/01_activation.html">
 <meta property="og:title" content="뉴런 반응 연구실 1부 · 활성화 함수">
-<meta property="og:description" content="뉴런 하나가 곱하고 더한 숫자를 '문'에 통과시키는 이유를, 주판봇 USER팀과 블랙팀의 라운드 대결과 여섯 개의 실험 도구로 직접 확인하는 비전공자용 활성화 함수 해설.">
+<meta property="og:description" content="뉴런 하나가 곱하고 더한 숫자를 '문'에 통과시키는 이유를, 주판봇 USER팀과 초파리와 features팀의 라운드 대결과 여섯 개의 실험 도구로 직접 확인하는 비전공자용 활성화 함수 해설.">
 <meta property="og:image" content="https://adminmrobo.github.io/neuron_reaction/assets/img/og_v2_01.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -243,13 +243,13 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="nojs" id="nojs" role="alert"><b>스크립트가 실행되지 않아 버튼·슬라이더·그림이 멈춰 있습니다.</b> 브라우저(크롬·사파리·엣지)로 <a href="https://adminmrobo.github.io/neuron_reaction/01_activation.html">https://adminmrobo.github.io/neuron_reaction/01_activation.html</a> 를 열어 주세요.</div><script>(function(){var n=document.getElementById('nojs');if(n)n.parentNode.removeChild(n)})();</script>
 <div id="prog"></div>
 <nav class="top" aria-label="페이지 이동"><a class="logo" href="index.html">뉴런 반응 연구실</a><a href="#three">3줄 요약</a><a href="#cast">팀 소개</a><a href="#big">큰 그림</a><a href="#lv1">단계 1</a><a href="#lv2">단계 2</a><a href="#lv3">단계 3</a><a href="#lv4">단계 4</a><a href="#lv5">단계 5</a><a href="#duel">대결</a><a href="#sum">정리</a><a href="#kg">지식 색인</a></nav>
-<div class="cover" aria-label="표지: 주판봇 USER팀과 블랙팀, 가운데 심판 박사">
+<div class="cover" aria-label="표지: 주판봇 USER팀과 초파리와 features팀, 가운데 심판 박사">
 <div class="court">
  <div class="team u"><img class="px" data-s="robo_e16" alt="주판봇"><img class="px" data-s="asst_e01" alt="조수 하루"><img class="px" data-s="sia_e13" alt="인턴1 시아"><img class="px" data-s="moa_e01" alt="인턴2 모아"></div>
  <div class="ref"><img class="px" data-s="doc_e08" alt="심판 박사"></div>
  <div class="team b"><img class="px" data-s="fly_e09" alt="초파리 연구원"><img class="px" data-s="x1_e13" alt="X1"><img class="px" data-s="x2_e16" alt="X2"><img class="px" data-s="x3_e13" alt="X3"></div>
 </div>
-<div class="lab"><span class="u">주판봇 USER팀</span><span class="j">심판 · 박사</span><span class="b">블랙팀</span></div>
+<div class="lab"><span class="u">주판봇 USER팀</span><span class="j">심판 · 박사</span><span class="b">초파리와 features팀</span></div>
 </div>
 <header class="hero" id="hero"><div class="wrap">
 <div class="kicker">뉴런 반응 연구실 · 1부 (비전공자판 v2.0)</div>
@@ -257,9 +257,9 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <p class="q">곱하고 더한 숫자를 그대로 다음으로 넘기면 안 될까?</p>
 <p class="byline">글 · 안상선 ((주)M-Robo 대표) · 2026-11-22 · 읽는 시간 약 30분 · 실험 도구 6개</p>
 <div class="sernav"><a class="now" href="01_activation.html">1부 활성화 함수</a><a href="02_reaction_race.html">2부 반응속도 대회</a><a href="03_backprop.html">3부 역전파</a><a href="practice/index.html">실전 연습장</a></div>
-<div class="say " data-team="j"><img class="who" data-s="doc_e08" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>오늘은 두 팀이 겨룹니다. 주판봇 USER팀은 빨리 결론을 내고, 블랙팀은 눌러 보고 의심합니다. 저는 심판이에요. 라운드마다 실험으로 확인하고 판정하겠습니다.</p></div></div>
+<div class="say " data-team="j"><img class="who" data-s="doc_e08" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>오늘은 두 팀이 겨룹니다. 주판봇 USER팀은 빨리 결론을 내고, 초파리와 features팀은 눌러 보고 의심합니다. 저는 심판이에요. 라운드마다 실험으로 확인하고 판정하겠습니다.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="robo_e16" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>숫자를 곱하고 더하면 끝이죠! 문 같은 건 장식이에요. 우리 USER팀이 이깁니다!</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">블랙팀 주장</small></div><p>장식이라고? 그 문을 떼고 한 번 돌려 보자. 블랙팀은 결과를 보고 말할게.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">초파리와 features팀 주장</small></div><p>장식이라고? 그 문을 떼고 한 번 돌려 보자. 초파리와 features팀은 결과를 보고 말할게.</p></div></div>
 </div></header>
 
 <main class="wrap">
@@ -291,7 +291,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div><img data-s="asst_e13" alt="조수 하루"><b>조수(하루)</b><small>수식이 어려운 질문 담당</small></div>
 <div><img data-s="sia_e13" alt="인턴1 시아"><b>인턴1 시아</b><small>꼼꼼한 기록</small></div>
 <div><img data-s="moa_e13" alt="인턴2 모아"><b>인턴2 모아</b><small>현장 사례 담당</small></div></div></div>
-<div class="teamcard b"><h4>블랙팀 — "정말 그럴까? 눌러 보고 말하자"</h4><div class="members">
+<div class="teamcard b"><h4>초파리와 features팀 — "정말 그럴까? 눌러 보고 말하자"</h4><div class="members">
 <div><img data-s="fly_e09" alt="초파리 연구원"><b>초파리 연구원</b><small>주장 · 의심 담당</small></div>
 <div><img data-s="x1_e13" alt="X1"><b>X1</b><small>반례 찾기</small></div>
 <div><img data-s="x2_e13" alt="X2"><b>X2</b><small>숫자 확인</small></div>
@@ -350,7 +350,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="talk">
 <div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>같은 합계 z라도 문을 바꾸면 반응이 달라질까요?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="robo_e16" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>z가 같으면 반응도 같아요. 문은 장식이에요!</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="x2_e09" alt="X2" width="62" height="62"><div><div class="name x2">X2<small class="b">블랙팀</small></div><p>숫자부터 확인하자. 아래 계산기에서 문만 바꿔 봐.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="x2_e09" alt="X2" width="62" height="62"><div><div class="name x2">X2<small class="b">초파리와 features팀</small></div><p>숫자부터 확인하자. 아래 계산기에서 문만 바꿔 봐.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>계산기 준비됐어요. 슬라이더로 입력과 중요도를, 버튼으로 문을 바꿀 수 있어요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 1</span>뉴런 하나 계산기 — 우산 판단 뉴런</h3>
@@ -369,7 +369,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="legend"><span><i style="background:#2563eb"></i>문의 모양 a = f(z)</span><span><i style="background:#b45309"></i>지금 z와 반응</span></div>
 <p class="lim">이 단계의 한계: 뉴런 하나는 "중요도를 곱해 더한 뒤 한 번 꺾는" 일만 합니다. 복잡한 관계는 뉴런을 여러 개, 여러 층으로 이어야 배웁니다.</p>
 </div>
-<div class="round" data-win="b" id=""><h4><span>라운드 1</span> · 같은 합계 z라도 문을 바꾸면 반응이 달라질까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>z가 같으면 반응도 같아요. 문은 그냥 장식!</p></div></div><div class="b"><b>블랙팀 · X2</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x2_e09" alt="X2" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>z = 0.4일 때 시그모이드는 0.60, ReLU는 0.4야. 다르잖아.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 블랙팀 1점</b></p>계산기에서 z = 0.4일 때 시그모이드는 0.60, ReLU는 0.40, tanh는 0.38이 나옵니다. 같은 점수도 문에 따라 반응이 달라요. 문은 장식이 아니라 "반응의 모양"을 정하는 부품입니다.</div></div></div></div>
+<div class="round" data-win="b" id=""><h4><span>라운드 1</span> · 같은 합계 z라도 문을 바꾸면 반응이 달라질까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>z가 같으면 반응도 같아요. 문은 그냥 장식!</p></div></div><div class="b"><b>초파리와 features팀 · X2</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x2_e09" alt="X2" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>z = 0.4일 때 시그모이드는 0.60, ReLU는 0.4야. 다르잖아.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 초파리와 features팀 1점</b></p>계산기에서 z = 0.4일 때 시그모이드는 0.60, ReLU는 0.40, tanh는 0.38이 나옵니다. 같은 점수도 문에 따라 반응이 달라요. 문은 장식이 아니라 "반응의 모양"을 정하는 부품입니다.</div></div></div></div>
 <div class="quiz"><div class="qitem" data-ans="b" data-ok="입력에 중요도를 곱해 더한 합계 z를 만들고, 문을 지나 반응 a가 됩니다." data-no="먼저 곱하고 더해 합계를 만든 다음 문을 지납니다."><p class="qq">뉴런이 하는 일의 순서로 맞는 것은?</p><div class="opts"><button class="bt" data-v="a">문 → 곱하기 → 더하기</button><button class="bt" data-v="b">곱하기·더하기 → 문</button><button class="bt" data-v="c">더하기 → 문 → 곱하기</button></div><p class="fb" aria-live="polite"></p></div></div>
 <details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>a = torch.sigmoid(w @ x + b)</code> — 중요도와 입력을 곱해 더하고(<code>w @ x + b</code>), 시그모이드 문을 지나게 한다는 뜻입니다.</p></details>
 </section>
@@ -401,7 +401,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="talk">
 <div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>문 없이 숨은 뉴런을 아주 많이 쓰면 곡선이 될까요?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="moa_e16" alt="인턴2 모아" width="62" height="62"><div><div class="name moa">인턴2 모아<small class="u">USER팀</small></div><p>뉴런이 많으면 뭐든 그릴 수 있죠! 열두 개면 충분해요.</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">블랙팀 주장</small></div><p>문을 '없음'으로 두고 뉴런 수를 끝까지 올려 봐.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">초파리와 features팀 주장</small></div><p>문을 '없음'으로 두고 뉴런 수를 끝까지 올려 봐.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>아래 도구는 숨은 뉴런 결과를 가장 잘 맞게 섞어 곡선을 그립니다. 평균 오차도 함께 보여요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 2</span>곡선 따라 그리기 — 광고비와 주문 수</h3>
@@ -414,7 +414,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <p class="msg" id="fitMsg"></p>
 <p class="lim">여기서는 단순하게 봤어요: 숨은 뉴런이 꺾이는 위치는 광고비 구간에 고르게 고정해 두고, 마지막에 섞는 비율만 계산해 가장 잘 맞게 했습니다(실제 학습은 꺾이는 위치까지 함께 배웁니다). 이 단계의 한계: 뉴런을 너무 많이 쓰면 점 하나하나의 흔들림까지 따라가는 '과적합'이 생깁니다. 그래서 실제로는 학습에 쓰지 않은 데이터로 따로 확인합니다.</p>
 </div>
-<div class="round" data-win="b" id=""><h4><span>라운드 2</span> · 문 없이 숨은 뉴런만 늘리면 곡선을 그릴 수 있을까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 인턴2 모아</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="moa_e16" alt="인턴2 모아" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>뉴런을 열두 개로 늘리면 곡선이 돼요!</p></div></div><div class="b"><b>블랙팀 · 초파리 연구원</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="fly_e09" alt="초파리 연구원" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>문이 없으면 몇 개를 쌓아도 직선이야.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 블랙팀 1점</b></p>'없음'에서는 뉴런을 열두 개로 늘려도 선이 곧고 평균 오차가 줄지 않습니다. ReLU로 바꾸면 뉴런 수만큼 꺾여 곡선을 따라가죠. 곡선을 만드는 건 뉴런 수가 아니라 문입니다.</div></div></div></div>
+<div class="round" data-win="b" id=""><h4><span>라운드 2</span> · 문 없이 숨은 뉴런만 늘리면 곡선을 그릴 수 있을까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 인턴2 모아</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="moa_e16" alt="인턴2 모아" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>뉴런을 열두 개로 늘리면 곡선이 돼요!</p></div></div><div class="b"><b>초파리와 features팀 · 초파리 연구원</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="fly_e09" alt="초파리 연구원" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>문이 없으면 몇 개를 쌓아도 직선이야.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 초파리와 features팀 1점</b></p>'없음'에서는 뉴런을 열두 개로 늘려도 선이 곧고 평균 오차가 줄지 않습니다. ReLU로 바꾸면 뉴런 수만큼 꺾여 곡선을 따라가죠. 곡선을 만드는 건 뉴런 수가 아니라 문입니다.</div></div></div></div>
 <div class="quiz"><div class="qitem" data-ans="a" data-ok="일차함수를 몇 번 합성해도 일차함수라서 직선 하나와 같습니다." data-no="층 수와 상관없이 하나의 직선으로 합쳐집니다."><p class="qq">문(활성화 함수) 없이 곱하기·더하기 층을 10층 쌓으면?</p><div class="opts"><button class="bt" data-v="a">직선 하나와 같다</button><button class="bt" data-v="b">10번 꺾인 선이 된다</button><button class="bt" data-v="c">곡선이 된다</button></div><p class="fb" aria-live="polite"></p></div></div>
 <details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>nn.Sequential(nn.Linear(1,8), nn.ReLU(), nn.Linear(8,1))</code> — 층 사이에 <code>nn.ReLU()</code> 문을 끼운 모습입니다. 이 줄을 빼면 직선 모델이 됩니다.</p></details>
 </section>
@@ -447,7 +447,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="talk">
 <div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>시그모이드와 tanh, 어느 쪽이 학습 신호를 더 크게 넘길까요?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="sia_e07" alt="인턴1 시아" width="62" height="62"><div><div class="name sia">인턴1 시아<small class="u">USER팀</small></div><p>기울기 최대값을 비교하면 되겠네요. tanh는 1, 시그모이드는 0.25예요.</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="x3_e09" alt="X3" width="62" height="62"><div><div class="name x3">X3<small class="b">블랙팀</small></div><p>둘 다 S자인데 같은 거 아니야? 다이얼을 0에 두고 문만 바꿔 봐.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="x3_e09" alt="X3" width="62" height="62"><div><div class="name x3">X3<small class="b">초파리와 features팀</small></div><p>둘 다 S자인데 같은 거 아니야? 다이얼을 0에 두고 문만 바꿔 봐.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>도구 3에서 z를 움직이면 반응과 기울기가 같이 나와요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 3</span>볼륨 다이얼 — 포화 관찰기</h3>
@@ -460,7 +460,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <p class="msg" id="satMsg"></p>
 <p class="lim">이 단계의 한계: S자 문은 기울기가 아무리 커도 1(tanh) 또는 0.25(시그모이드)를 넘지 못합니다. 층마다 이 값이 곱해지면 깊은 망에서 신호가 빠르게 작아집니다(3부에서 자세히).</p>
 </div>
-<div class="round" data-win="u" id=""><h4><span>라운드 3</span> · S자 문 중 학습 신호를 더 크게 넘기는 쪽은?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 인턴1 시아</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="sia_e07" alt="인턴1 시아" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>tanh예요. 기울기 최대값이 1로, 시그모이드의 0.25보다 4배 커요.</p></div></div><div class="b"><b>블랙팀 · X3</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x3_e09" alt="X3" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>둘 다 S자니까 똑같을 거야.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 주판봇 USER팀 1점</b></p>z = 0에서 시그모이드의 기울기는 0.25, tanh는 1입니다. 모양은 닮았지만 tanh가 가운데에서 신호를 4배 크게 넘깁니다. 다만 양 끝에서 둔해지는 약점은 둘 다 같아요.</div></div></div></div>
+<div class="round" data-win="u" id=""><h4><span>라운드 3</span> · S자 문 중 학습 신호를 더 크게 넘기는 쪽은?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 인턴1 시아</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="sia_e07" alt="인턴1 시아" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>tanh예요. 기울기 최대값이 1로, 시그모이드의 0.25보다 4배 커요.</p></div></div><div class="b"><b>초파리와 features팀 · X3</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x3_e09" alt="X3" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>둘 다 S자니까 똑같을 거야.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 주판봇 USER팀 1점</b></p>z = 0에서 시그모이드의 기울기는 0.25, tanh는 1입니다. 모양은 닮았지만 tanh가 가운데에서 신호를 4배 크게 넘깁니다. 다만 양 끝에서 둔해지는 약점은 둘 다 같아요.</div></div></div></div>
 <div class="quiz"><div class="qitem" data-ans="c" data-ok="양 끝(포화)에서는 곡선이 평평해져 기울기가 거의 0입니다." data-no="가운데(z=0)는 기울기가 가장 큰 곳이에요. 양 끝을 보세요."><p class="qq">시그모이드 문에서 기울기가 0에 가까워지는 곳은?</p><div class="opts"><button class="bt" data-v="a">z = 0 근처</button><button class="bt" data-v="b">z = 0.5 근처</button><button class="bt" data-v="c">z가 아주 크거나 아주 작을 때</button></div><p class="fb" aria-live="polite"></p></div></div>
 <details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>nn.Sigmoid()</code>, <code>nn.Tanh()</code> — 문 이름만 바꿔 끼우면 됩니다.</p></details>
 </section>
@@ -493,7 +493,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="talk">
 <div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>ReLU는 깊게 쌓아도 신호가 줄지 않을까요?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="robo_e16" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>양수 쪽 기울기는 늘 1! 신호가 하나도 안 줄어요. 이번엔 우리가 맞습니다!</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="x1_e09" alt="X1" width="62" height="62"><div><div class="name x1">X1<small class="b">블랙팀</small></div><p>양수 쪽은 그렇다 치자. 출발점이 음수면? 아래 도구에서 출발점을 −3에 두고 학습시켜 봐.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="x1_e09" alt="X1" width="62" height="62"><div><div class="name x1">X1<small class="b">초파리와 features팀</small></div><p>양수 쪽은 그렇다 치자. 출발점이 음수면? 아래 도구에서 출발점을 −3에 두고 학습시켜 봐.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>도구 4에서 ReLU 뉴런과 Leaky 뉴런을 같은 출발점에서 동시에 학습시킬 수 있어요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 4</span>멈춘 뉴런 살리기 실험</h3>
@@ -506,7 +506,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <p class="msg" id="dMsg"></p>
 <p class="lim">이 단계의 한계: 실제 망에서는 뉴런 일부만 멈춥니다. 출발 가중치를 잘 고르고(2부), 학습률을 너무 크게 하지 않으면 대부분 피할 수 있습니다.</p>
 </div>
-<div class="round" data-win="d" id=""><h4><span>라운드 4</span> · ReLU는 양수 쪽에서 학습 신호를 줄이지 않을까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>양수 쪽 기울기는 늘 1이라 신호가 안 줄어요!</p></div></div><div class="b"><b>블랙팀 · X1</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x1_e09" alt="X1" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>출발점이 음수인 뉴런은 기울기가 0이라 아예 못 배워.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 무승부 · 두 팀 0.5점씩</b></p>둘 다 맞는 말을 반씩 했습니다. 양수 쪽 기울기가 1이라 S자 문보다 신호를 잘 넘기는 건 사실이에요. 하지만 도구 4에서 보듯 합계가 늘 음수인 뉴런은 한 걸음도 움직이지 못합니다. 그래서 무승부입니다.</div></div></div></div>
+<div class="round" data-win="d" id=""><h4><span>라운드 4</span> · ReLU는 양수 쪽에서 학습 신호를 줄이지 않을까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>양수 쪽 기울기는 늘 1이라 신호가 안 줄어요!</p></div></div><div class="b"><b>초파리와 features팀 · X1</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x1_e09" alt="X1" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>출발점이 음수인 뉴런은 기울기가 0이라 아예 못 배워.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 무승부 · 두 팀 0.5점씩</b></p>둘 다 맞는 말을 반씩 했습니다. 양수 쪽 기울기가 1이라 S자 문보다 신호를 잘 넘기는 건 사실이에요. 하지만 도구 4에서 보듯 합계가 늘 음수인 뉴런은 한 걸음도 움직이지 못합니다. 그래서 무승부입니다.</div></div></div></div>
 <div class="quiz"><div class="qitem" data-ans="b" data-ok="음수 쪽에도 0.01의 작은 기울기를 남겨 멈춘 뉴런이 다시 움직일 수 있게 합니다." data-no="계산 속도나 출력 범위가 아니라, 음수 쪽 기울기 0 문제를 줄입니다."><p class="qq">Leaky ReLU가 ReLU의 어떤 약점을 줄이나요?</p><div class="opts"><button class="bt" data-v="a">계산이 느린 점</button><button class="bt" data-v="b">음수 쪽 기울기가 0이라 멈추는 점</button><button class="bt" data-v="c">반응이 0~1을 벗어나는 점</button></div><p class="fb" aria-live="polite"></p></div></div>
 <details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>nn.ReLU()</code>, <code>nn.LeakyReLU(0.01)</code> — 괄호 안 0.01이 음수 쪽으로 새는 비율입니다.</p></details>
 </section>
@@ -539,7 +539,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="talk">
 <div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>메일을 '업무/광고/스팸' 중 하나로만 나눈다면 마지막 문은?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="moa_e07" alt="인턴2 모아" width="62" height="62"><div><div class="name moa">인턴2 모아<small class="u">USER팀</small></div><p>소프트맥스요. 합이 1이니까 하나를 고르기 좋아요.</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="x2_e09" alt="X2" width="62" height="62"><div><div class="name x2">X2<small class="b">블랙팀</small></div><p>시그모이드 세 개로도 되지 않아? 세 비율을 더해 봐.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="x2_e09" alt="X2" width="62" height="62"><div><div class="name x2">X2<small class="b">초파리와 features팀</small></div><p>시그모이드 세 개로도 되지 않아? 세 비율을 더해 봐.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>도구 5에서 같은 점수를 세 가지 문에 동시에 넣어 볼게요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 5</span>마지막 문 고르기 — 메일 분류기</h3>
@@ -555,7 +555,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 </div>
 <details class="more"><summary>더 알아보기 — 요즘 언어모델의 숨은 문 GELU·SiLU</summary>
 <p>GELU와 SiLU는 ReLU처럼 양수 쪽은 거의 그대로 넘기면서, 0 근처를 부드럽게 굽힌 문입니다. z가 스스로 "얼마나 통과할지" 비율을 정합니다(z × 통과 비율). 음수 쪽에 작은 음수 값(GELU 최저 약 −0.17, SiLU 최저 약 −0.28)이 남아 멈춘 뉴런이 덜 생깁니다. BERT 같은 트랜스포머 언어모델(Devlin 외 2019)은 GELU(Hendrycks·Gimpel 2016)를, 최근 공개 언어모델 다수는 SiLU를 문으로 쓰는 SwiGLU(Shazeer 2020)를 씁니다. 계산은 ReLU보다 조금 무겁습니다. 정리의 도구 6에서 모양을 비교해 보세요.</p></details>
-<div class="round" data-win="u" id=""><h4><span>라운드 5</span> · 메일을 셋 중 하나로만 나눌 때 마지막 문은?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 인턴2 모아</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="moa_e07" alt="인턴2 모아" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>소프트맥스! 세 비율의 합이 1이라 하나를 고르기 좋아요.</p></div></div><div class="b"><b>블랙팀 · X2</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x2_e09" alt="X2" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>시그모이드 세 개로도 충분하지 않을까?</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 주판봇 USER팀 1점</b></p>도구 5에서 같은 점수 (2, 1, 0)를 넣으면 시그모이드 세 개는 0.88, 0.73, 0.50이라 합이 2를 넘습니다. "하나만 고르기"에는 합이 1인 소프트맥스가 맞아요. 시그모이드 여러 개는 태그를 동시에 붙이는 과제에 씁니다.</div></div></div></div>
+<div class="round" data-win="u" id=""><h4><span>라운드 5</span> · 메일을 셋 중 하나로만 나눌 때 마지막 문은?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 인턴2 모아</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="moa_e07" alt="인턴2 모아" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>소프트맥스! 세 비율의 합이 1이라 하나를 고르기 좋아요.</p></div></div><div class="b"><b>초파리와 features팀 · X2</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x2_e09" alt="X2" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>시그모이드 세 개로도 충분하지 않을까?</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 주판봇 USER팀 1점</b></p>도구 5에서 같은 점수 (2, 1, 0)를 넣으면 시그모이드 세 개는 0.88, 0.73, 0.50이라 합이 2를 넘습니다. "하나만 고르기"에는 합이 1인 소프트맥스가 맞아요. 시그모이드 여러 개는 태그를 동시에 붙이는 과제에 씁니다.</div></div></div></div>
 <div class="quiz"><div class="qitem" data-ans="a" data-ok="숫자를 그대로 내야 하므로 문을 달지 않습니다(그대로)." data-no="시그모이드는 0~1, 소프트맥스는 비율이라 시간 같은 숫자를 낼 수 없어요."><p class="qq">'배송까지 걸릴 시간(시간 단위)'을 예측하는 모델의 마지막 문은?</p><div class="opts"><button class="bt" data-v="a">그대로(문 없음)</button><button class="bt" data-v="b">시그모이드</button><button class="bt" data-v="c">소프트맥스</button></div><p class="fb" aria-live="polite"></p></div>
 <div class="qitem" data-ans="b" data-ok="태그마다 독립적으로 0~1을 내는 시그모이드 여러 개가 맞습니다." data-no="소프트맥스는 합이 1이라 한 태그가 오르면 다른 태그가 억지로 내려가요."><p class="qq">상품 사진에 '빨강', '세일', '신상' 태그를 동시에 붙일 수 있게 하려면?</p><div class="opts"><button class="bt" data-v="a">소프트맥스 하나</button><button class="bt" data-v="b">태그마다 시그모이드</button><button class="bt" data-v="c">ReLU</button></div><p class="fb" aria-live="polite"></p></div></div>
 <details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>torch.softmax(logits, dim=-1)</code> — 점수 묶음을 비율로 바꿉니다. 학습할 때는 <code>nn.CrossEntropyLoss()</code>에 점수를 바로 넣는 경우가 많습니다.</p></details>
@@ -564,10 +564,10 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <!-- 대결 -->
 <section class="level" id="duel">
 <h2>대결 — 깊은 망에서 학습 신호가 첫 층까지 더 많이 남는 문은?</h2>
-<div class="say " data-team="j"><img class="who" data-s="doc_e08" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>마지막 라운드입니다. 숨은 층이 여러 겹인 망을 만들고, 맨 끝의 학습 신호가 맨 앞 층까지 얼마나 남는지 잽니다. USER팀은 시그모이드, 블랙팀은 ReLU를 골랐어요. 조건은 같습니다. 폭 32, 같은 출발 가중치(크기 1/n), 같은 입력 16개입니다.</p></div></div>
+<div class="say " data-team="j"><img class="who" data-s="doc_e08" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>마지막 라운드입니다. 숨은 층이 여러 겹인 망을 만들고, 맨 끝의 학습 신호가 맨 앞 층까지 얼마나 남는지 잽니다. USER팀은 시그모이드, 초파리와 features팀은 ReLU를 골랐어요. 조건은 같습니다. 폭 32, 같은 출발 가중치(크기 1/n), 같은 입력 16개입니다.</p></div></div>
 <div class="talk">
 <div class="say " data-team="u"><img class="who" data-s="sia_e16" alt="인턴1 시아" width="62" height="62"><div><div class="name sia">인턴1 시아<small class="u">USER팀</small></div><p>부드러운 시그모이드가 안정적이에요. 신호도 고르게 전할 거예요.</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">블랙팀 주장</small></div><p>3단계에서 봤잖아. 시그모이드 기울기는 최대 0.25야. 층마다 곱해지면 어떻게 될까?</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">초파리와 features팀 주장</small></div><p>3단계에서 봤잖아. 시그모이드 기울기는 최대 0.25야. 층마다 곱해지면 어떻게 될까?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>층 수를 정하고 "대결 시작"을 누르면 두 망을 실제로 계산해요. 위쪽 선일수록 신호가 많이 남은 거예요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 대결</span>깊은 망 학습 신호 측정기</h3>
@@ -576,10 +576,10 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <button class="bt primary" id="duRun">대결 시작</button></div>
 <div class="readout"><div class="bad">시그모이드 · 첫 층에 남은 신호<b id="duS">-</b></div><div class="good">ReLU · 첫 층에 남은 신호<b id="duR">-</b></div><div>차이<b id="duX">-</b></div></div>
 <div class="cwrap"><canvas id="cvD" aria-label="층마다 남은 학습 신호 비율"></canvas></div>
-<div class="legend"><span><i style="background:#2563eb"></i>시그모이드 (USER팀)</span><span><i style="background:#20222b"></i>ReLU (블랙팀)</span></div>
+<div class="legend"><span><i style="background:#2563eb"></i>시그모이드 (USER팀)</span><span><i style="background:#20222b"></i>ReLU (초파리와 features팀)</span></div>
 <p class="msg" id="duMsg">아직 계산하지 않았어요. "대결 시작"을 눌러 주세요.</p>
 </div>
-<div class="round" data-win="b" id=""><h4><span>라운드 6</span> · 대결: 깊은 망에서 신호가 첫 층까지 더 많이 남는 문은?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 인턴1 시아</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="sia_e16" alt="인턴1 시아" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>부드러운 시그모이드가 신호를 고르게 전해요.</p></div></div><div class="b"><b>블랙팀 · 초파리 연구원</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="fly_e09" alt="초파리 연구원" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>층마다 0.25 이하가 곱해지는 시그모이드는 금방 사라져. ReLU가 더 남아.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 블랙팀 1점</b></p>숨은 층 10개 기준으로 ReLU는 첫 층에 약 3분의 1(32%)이 남지만, 시그모이드는 0.0001%보다도 작아집니다. 층 수를 바꿔도 순서는 같아요. 블랙팀 승리입니다. 다만 출발 가중치를 바꾸면 남는 양이 크게 달라져요. 그 이야기는 2부 종목 ②에서 겨룹니다.</div></div></div></div>
+<div class="round" data-win="b" id=""><h4><span>라운드 6</span> · 대결: 깊은 망에서 신호가 첫 층까지 더 많이 남는 문은?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 인턴1 시아</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="sia_e16" alt="인턴1 시아" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>부드러운 시그모이드가 신호를 고르게 전해요.</p></div></div><div class="b"><b>초파리와 features팀 · 초파리 연구원</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="fly_e09" alt="초파리 연구원" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>층마다 0.25 이하가 곱해지는 시그모이드는 금방 사라져. ReLU가 더 남아.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 초파리와 features팀 1점</b></p>숨은 층 10개 기준으로 ReLU는 첫 층에 약 3분의 1(32%)이 남지만, 시그모이드는 0.0001%보다도 작아집니다. 층 수를 바꿔도 순서는 같아요. 초파리와 features팀 승리입니다. 다만 출발 가중치를 바꾸면 남는 양이 크게 달라져요. 그 이야기는 2부 종목 ②에서 겨룹니다.</div></div></div></div>
 <div class="aicheck"><h4>AI 판단 코너 — AI가 낸 추천, 그대로 써도 될까?</h4>
 <p>AI 코딩 도우미에게 "15층 분류 모델을 만들어 줘"라고 했더니, 숨은 층 15개 모두에 시그모이드를 단 코드를 줬다고 해 봐요. 학습을 돌리니 손실이 거의 줄지 않습니다.</p>
 <div class="say " data-team="u"><img class="who" data-s="robo_e16" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>AI가 짜 준 코드니까 맞겠죠! 학습을 더 오래 돌리면 돼요.</p></div></div>
@@ -612,13 +612,13 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <section class="level" id="outro">
 <h2>아웃트로</h2>
 <div class="say " data-team="u"><img class="who" data-s="robo_e15" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>문이 장식이라고 한 건 취소할게요… 그래도 마지막 문 라운드는 우리가 이겼어요!</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="fly_e16" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">블랙팀 주장</small></div><p>우리도 4단계에서는 반만 맞았지. 다음엔 문끼리 직접 겨뤄 보자. 빠르기, 전달력, 정확도로.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="fly_e16" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">초파리와 features팀 주장</small></div><p>우리도 4단계에서는 반만 맞았지. 다음엔 문끼리 직접 겨뤄 보자. 빠르기, 전달력, 정확도로.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e12" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>2부 「연구실 반응속도 대회」에서 만나요! 시그모이드, ReLU, GELU, SiLU가 세 종목으로 겨룹니다.</p></div></div>
 <div class="say " data-team="j"><img class="who" data-s="doc_e08" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>그리고 3부에서는 오늘 계속 나온 "학습 신호가 거꾸로 전해지는 길", 역전파를 다룹니다. 여기서 한 번 쉬어 가도 괜찮아요.</p></div></div>
 <div class="sernav"><a href="index.html">목차</a><a class="now" href="02_reaction_race.html">다음: 2부 반응속도 대회 →</a><a href="03_backprop.html">3부 역전파</a></div>
 </section>
 </main>
-<div class="board" id="board" aria-live="polite"><span class="u">USER팀 <b>0</b></span><span class="b">블랙팀 <b>0</b></span><span class="me">내 예측 0/0</span></div>
+<div class="board" id="board" aria-live="polite"><span class="u">USER팀 <b>0</b></span><span class="b">초파리와 features팀 <b>0</b></span><span class="me">내 예측 0/0</span></div>
 
 
 <!-- lab-kg:body -->
@@ -882,7 +882,7 @@ L.rounds = function(){
       b.addEventListener('click',function(){
         if(done) return; done=true;
         if (L.hooks[r.id]){ var h=L.hooks[r.id](); win=h.win; r.setAttribute('data-win',win); var vt=r.querySelector('.vtext'); if(vt) vt.innerHTML=h.html; }
-        var wt=r.querySelector('.wtxt'); if(wt) wt.textContent='판정: '+{u:'주판봇 USER팀 1점',b:'블랙팀 1점',d:'무승부 · 두 팀 0.5점씩'}[win];
+        var wt=r.querySelector('.wtxt'); if(wt) wt.textContent='판정: '+{u:'주판봇 USER팀 1점',b:'초파리와 features팀 1점',d:'무승부 · 두 팀 0.5점씩'}[win];
         var me=b.getAttribute('data-v'); r.classList.add('open','win-'+win);
         r.querySelectorAll('.pick .bt').forEach(function(x){x.disabled=true;}); b.classList.add('on');
         if (win==='u') SC.u+=1; else if (win==='b') SC.b+=1; else { SC.u+=0.5; SC.b+=0.5; }

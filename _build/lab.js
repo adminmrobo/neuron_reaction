@@ -234,7 +234,7 @@ L.rounds = function(){
       b.addEventListener('click',function(){
         if(done) return; done=true;
         if (L.hooks[r.id]){ var h=L.hooks[r.id](); win=h.win; r.setAttribute('data-win',win); var vt=r.querySelector('.vtext'); if(vt) vt.innerHTML=h.html; }
-        var wt=r.querySelector('.wtxt'); if(wt) wt.textContent='판정: '+{u:'주판봇 USER팀 1점',b:'블랙팀 1점',d:'무승부 · 두 팀 0.5점씩'}[win];
+        var wt=r.querySelector('.wtxt'); if(wt) wt.textContent='판정: '+{u:'주판봇 USER팀 1점',b:'초파리와 features팀 1점',d:'무승부 · 두 팀 0.5점씩'}[win];
         var me=b.getAttribute('data-v'); r.classList.add('open','win-'+win);
         r.querySelectorAll('.pick .bt').forEach(function(x){x.disabled=true;}); b.classList.add('on');
         if (win==='u') SC.u+=1; else if (win==='b') SC.b+=1; else { SC.u+=0.5; SC.b+=0.5; }

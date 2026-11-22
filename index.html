@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>뉴런 반응 연구실 — 뉴런은 어떻게 반응하고 배울까 (비전공자판)</title>
-<meta name="description" content="활성화 함수(1부), 연구실 반응속도 대회(2부), 역전파(3부), 실전 연습장까지. 주판봇 USER팀과 블랙팀이 겨루고 박사가 판정하는, 직접 돌려 보며 배우는 비전공자용 신경망 해설 시리즈.">
+<meta name="description" content="활성화 함수(1부), 연구실 반응속도 대회(2부), 역전파(3부), 실전 연습장까지. 주판봇 USER팀과 초파리와 features팀이 겨루고 박사가 판정하는, 직접 돌려 보며 배우는 비전공자용 신경망 해설 시리즈.">
 <meta name="author" content="안상선">
 <meta name="citation_title" content="뉴런 반응 연구실 — 뉴런은 어떻게 반응하고 배울까">
 <meta name="citation_author" content="안상선">
@@ -17,7 +17,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://adminmrobo.github.io/neuron_reaction/index.html">
 <meta property="og:title" content="뉴런 반응 연구실 — 뉴런은 어떻게 반응하고 배울까 (비전공자판)">
-<meta property="og:description" content="활성화 함수(1부), 연구실 반응속도 대회(2부), 역전파(3부), 실전 연습장까지. 주판봇 USER팀과 블랙팀이 겨루고 박사가 판정하는, 직접 돌려 보며 배우는 비전공자용 신경망 해설 시리즈.">
+<meta property="og:description" content="활성화 함수(1부), 연구실 반응속도 대회(2부), 역전파(3부), 실전 연습장까지. 주판봇 USER팀과 초파리와 features팀이 겨루고 박사가 판정하는, 직접 돌려 보며 배우는 비전공자용 신경망 해설 시리즈.">
 <meta property="og:image" content="https://adminmrobo.github.io/neuron_reaction/assets/img/og_v2_index.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -246,27 +246,27 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 .sercard .meta{font-size:13px;color:var(--judge)}
 @media (max-width:760px){.serlist{grid-template-columns:1fr}}
 </style>
-<div class="cover" aria-label="표지: 주판봇 USER팀과 블랙팀, 가운데 심판 박사">
+<div class="cover" aria-label="표지: 주판봇 USER팀과 초파리와 features팀, 가운데 심판 박사">
 <div class="court">
  <div class="team u"><img class="px" data-s="robo_e16" alt="주판봇"><img class="px" data-s="asst_e01" alt="조수 하루"><img class="px" data-s="sia_e13" alt="인턴1 시아"><img class="px" data-s="moa_e01" alt="인턴2 모아"></div>
  <div class="ref"><img class="px" data-s="doc_e08" alt="심판 박사"></div>
  <div class="team b"><img class="px" data-s="fly_e09" alt="초파리 연구원"><img class="px" data-s="x1_e13" alt="X1"><img class="px" data-s="x2_e16" alt="X2"><img class="px" data-s="x3_e13" alt="X3"></div>
 </div>
-<div class="lab"><span class="u">주판봇 USER팀</span><span class="j">심판 · 박사</span><span class="b">블랙팀</span></div>
+<div class="lab"><span class="u">주판봇 USER팀</span><span class="j">심판 · 박사</span><span class="b">초파리와 features팀</span></div>
 </div>
 <header class="hero" id="hero"><div class="wrap">
 <div class="kicker">뉴런 반응 연구실 · 비전공자판 v2.0 (2026-11-22 개정)</div>
 <h1>뉴런 반응 연구실 — 뉴런은 어떻게 반응하고 배울까</h1>
 <p class="q">곱하고 더한 숫자에 '문'을 달면 무엇이 달라지고, 틀린 만큼 어떻게 거꾸로 고칠까?</p>
 <p class="byline">글 · 안상선 ((주)M-Robo 대표) · 3부 + 실전 연습장 · 실험 도구 20개 · <a href="https://adminmrobo.github.io/what_is_tensor/">텐서 연구실</a>에서 이어집니다</p>
-<div class="say " data-team="j"><img class="who" data-s="doc_e08" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>이 시리즈는 두 팀의 대결로 진행합니다. 주판봇이 이끄는 USER팀은 빨리 결론을 내고, 초파리 연구원이 이끄는 블랙팀은 의심하고 확인합니다. 저는 심판으로, 매 라운드 실험 결과를 보고 판정해요. 여러분도 판정 전에 어느 팀이 맞을지 골라 보세요.</p></div></div>
+<div class="say " data-team="j"><img class="who" data-s="doc_e08" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>이 시리즈는 두 팀의 대결로 진행합니다. 주판봇이 이끄는 USER팀은 빨리 결론을 내고, 초파리 연구원이 이끄는 초파리와 features팀은 의심하고 확인합니다. 저는 심판으로, 매 라운드 실험 결과를 보고 판정해요. 여러분도 판정 전에 어느 팀이 맞을지 골라 보세요.</p></div></div>
 </div></header>
 <main class="wrap">
 <section class="level" id="list" style="padding-top:48px">
 <h2>차례</h2>
 <div class="serlist">
 <a class="sercard" href="01_activation.html"><div class="faces"><img data-s="robo_e16" alt=""><img data-s="sia_e07" alt=""><img data-s="fly_e09" alt=""><img data-s="x2_e09" alt=""></div><span class="no">1부</span><h3>활성화 함수 — 뉴런의 반응을 정하는 문</h3><p>뉴런 하나 계산 → 문이 없으면 직선뿐 → S자 문의 포화 → ReLU와 멈춘 뉴런 → 마지막 문 고르기. 대결: 깊은 망에서 신호가 첫 층까지 남는 문은?</p><span class="meta">약 30분 · 도구 6개 · 라운드 6</span></a>
-<a class="sercard" href="02_reaction_race.html"><div class="faces"><img data-s="robo_e16" alt=""><img data-s="sia_e07" alt=""><img data-s="fly_e09" alt=""><img data-s="x1_e09" alt=""></div><span class="no">2부</span><h3>연구실 반응속도 대회</h3><p>ReLU·tanh(USER팀) 대 GELU·SiLU(블랙팀). 계산 속도, 학습 신호 전달(He 출발 가중치), 학습 경주(Adam), 시드 재경기. 모든 기록을 이 페이지에서 직접 잽니다.</p><span class="meta">약 30분 · 도구 5개 · 라운드 4 + 종합 판정</span></a>
+<a class="sercard" href="02_reaction_race.html"><div class="faces"><img data-s="robo_e16" alt=""><img data-s="sia_e07" alt=""><img data-s="fly_e09" alt=""><img data-s="x1_e09" alt=""></div><span class="no">2부</span><h3>연구실 반응속도 대회</h3><p>ReLU·tanh(USER팀) 대 GELU·SiLU(초파리와 features팀). 계산 속도, 학습 신호 전달(He 출발 가중치), 학습 경주(Adam), 시드 재경기. 모든 기록을 이 페이지에서 직접 잽니다.</p><span class="meta">약 30분 · 도구 5개 · 라운드 4 + 종합 판정</span></a>
 <a class="sercard" href="03_backprop.html"><div class="faces"><img data-s="robo_e15" alt=""><img data-s="moa_e07" alt=""><img data-s="fly_e16" alt=""><img data-s="x3_e09" alt=""></div><span class="no">3부 · 새 편</span><h3>역전파 — 학습 신호가 거꾸로 건너가는 길</h3><p>손잡이 하나 고치기 → 흔들어 보기의 비용 → 연쇄법칙 → 깊어질 때의 소실·폭발 → 역전파를 쓸 때와 안 쓸 때(실제 사례). 대결: 같은 계산 예산이면 누가 이길까?</p><span class="meta">약 35분 · 도구 6개 · 라운드 6</span></a>
 <a class="sercard" href="practice/index.html"><div class="faces"><img data-s="doc_e10" alt=""><img data-s="asst_e07" alt=""><img data-s="fly_e09" alt=""><img data-s="robo_e16" alt=""></div><span class="no">마지막 장</span><h3>실전 연습장</h3><p>배송 회사(도착 시간 예측), 쇼핑몰(상품 분류기 학습), 공장(학습 예산 운영)에서 직접 모델을 운영하고 미션 9개를 통과합니다.</p><span class="meta">약 20분 · 사업장 3곳 · 미션 9개</span></a>
 </div>
@@ -288,7 +288,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div><img data-s="asst_e13" alt="조수 하루"><b>조수(하루)</b><small>수식이 어려운 질문 담당</small></div>
 <div><img data-s="sia_e13" alt="인턴1 시아"><b>인턴1 시아</b><small>꼼꼼한 기록</small></div>
 <div><img data-s="moa_e13" alt="인턴2 모아"><b>인턴2 모아</b><small>현장 사례 담당</small></div></div></div>
-<div class="teamcard b"><h4>블랙팀 — "정말 그럴까? 눌러 보고 말하자"</h4><div class="members">
+<div class="teamcard b"><h4>초파리와 features팀 — "정말 그럴까? 눌러 보고 말하자"</h4><div class="members">
 <div><img data-s="fly_e09" alt="초파리 연구원"><b>초파리 연구원</b><small>주장 · 의심 담당</small></div>
 <div><img data-s="x1_e13" alt="X1"><b>X1</b><small>반례 찾기</small></div>
 <div><img data-s="x2_e13" alt="X2"><b>X2</b><small>숫자 확인</small></div>
@@ -300,7 +300,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <h2>이번 개정 (v2.0) — 무엇이 바뀌었나</h2>
 <ul>
 <li>"어렵다"는 의견을 반영해 1·2부를 처음부터 다시 썼습니다. 단계마다 "왜 이 방법을 쓰나" 상자, 조수가 대신 묻는 수식 상자(학교 수학 연결, 숫자로 한 번 해 보기), 일상·현장 비유를 넣었습니다.</li>
-<li>진행 방식을 주판봇 USER팀(주판봇·조수 하루·인턴1 시아·인턴2 모아) 대 블랙팀(초파리 연구원·X1·X2·X3)의 라운드 대결로 바꾸고, 박사가 심판을 맡습니다.</li>
+<li>진행 방식을 주판봇 USER팀(주판봇·조수 하루·인턴1 시아·인턴2 모아) 대 초파리와 features팀(초파리 연구원·X1·X2·X3)의 라운드 대결로 바꾸고, 박사가 심판을 맡습니다.</li>
 <li>배경을 흰색으로 바꾸고, 배운 내용을 바로 시험하는 실험 도구를 늘렸습니다(1부 6개, 2부 5개, 3부 6개, 실전 연습장 3곳).</li>
 <li>3부 역전파와 실전 연습장을 새로 만들었습니다.</li>
 <li>예전 판(v1.1)은 <a href="old/v1/index.html">old/v1</a>에 그대로 남겨 두었습니다. 2부의 예전 주소(sp1_reaction_race.html)는 새 2부로 안내합니다.</li>
@@ -552,7 +552,7 @@ L.rounds = function(){
       b.addEventListener('click',function(){
         if(done) return; done=true;
         if (L.hooks[r.id]){ var h=L.hooks[r.id](); win=h.win; r.setAttribute('data-win',win); var vt=r.querySelector('.vtext'); if(vt) vt.innerHTML=h.html; }
-        var wt=r.querySelector('.wtxt'); if(wt) wt.textContent='판정: '+{u:'주판봇 USER팀 1점',b:'블랙팀 1점',d:'무승부 · 두 팀 0.5점씩'}[win];
+        var wt=r.querySelector('.wtxt'); if(wt) wt.textContent='판정: '+{u:'주판봇 USER팀 1점',b:'초파리와 features팀 1점',d:'무승부 · 두 팀 0.5점씩'}[win];
         var me=b.getAttribute('data-v'); r.classList.add('open','win-'+win);
         r.querySelectorAll('.pick .bt').forEach(function(x){x.disabled=true;}); b.classList.add('on');
         if (win==='u') SC.u+=1; else if (win==='b') SC.b+=1; else { SC.u+=0.5; SC.b+=0.5; }

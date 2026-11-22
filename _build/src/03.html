@@ -1,4 +1,4 @@
-<!--META {"title":"뉴런 반응 연구실 3부 · 역전파","ctitle":"역전파 — 학습 신호가 거꾸로 건너가는 길","file":"03_backprop.html","og":"og_v2_03.jpg","cite":"3부 역전파 — 학습 신호가 거꾸로 건너가는 길","desc":"손잡이가 수백만 개인 신경망이 어느 손잡이를 어느 쪽으로 돌릴지 아는 방법, 역전파. 쓸 때와 안 쓸 때를 비교하고, 쓰는 이유와 실제 사례를 주판봇 USER팀과 블랙팀의 대결과 여섯 개의 실험 도구로 확인합니다.","nav":"<a href=\"#three\">3줄 요약</a><a href=\"#cast\">팀 소개</a><a href=\"#big\">큰 그림</a><a href=\"#lv1\">단계 1</a><a href=\"#lv2\">단계 2</a><a href=\"#lv3\">단계 3</a><a href=\"#lv4\">단계 4</a><a href=\"#lv5\">단계 5</a><a href=\"#duel\">대결</a><a href=\"#sum\">정리</a><a href=\"#kg\">지식 색인</a>"} -->
+<!--META {"title":"뉴런 반응 연구실 3부 · 역전파","ctitle":"역전파 — 학습 신호가 거꾸로 건너가는 길","file":"03_backprop.html","og":"og_v2_03.jpg","cite":"3부 역전파 — 학습 신호가 거꾸로 건너가는 길","desc":"손잡이가 수백만 개인 신경망이 어느 손잡이를 어느 쪽으로 돌릴지 아는 방법, 역전파. 쓸 때와 안 쓸 때를 비교하고, 쓰는 이유와 실제 사례를 주판봇 USER팀과 초파리와 features팀의 대결과 여섯 개의 실험 도구로 확인합니다.","nav":"<a href=\"#three\">3줄 요약</a><a href=\"#cast\">팀 소개</a><a href=\"#big\">큰 그림</a><a href=\"#lv1\">단계 1</a><a href=\"#lv2\">단계 2</a><a href=\"#lv3\">단계 3</a><a href=\"#lv4\">단계 4</a><a href=\"#lv5\">단계 5</a><a href=\"#duel\">대결</a><a href=\"#sum\">정리</a><a href=\"#kg\">지식 색인</a>"} -->
 <cover/>
 <header class="hero" id="hero"><div class="wrap">
 <div class="kicker">뉴런 반응 연구실 · 3부 (비전공자판 v2.0 · 새 편)</div>
@@ -36,7 +36,7 @@
 <teams/>
 <div class="teams" style="margin-top:14px">
 <div class="teamcard u"><h4>USER팀의 작전 — "흔들어 보기"</h4><p style="margin:0">손잡이를 조금씩 바꿔 보고 손실이 줄면 그쪽으로 간다. 미분 같은 건 몰라도 된다.</p></div>
-<div class="teamcard b"><h4>블랙팀의 작전 — "역전파"</h4><p style="margin:0">끝에서 앞으로 거꾸로 계산해 모든 손잡이의 기울기를 한 번에 구한다.</p></div>
+<div class="teamcard b"><h4>초파리와 features팀의 작전 — "역전파"</h4><p style="margin:0">끝에서 앞으로 거꾸로 계산해 모든 손잡이의 기울기를 한 번에 구한다.</p></div>
 </div>
 </section>
 
@@ -101,7 +101,7 @@
 <round no="1" title="기울기가 −8이면 손잡이를 어느 쪽으로?" win="b">
 <cu who="robo" e="e16">마이너스니까 줄여야죠!</cu>
 <cb who="x2" e="e09">기울기 반대 방향, 곧 키워야 해.</cb>
-<verdict e="e10">기울기가 음수라는 건 "w를 키우면 손실이 줄어든다"는 뜻입니다. 그래서 반대 방향, 곧 w를 키웁니다. 도구 1에서 w = 1.5에서 한 걸음 가면 w가 커지고 손실이 줄어요. 블랙팀 승리입니다.</verdict>
+<verdict e="e10">기울기가 음수라는 건 "w를 키우면 손실이 줄어든다"는 뜻입니다. 그래서 반대 방향, 곧 w를 키웁니다. 도구 1에서 w = 1.5에서 한 걸음 가면 w가 커지고 손실이 줄어요. 초파리와 features팀 승리입니다.</verdict>
 </round>
 <div class="quiz"><quiz q="손실 곡선에서 지금 위치의 기울기가 +5라면?" ans="a" ok="기울기가 양수면 손잡이를 키울수록 손실이 커지므로, 줄이는 쪽으로 갑니다." no="기울기의 반대 방향으로 간다는 규칙을 떠올려 보세요."><o v="a">손잡이를 줄인다</o><o v="b">손잡이를 키운다</o><o v="c">그대로 둔다</o></quiz></div>
 <details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>w = w - lr * grad</code> — 손잡이에서 "학습률 × 기울기"를 빼는 한 줄이 경사하강법의 전부입니다.</p></details>
@@ -160,7 +160,7 @@
 <section class="level" id="lv3">
 <div class="lvhead"><div class="lvno">3<small>단계</small></div><h2>연쇄법칙 — 끝에서부터 곱해 가며 거꾸로</h2></div>
 <span class="lvtag g">일상: 맞물린 톱니바퀴</span><span class="lvtag">방법: 역전파(연쇄법칙)</span>
-<say who="doc" e="e07">이제 블랙팀 작전입니다. 비밀은 "거꾸로 가면서 앞에서 구한 값을 재사용한다"는 데 있어요. 두 층짜리 작은 망으로 한 단계씩 따라가 봅시다.</say>
+<say who="doc" e="e07">이제 초파리와 features팀 작전입니다. 비밀은 "거꾸로 가면서 앞에서 구한 값을 재사용한다"는 데 있어요. 두 층짜리 작은 망으로 한 단계씩 따라가 봅시다.</say>
 <div class="wm">
 <div class="whybox"><h4>왜 이 방법을 쓰나</h4>
 <ol><li><b>문제 상황</b> — 앞쪽 손잡이를 돌리면 그 효과가 여러 층을 거쳐 손실에 닿습니다. 효과를 하나씩 따로 재면(흔들기) 너무 오래 걸립니다.</li>
@@ -303,7 +303,7 @@
 <round no="5" title="의사결정나무도 역전파로 학습할까?" win="b">
 <cu who="robo" e="e16">요즘 AI는 다 역전파예요!</cu>
 <cb who="x2" e="e09">나무는 질문으로 나누는 계단 모양이라 기울기가 없어.</cb>
-<verdict e="e10">의사결정나무는 "어떤 질문으로 나누면 가장 깔끔하게 나뉘나"를 하나씩 찾아 만듭니다. 기울기도, 역전파도 쓰지 않아요. 표 데이터에서는 이런 나무 모델(랜덤 포레스트 등)이 지금도 많이 쓰입니다. 블랙팀 X2의 승리입니다.</verdict>
+<verdict e="e10">의사결정나무는 "어떤 질문으로 나누면 가장 깔끔하게 나뉘나"를 하나씩 찾아 만듭니다. 기울기도, 역전파도 쓰지 않아요. 표 데이터에서는 이런 나무 모델(랜덤 포레스트 등)이 지금도 많이 쓰입니다. 초파리와 features팀 X2의 승리입니다.</verdict>
 </round>
 <div class="quiz"><quiz q="역전파를 쓰기 위해 꼭 필요한 조건은?" ans="b" ok="모든 단계에서 기울기를 구할 수 있어야(미분 가능해야) 거꾸로 곱해 갈 수 있습니다." no="데이터 종류보다 '기울기를 구할 수 있는가'가 핵심 조건이에요."><o v="a">데이터가 사진이어야 한다</o><o v="b">계산의 각 단계가 미분 가능해야 한다</o><o v="c">손잡이가 10개 이하여야 한다</o></quiz></div>
 <div class="tb"><table>
@@ -321,12 +321,12 @@
 <!-- 대결 -->
 <section class="level" id="duel">
 <h2>대결 — 같은 계산 예산으로 손실을 더 낮추는 쪽은?</h2>
-<say who="doc" e="e08">마지막 대결입니다. 손잡이 337개짜리 작은 분류 망(숨은 층 16 × 2)을 학습시킵니다. 계산 예산은 '앞으로 계산 몇 번 분량'으로 똑같이 줍니다. USER팀은 두 가지 흔들기 작전, 블랙팀은 역전파입니다.</say>
+<say who="doc" e="e08">마지막 대결입니다. 손잡이 337개짜리 작은 분류 망(숨은 층 16 × 2)을 학습시킵니다. 계산 예산은 '앞으로 계산 몇 번 분량'으로 똑같이 줍니다. USER팀은 두 가지 흔들기 작전, 초파리와 features팀은 역전파입니다.</say>
 <div class="tb"><table>
 <tr><th>팀</th><th>작전</th><th>한 번 고치는 데 드는 예산</th></tr>
 <tr><td style="color:var(--user);font-weight:700">USER팀 ①</td><td>하나씩 흔들기 → 기울기로 한 걸음</td><td>약 675 (손잡이 337 × 2 + 1)</td></tr>
 <tr><td style="color:var(--user);font-weight:700">USER팀 ②</td><td>전체를 무작위로 살짝 바꿔 보고 좋아지면 채택</td><td>1</td></tr>
-<tr><td style="font-weight:700">블랙팀</td><td>역전파로 기울기 → 한 걸음 (Adam)</td><td>약 3 (앞으로 1 + 거꾸로 약 2)</td></tr>
+<tr><td style="font-weight:700">초파리와 features팀</td><td>역전파로 기울기 → 한 걸음 (Adam)</td><td>약 3 (앞으로 1 + 거꾸로 약 2)</td></tr>
 </table></div>
 <div class="talk">
 <say who="robo" e="e16">무작위 작전은 한 번에 1만 써요! 횟수로 밀어붙이면 이깁니다!</say>
@@ -340,13 +340,13 @@
 <button class="bt primary" id="duRun">대결 시작</button></div>
 <div class="readout" id="duOut"></div>
 <div class="cwrap"><canvas id="cvD" aria-label="예산에 따른 세 작전의 손실 곡선"></canvas></div>
-<div class="legend"><span><i style="background:#7c3aed"></i>USER ① 하나씩 흔들기</span><span><i style="background:#2563eb"></i>USER ② 무작위 바꿔 보기</span><span><i style="background:#20222b"></i>블랙 · 역전파</span></div>
+<div class="legend"><span><i style="background:#7c3aed"></i>USER ① 하나씩 흔들기</span><span><i style="background:#2563eb"></i>USER ② 무작위 바꿔 보기</span><span><i style="background:#20222b"></i>features팀 · 역전파</span></div>
 <p class="msg" id="duMsg">아직 시작하지 않았어요.</p>
 </div>
 <round no="6" title="대결: 같은 예산으로 손실을 더 낮추는 쪽은?" win="b">
 <cu who="robo" e="e16">무작위 작전은 횟수로 밀어붙이니 이겨요!</cu>
 <cb who="fly" e="e09">역전파는 모든 손잡이의 방향을 한 번에 알아. 같은 예산이면 역전파가 이겨.</cb>
-<verdict e="e10">예산 3000 기준으로 역전파는 손실을 가장 낮게 끌어내렸습니다. 하나씩 흔들기는 한 걸음에 예산 675를 써서 겨우 네 걸음만 갔고, 무작위 작전은 횟수는 많았지만 방향을 몰라 느리게 내려갔어요. 시드를 바꿔도 순서는 같습니다. 블랙팀 승리! 손잡이가 많을수록 이 차이는 더 커집니다.</verdict>
+<verdict e="e10">예산 3000 기준으로 역전파는 손실을 가장 낮게 끌어내렸습니다. 하나씩 흔들기는 한 걸음에 예산 675를 써서 겨우 네 걸음만 갔고, 무작위 작전은 횟수는 많았지만 방향을 몰라 느리게 내려갔어요. 시드를 바꿔도 순서는 같습니다. 초파리와 features팀 승리! 손잡이가 많을수록 이 차이는 더 커집니다.</verdict>
 </round>
 <div class="aicheck"><h4>AI 판단 코너 — AI가 짜 준 기울기 코드, 믿어도 될까?</h4>
 <p>새 손실 함수를 쓰려고 AI 코딩 도우미에게 "기울기 계산 코드를 짜 줘"라고 했어요. 코드는 깔끔하고 학습도 돌아갑니다. 그런데 손실이 이상하게 천천히 줄어요.</p>
@@ -367,7 +367,7 @@
 <tr><td>흔들어 보기는 쓸모없나</td><td>아님. 역전파 코드가 맞는지 확인하는 검산에 씀</td></tr>
 </table></div>
 <div class="recap"><b>업무에서 3줄.</b> ① 신경망을 학습한다면 역전파는 프로그램이 자동으로 해 준다(직접 짤 일은 드묾). ② 학습이 안 되면 층별 기울기 크기를 찍어 소실·폭발부터 본다. ③ 표 데이터·설정값 몇 개 문제라면 신경망과 역전파가 아닌 방법이 더 맞을 수 있다.</div>
-<say who="doc" e="e10">이번 편 점수는 블랙팀이 조금 앞섰지만, USER팀도 연쇄법칙의 재사용과 지름길 라운드를 정확히 맞혔어요. 결국 이긴 건 <b>재 보고 말한 쪽</b>입니다.</say>
+<say who="doc" e="e10">이번 편 점수는 초파리와 features팀이 조금 앞섰지만, USER팀도 연쇄법칙의 재사용과 지름길 라운드를 정확히 맞혔어요. 결국 이긴 건 <b>재 보고 말한 쪽</b>입니다.</say>
 </section>
 
 <section class="level" id="outro">
@@ -530,7 +530,7 @@ var A=LAB.ACT;
   function run(budget){
     var d=(function(){ var r=LAB.rng(11),X=[],Y=[],T=3.0; for (var c=0;c<2;c++) for (var i=0;i<60;i++){ var t=i/60*T+0.3,a=t*2+c*Math.PI; X.push([t*Math.cos(a)/(T+0.3)+r.gauss()*0.03,t*Math.sin(a)/(T+0.3)+r.gauss()*0.03]); Y.push(c);} return {X:X,Y:Y}; })(), mk=function(){ return new LAB.Net([2,16,16,1],'tanh',{seed:40+seed,init:'std',out:'sigmoid'}); };
     var L0=mk().evalSet(d.X,d.Y).loss;
-    // 블랙: 역전파 + Adam, 한 걸음 = 3
+    // features팀: 역전파 + Adam, 한 걸음 = 3
     var nb=mk(), cb=[[0,L0]], used=0; while(used+3<=budget){ nb.step(d.X,d.Y,0.02,'adam'); used+=3; if(used%60===0) cb.push([used,nb.evalSet(d.X,d.Y).loss]); }
     cb.push([used,nb.evalSet(d.X,d.Y).loss]);
     // USER ②: 무작위 바꿔 보기, 한 번 = 1
@@ -556,7 +556,7 @@ var A=LAB.ACT;
     setTimeout(function(){
       var B=+document.getElementById('duB').value; res=run(B); draw();
       var lb=res.b[res.b.length-1][1], lr=res.r[res.r.length-1][1], lf=res.f[res.f.length-1][1];
-      document.getElementById('duOut').innerHTML='<div class="good">블랙 · 역전파<b>'+lb.toFixed(3)+'</b>'+Math.floor(B/3)+'걸음</div><div>USER ② 무작위<b>'+lr.toFixed(3)+'</b>'+B+'번 시도</div><div class="bad">USER ① 하나씩 흔들기<b>'+lf.toFixed(3)+'</b>'+res.steps+'걸음</div>';
+      document.getElementById('duOut').innerHTML='<div class="good">features팀 · 역전파<b>'+lb.toFixed(3)+'</b>'+Math.floor(B/3)+'걸음</div><div>USER ② 무작위<b>'+lr.toFixed(3)+'</b>'+B+'번 시도</div><div class="bad">USER ① 하나씩 흔들기<b>'+lf.toFixed(3)+'</b>'+res.steps+'걸음</div>';
       var best=[['역전파',lb],['무작위 바꿔 보기',lr],['하나씩 흔들기',lf]].sort(function(a,b){return a[1]-b[1];});
       var m=document.getElementById('duMsg'); m.className='msg ok'; m.textContent='예산 '+B+', 시드 '+seed+': 손실이 가장 낮은 작전은 '+best[0][0]+'('+best[0][1].toFixed(3)+')입니다. 하나씩 흔들기는 손잡이 '+res.N+'개를 하나씩 재느라 '+res.steps+'걸음밖에 못 갔어요.';
       bt.disabled=false;

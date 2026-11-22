@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>뉴런 반응 연구실 3부 · 역전파</title>
-<meta name="description" content="손잡이가 수백만 개인 신경망이 어느 손잡이를 어느 쪽으로 돌릴지 아는 방법, 역전파. 쓸 때와 안 쓸 때를 비교하고, 쓰는 이유와 실제 사례를 주판봇 USER팀과 블랙팀의 대결과 여섯 개의 실험 도구로 확인합니다.">
+<meta name="description" content="손잡이가 수백만 개인 신경망이 어느 손잡이를 어느 쪽으로 돌릴지 아는 방법, 역전파. 쓸 때와 안 쓸 때를 비교하고, 쓰는 이유와 실제 사례를 주판봇 USER팀과 초파리와 features팀의 대결과 여섯 개의 실험 도구로 확인합니다.">
 <meta name="author" content="안상선">
 <meta name="citation_title" content="역전파 — 학습 신호가 거꾸로 건너가는 길">
 <meta name="citation_author" content="안상선">
@@ -17,7 +17,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://adminmrobo.github.io/neuron_reaction/03_backprop.html">
 <meta property="og:title" content="뉴런 반응 연구실 3부 · 역전파">
-<meta property="og:description" content="손잡이가 수백만 개인 신경망이 어느 손잡이를 어느 쪽으로 돌릴지 아는 방법, 역전파. 쓸 때와 안 쓸 때를 비교하고, 쓰는 이유와 실제 사례를 주판봇 USER팀과 블랙팀의 대결과 여섯 개의 실험 도구로 확인합니다.">
+<meta property="og:description" content="손잡이가 수백만 개인 신경망이 어느 손잡이를 어느 쪽으로 돌릴지 아는 방법, 역전파. 쓸 때와 안 쓸 때를 비교하고, 쓰는 이유와 실제 사례를 주판봇 USER팀과 초파리와 features팀의 대결과 여섯 개의 실험 도구로 확인합니다.">
 <meta property="og:image" content="https://adminmrobo.github.io/neuron_reaction/assets/img/og_v2_03.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -243,13 +243,13 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="nojs" id="nojs" role="alert"><b>스크립트가 실행되지 않아 버튼·슬라이더·그림이 멈춰 있습니다.</b> 브라우저(크롬·사파리·엣지)로 <a href="https://adminmrobo.github.io/neuron_reaction/03_backprop.html">https://adminmrobo.github.io/neuron_reaction/03_backprop.html</a> 를 열어 주세요.</div><script>(function(){var n=document.getElementById('nojs');if(n)n.parentNode.removeChild(n)})();</script>
 <div id="prog"></div>
 <nav class="top" aria-label="페이지 이동"><a class="logo" href="index.html">뉴런 반응 연구실</a><a href="#three">3줄 요약</a><a href="#cast">팀 소개</a><a href="#big">큰 그림</a><a href="#lv1">단계 1</a><a href="#lv2">단계 2</a><a href="#lv3">단계 3</a><a href="#lv4">단계 4</a><a href="#lv5">단계 5</a><a href="#duel">대결</a><a href="#sum">정리</a><a href="#kg">지식 색인</a></nav>
-<div class="cover" aria-label="표지: 주판봇 USER팀과 블랙팀, 가운데 심판 박사">
+<div class="cover" aria-label="표지: 주판봇 USER팀과 초파리와 features팀, 가운데 심판 박사">
 <div class="court">
  <div class="team u"><img class="px" data-s="robo_e16" alt="주판봇"><img class="px" data-s="asst_e01" alt="조수 하루"><img class="px" data-s="sia_e13" alt="인턴1 시아"><img class="px" data-s="moa_e01" alt="인턴2 모아"></div>
  <div class="ref"><img class="px" data-s="doc_e08" alt="심판 박사"></div>
  <div class="team b"><img class="px" data-s="fly_e09" alt="초파리 연구원"><img class="px" data-s="x1_e13" alt="X1"><img class="px" data-s="x2_e16" alt="X2"><img class="px" data-s="x3_e13" alt="X3"></div>
 </div>
-<div class="lab"><span class="u">주판봇 USER팀</span><span class="j">심판 · 박사</span><span class="b">블랙팀</span></div>
+<div class="lab"><span class="u">주판봇 USER팀</span><span class="j">심판 · 박사</span><span class="b">초파리와 features팀</span></div>
 </div>
 <header class="hero" id="hero"><div class="wrap">
 <div class="kicker">뉴런 반응 연구실 · 3부 (비전공자판 v2.0 · 새 편)</div>
@@ -259,7 +259,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="sernav"><a href="01_activation.html">1부 활성화 함수</a><a href="02_reaction_race.html">2부 반응속도 대회</a><a class="now" href="03_backprop.html">3부 역전파</a><a href="practice/index.html">실전 연습장</a></div>
 <div class="say " data-team="j"><img class="who" data-s="doc_e08" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>1부와 2부 내내 "학습 신호가 끝 층에서 앞 층으로 전해진다"고 했죠. 오늘은 그 길, <b>역전파</b>를 직접 걸어 봅니다. 그리고 역전파를 쓰는 쪽과 쓰지 않는 쪽이 겨룹니다.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="robo_e16" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>손잡이를 하나씩 살짝 돌려 보면 다 알 수 있어요! 복잡한 역전파 없이도 우리 USER팀이 이깁니다!</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">블랙팀 주장</small></div><p>답은 같을지 몰라도 시간이 문제야. 손잡이가 1억 개면? 재 보자.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">초파리와 features팀 주장</small></div><p>답은 같을지 몰라도 시간이 문제야. 손잡이가 1억 개면? 재 보자.</p></div></div>
 </div></header>
 
 <main class="wrap">
@@ -290,7 +290,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div><img data-s="asst_e13" alt="조수 하루"><b>조수(하루)</b><small>수식이 어려운 질문 담당</small></div>
 <div><img data-s="sia_e13" alt="인턴1 시아"><b>인턴1 시아</b><small>꼼꼼한 기록</small></div>
 <div><img data-s="moa_e13" alt="인턴2 모아"><b>인턴2 모아</b><small>현장 사례 담당</small></div></div></div>
-<div class="teamcard b"><h4>블랙팀 — "정말 그럴까? 눌러 보고 말하자"</h4><div class="members">
+<div class="teamcard b"><h4>초파리와 features팀 — "정말 그럴까? 눌러 보고 말하자"</h4><div class="members">
 <div><img data-s="fly_e09" alt="초파리 연구원"><b>초파리 연구원</b><small>주장 · 의심 담당</small></div>
 <div><img data-s="x1_e13" alt="X1"><b>X1</b><small>반례 찾기</small></div>
 <div><img data-s="x2_e13" alt="X2"><b>X2</b><small>숫자 확인</small></div>
@@ -299,7 +299,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="judgecard"><img data-s="doc_e08" alt="박사"><div><b>심판 · 박사</b> — 라운드마다 두 팀의 주장을 듣고, 실험 도구로 확인한 뒤 판정합니다. 이긴 팀이 1점, 둘 다 반만 맞으면 0.5점씩입니다. 판정 전에 <b>여러분도 어느 팀이 맞을지 먼저 골라 보세요.</b> 왼쪽 아래 점수판에 내 예측 적중 수가 함께 쌓입니다.</div></div>
 <div class="teams" style="margin-top:14px">
 <div class="teamcard u"><h4>USER팀의 작전 — "흔들어 보기"</h4><p style="margin:0">손잡이를 조금씩 바꿔 보고 손실이 줄면 그쪽으로 간다. 미분 같은 건 몰라도 된다.</p></div>
-<div class="teamcard b"><h4>블랙팀의 작전 — "역전파"</h4><p style="margin:0">끝에서 앞으로 거꾸로 계산해 모든 손잡이의 기울기를 한 번에 구한다.</p></div>
+<div class="teamcard b"><h4>초파리와 features팀의 작전 — "역전파"</h4><p style="margin:0">끝에서 앞으로 거꾸로 계산해 모든 손잡이의 기울기를 한 번에 구한다.</p></div>
 </div>
 </section>
 
@@ -348,7 +348,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="talk">
 <div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>기울기가 −8이면 손잡이 w를 어느 쪽으로 돌려야 할까요?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="robo_e16" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>음수니까 줄여야죠! 마이너스는 줄이라는 뜻!</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="x2_e09" alt="X2" width="62" height="62"><div><div class="name x2">X2<small class="b">블랙팀</small></div><p>기울기 반대쪽으로 간다고 했잖아. 아래 도구에서 한 걸음 가 보자.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="x2_e09" alt="X2" width="62" height="62"><div><div class="name x2">X2<small class="b">초파리와 features팀</small></div><p>기울기 반대쪽으로 간다고 했잖아. 아래 도구에서 한 걸음 가 보자.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>도구 1의 "한 걸음"을 누르면 w가 기울기 반대 방향으로 움직여요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 1</span>손잡이 하나 맞추기 — 배송 시간 예측</h3>
@@ -361,7 +361,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <p class="msg" id="k1Msg"></p>
 <p class="lim">이 단계의 한계: 손잡이가 하나면 손실 곡선을 다 그려 볼 수 있습니다. 손잡이가 백만 개면 곡선을 그릴 수 없으니, 각 손잡이의 기울기를 어떻게 구할지가 문제가 됩니다.</p>
 </div>
-<div class="round" data-win="b" id=""><h4><span>라운드 1</span> · 기울기가 −8이면 손잡이를 어느 쪽으로?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>마이너스니까 줄여야죠!</p></div></div><div class="b"><b>블랙팀 · X2</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x2_e09" alt="X2" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>기울기 반대 방향, 곧 키워야 해.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 블랙팀 1점</b></p>기울기가 음수라는 건 "w를 키우면 손실이 줄어든다"는 뜻입니다. 그래서 반대 방향, 곧 w를 키웁니다. 도구 1에서 w = 1.5에서 한 걸음 가면 w가 커지고 손실이 줄어요. 블랙팀 승리입니다.</div></div></div></div>
+<div class="round" data-win="b" id=""><h4><span>라운드 1</span> · 기울기가 −8이면 손잡이를 어느 쪽으로?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>마이너스니까 줄여야죠!</p></div></div><div class="b"><b>초파리와 features팀 · X2</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x2_e09" alt="X2" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>기울기 반대 방향, 곧 키워야 해.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 초파리와 features팀 1점</b></p>기울기가 음수라는 건 "w를 키우면 손실이 줄어든다"는 뜻입니다. 그래서 반대 방향, 곧 w를 키웁니다. 도구 1에서 w = 1.5에서 한 걸음 가면 w가 커지고 손실이 줄어요. 초파리와 features팀 승리입니다.</div></div></div></div>
 <div class="quiz"><div class="qitem" data-ans="a" data-ok="기울기가 양수면 손잡이를 키울수록 손실이 커지므로, 줄이는 쪽으로 갑니다." data-no="기울기의 반대 방향으로 간다는 규칙을 떠올려 보세요."><p class="qq">손실 곡선에서 지금 위치의 기울기가 +5라면?</p><div class="opts"><button class="bt" data-v="a">손잡이를 줄인다</button><button class="bt" data-v="b">손잡이를 키운다</button><button class="bt" data-v="c">그대로 둔다</button></div><p class="fb" aria-live="polite"></p></div></div>
 <details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>w = w - lr * grad</code> — 손잡이에서 "학습률 × 기울기"를 빼는 한 줄이 경사하강법의 전부입니다.</p></details>
 </section>
@@ -394,7 +394,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="talk">
 <div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>흔들어 보기로 기울기를 구하면 역전파 없이도 되지 않을까요?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="robo_e16" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>답이 똑같잖아요! 역전파는 필요 없어요!</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">블랙팀 주장</small></div><p>답은 같아도 시간을 재 봐. 손잡이가 많으면 몇 번 계산해야 하지?</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">초파리와 features팀 주장</small></div><p>답은 같아도 시간을 재 봐. 손잡이가 많으면 몇 번 계산해야 하지?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>도구 2 위쪽은 비용 계산기, 아래쪽은 진짜 신경망에서 두 방법을 직접 재는 실험이에요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 2</span>기울기 구하는 비용 — 흔들어 보기 vs 역전파</h3>
@@ -406,7 +406,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="readout" id="k2Out"></div>
 <p class="lim">이 단계의 한계: 위쪽 시간은 설명용 가정입니다. 실제 시간은 기기와 모델에 따라 다르지만, "흔들기는 손잡이 수에 비례해 늘어난다"는 관계는 같습니다.</p>
 </div>
-<div class="round" data-win="d" id=""><h4><span>라운드 2</span> · 흔들어 보기만으로 역전파를 대신할 수 있을까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>답이 똑같으니 역전파는 필요 없어요!</p></div></div><div class="b"><b>블랙팀 · 초파리 연구원</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="fly_e09" alt="초파리 연구원" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>답은 같아도 손잡이가 많으면 너무 느려서 못 써.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 무승부 · 두 팀 0.5점씩</b></p>둘 다 반만 맞았어요. 도구 2에서 두 방법의 기울기는 소수점 아래 여러 자리까지 같습니다(주판봇 말이 맞음). 그런데 손잡이 1,185개짜리 작은 망에서도 흔들기가 백 배 넘게 느리고, 손잡이가 늘수록 차이가 더 벌어집니다(초파리 말이 맞음). 그래서 무승부입니다. 흔들기는 "검산용", 역전파는 "학습용"이에요.</div></div></div></div>
+<div class="round" data-win="d" id=""><h4><span>라운드 2</span> · 흔들어 보기만으로 역전파를 대신할 수 있을까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>답이 똑같으니 역전파는 필요 없어요!</p></div></div><div class="b"><b>초파리와 features팀 · 초파리 연구원</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="fly_e09" alt="초파리 연구원" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>답은 같아도 손잡이가 많으면 너무 느려서 못 써.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 무승부 · 두 팀 0.5점씩</b></p>둘 다 반만 맞았어요. 도구 2에서 두 방법의 기울기는 소수점 아래 여러 자리까지 같습니다(주판봇 말이 맞음). 그런데 손잡이 1,185개짜리 작은 망에서도 흔들기가 백 배 넘게 느리고, 손잡이가 늘수록 차이가 더 벌어집니다(초파리 말이 맞음). 그래서 무승부입니다. 흔들기는 "검산용", 역전파는 "학습용"이에요.</div></div></div></div>
 <div class="quiz"><div class="qitem" data-ans="b" data-ok="손잡이마다 두 번씩, 약 2,000번입니다." data-no="손잡이 하나마다 올리기·내리기 두 번 계산합니다."><p class="qq">손잡이가 1,000개인 모델에서 흔들어 보기(올리기·내리기)로 기울기를 한 번 구하려면 앞으로 계산을 대략 몇 번?</p><div class="opts"><button class="bt" data-v="a">약 3번</button><button class="bt" data-v="b">약 2,000번</button><button class="bt" data-v="c">약 1번</button></div><p class="fb" aria-live="polite"></p></div></div>
 <details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>torch.autograd.gradcheck(f, inputs)</code> — 역전파로 구한 기울기를 흔들어 보기 값과 비교해 검산하는 함수입니다.</p></details>
 </section>
@@ -415,7 +415,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <section class="level" id="lv3">
 <div class="lvhead"><div class="lvno">3<small>단계</small></div><h2>연쇄법칙 — 끝에서부터 곱해 가며 거꾸로</h2></div>
 <span class="lvtag g">일상: 맞물린 톱니바퀴</span><span class="lvtag">방법: 역전파(연쇄법칙)</span>
-<div class="say " data-team="j"><img class="who" data-s="doc_e07" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>이제 블랙팀 작전입니다. 비밀은 "거꾸로 가면서 앞에서 구한 값을 재사용한다"는 데 있어요. 두 층짜리 작은 망으로 한 단계씩 따라가 봅시다.</p></div></div>
+<div class="say " data-team="j"><img class="who" data-s="doc_e07" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>이제 초파리와 features팀 작전입니다. 비밀은 "거꾸로 가면서 앞에서 구한 값을 재사용한다"는 데 있어요. 두 층짜리 작은 망으로 한 단계씩 따라가 봅시다.</p></div></div>
 <div class="wm">
 <div class="whybox"><h4>왜 이 방법을 쓰나</h4>
 <ol><li><b>문제 상황</b> — 앞쪽 손잡이를 돌리면 그 효과가 여러 층을 거쳐 손실에 닿습니다. 효과를 하나씩 따로 재면(흔들기) 너무 오래 걸립니다.</li>
@@ -440,7 +440,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="talk">
 <div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>앞 층 손잡이 w₁의 기울기를 구할 때, 처음부터 다시 계산해야 할까요?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="sia_e07" alt="인턴1 시아" width="62" height="62"><div><div class="name sia">인턴1 시아<small class="u">USER팀</small></div><p>아니요. 뒤에서 구한 dL/dh에 곱 하나만 더하면 돼요.</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="x1_e09" alt="X1" width="62" height="62"><div><div class="name x1">X1<small class="b">블랙팀</small></div><p>층마다 처음부터 다시 계산해야 정확하지 않아? 단계별로 확인해 보자.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="x1_e09" alt="X1" width="62" height="62"><div><div class="name x1">X1<small class="b">초파리와 features팀</small></div><p>층마다 처음부터 다시 계산해야 정확하지 않아? 단계별로 확인해 보자.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>도구 3에서 "앞으로"와 "거꾸로" 버튼을 번갈아 눌러 계산 흐름을 따라가 보세요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 3</span>계산 그래프 따라가기 — 앞으로, 그리고 거꾸로</h3>
@@ -455,7 +455,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <p class="msg" id="k3Msg"></p>
 <p class="lim">이 단계의 한계: 여기서는 뉴런 하나씩 두 층인 아주 작은 망으로 단순하게 봤어요. 실제 망은 층마다 뉴런이 수천 개이지만, 같은 계산을 숫자 묶음(행렬)으로 한꺼번에 합니다.</p>
 </div>
-<div class="round" data-win="u" id=""><h4><span>라운드 3</span> · 앞 층 손잡이의 기울기, 뒤에서 구한 값을 재사용할 수 있을까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 인턴1 시아</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="sia_e07" alt="인턴1 시아" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>뒤에서 구한 dL/dh에 곱 하나만 더하면 돼요.</p></div></div><div class="b"><b>블랙팀 · X1</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x1_e09" alt="X1" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>층마다 처음부터 다시 계산해야 정확할 거야.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 주판봇 USER팀 1점</b></p>도구 3에서 dL/dw₁은 이미 구한 dL/dh(= 4)에 ReLU 기울기(1)와 x(= 2)를 곱해 8이 나왔습니다. 처음부터 다시 계산하지 않아도 정확해요. 이 재사용 덕분에 역전파가 빠릅니다. USER팀 시아의 승리!</div></div></div></div>
+<div class="round" data-win="u" id=""><h4><span>라운드 3</span> · 앞 층 손잡이의 기울기, 뒤에서 구한 값을 재사용할 수 있을까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 인턴1 시아</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="sia_e07" alt="인턴1 시아" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>뒤에서 구한 dL/dh에 곱 하나만 더하면 돼요.</p></div></div><div class="b"><b>초파리와 features팀 · X1</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x1_e09" alt="X1" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>층마다 처음부터 다시 계산해야 정확할 거야.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 주판봇 USER팀 1점</b></p>도구 3에서 dL/dw₁은 이미 구한 dL/dh(= 4)에 ReLU 기울기(1)와 x(= 2)를 곱해 8이 나왔습니다. 처음부터 다시 계산하지 않아도 정확해요. 이 재사용 덕분에 역전파가 빠릅니다. USER팀 시아의 승리!</div></div></div></div>
 <div class="quiz"><div class="qitem" data-ans="c" data-ok="비율을 곱해 4 × 0.5 = 2바퀴입니다. 연쇄법칙과 같은 원리예요." data-no="단계별 비율을 더하지 말고 곱해 보세요."><p class="qq">톱니바퀴 A→B 비율이 4, B→C 비율이 0.5라면 A가 1바퀴 돌 때 C는?</p><div class="opts"><button class="bt" data-v="a">4.5바퀴</button><button class="bt" data-v="b">3.5바퀴</button><button class="bt" data-v="c">2바퀴</button></div><p class="fb" aria-live="polite"></p></div></div>
 <details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>loss.backward()</code> — 이 한 줄이 도구 3의 "거꾸로" 단계 전체를 모든 손잡이에 대해 자동으로 합니다. 결과는 각 손잡이의 <code>.grad</code>에 담깁니다.</p></details>
 </section>
@@ -488,7 +488,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="talk">
 <div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>층이 아주 깊어도 지름길이 있으면 신호가 남을까요?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="moa_e07" alt="인턴2 모아" width="62" height="62"><div><div class="name moa">인턴2 모아<small class="u">USER팀</small></div><p>네! 지름길은 비율을 1 근처로 붙잡아 줘요.</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="x3_e09" alt="X3" width="62" height="62"><div><div class="name x3">X3<small class="b">블랙팀</small></div><p>지름길이 있어도 곱은 곱이잖아. 조건을 바꿔 가며 확인하자.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="x3_e09" alt="X3" width="62" height="62"><div><div class="name x3">X3<small class="b">초파리와 features팀</small></div><p>지름길이 있어도 곱은 곱이잖아. 조건을 바꿔 가며 확인하자.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>도구 4에서 층 수와 문, 지름길을 바꿔 첫 층까지 남는 신호를 볼 수 있어요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 4</span>곱셈 줄 — 첫 층까지 남는 신호</h3>
@@ -503,7 +503,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <p class="msg" id="k4Msg"></p>
 <p class="lim">이 단계의 한계: 실제 망에서 층마다 비율은 뉴런과 입력에 따라 다른 숫자 묶음입니다. 여기서는 한 숫자로 줄여 경향만 봅니다.</p>
 </div>
-<div class="round" data-win="u" id=""><h4><span>라운드 4</span> · 지름길이 있으면 아주 깊어도 신호가 남을까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 인턴2 모아</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="moa_e07" alt="인턴2 모아" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>네! 지름길이 비율을 1 근처로 붙잡아 줘요.</p></div></div><div class="b"><b>블랙팀 · X3</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x3_e09" alt="X3" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>곱은 곱이니까 결국 사라질 거야.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 주판봇 USER팀 1점</b></p>도구 4에서 시그모이드·60층이면 지름길 없이 신호가 사실상 0이지만, 지름길을 켜면 비율이 1.025가 되어 첫 층까지 신호가 남습니다(오히려 조금 커져요). 모아의 말이 맞습니다. 다만 너무 커지는 쪽을 막으려 기울기 자르기를 함께 씁니다.</div></div></div></div>
+<div class="round" data-win="u" id=""><h4><span>라운드 4</span> · 지름길이 있으면 아주 깊어도 신호가 남을까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 인턴2 모아</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="moa_e07" alt="인턴2 모아" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>네! 지름길이 비율을 1 근처로 붙잡아 줘요.</p></div></div><div class="b"><b>초파리와 features팀 · X3</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x3_e09" alt="X3" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>곱은 곱이니까 결국 사라질 거야.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 주판봇 USER팀 1점</b></p>도구 4에서 시그모이드·60층이면 지름길 없이 신호가 사실상 0이지만, 지름길을 켜면 비율이 1.025가 되어 첫 층까지 신호가 남습니다(오히려 조금 커져요). 모아의 말이 맞습니다. 다만 너무 커지는 쪽을 막으려 기울기 자르기를 함께 씁니다.</div></div></div></div>
 <div class="quiz"><div class="qitem" data-ans="a" data-ok="1.5를 20번 곱하면 약 3,300배로 폭발합니다. 그래서 기울기 자르기가 필요해요." data-no="1보다 큰 수를 거듭 곱하면 어떻게 되는지 떠올려 보세요."><p class="qq">층마다 비율이 1.5이고 층이 20개라면 첫 층 기울기는?</p><div class="opts"><button class="bt" data-v="a">크게 불어난다(폭발)</button><button class="bt" data-v="b">거의 0이 된다(소실)</button><button class="bt" data-v="c">그대로 1이다</button></div><p class="fb" aria-live="polite"></p></div></div>
 <details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>out = x + block(x)</code> — 지름길(잔차 연결). <code>clip_grad_norm_(model.parameters(), 1.0)</code> — 기울기 크기에 상한을 두는 한 줄입니다.</p></details>
 </section>
@@ -535,7 +535,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="talk">
 <div class="say " data-team="j"><img class="who" data-s="doc_e09" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>의사결정나무도 역전파로 학습할까요?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="robo_e16" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>요즘 AI는 다 역전파죠! 나무도 마찬가지!</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="x2_e09" alt="X2" width="62" height="62"><div><div class="name x2">X2<small class="b">블랙팀</small></div><p>나무는 "나이 ≥ 30?" 같은 질문으로 나누잖아. 계단 모양인데 기울기가 있어?</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="x2_e09" alt="X2" width="62" height="62"><div><div class="name x2">X2<small class="b">초파리와 features팀</small></div><p>나무는 "나이 ≥ 30?" 같은 질문으로 나누잖아. 계단 모양인데 기울기가 있어?</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>도구 5에서 문제 조건을 고르면 어떤 방법이 맞는지 판정해 줘요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 5</span>방법 고르기 판정기 — 역전파를 쓸까?</h3>
@@ -547,7 +547,7 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <div class="final" id="k5Out"></div>
 <p class="lim">이 도구의 한계: 실제 선택은 데이터 양, 설명 필요성, 비용까지 함께 봅니다. 판정은 출발점으로만 쓰세요.</p>
 </div>
-<div class="round" data-win="b" id=""><h4><span>라운드 5</span> · 의사결정나무도 역전파로 학습할까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>요즘 AI는 다 역전파예요!</p></div></div><div class="b"><b>블랙팀 · X2</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x2_e09" alt="X2" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>나무는 질문으로 나누는 계단 모양이라 기울기가 없어.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 블랙팀 1점</b></p>의사결정나무는 "어떤 질문으로 나누면 가장 깔끔하게 나뉘나"를 하나씩 찾아 만듭니다. 기울기도, 역전파도 쓰지 않아요. 표 데이터에서는 이런 나무 모델(랜덤 포레스트 등)이 지금도 많이 쓰입니다. 블랙팀 X2의 승리입니다.</div></div></div></div>
+<div class="round" data-win="b" id=""><h4><span>라운드 5</span> · 의사결정나무도 역전파로 학습할까?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>요즘 AI는 다 역전파예요!</p></div></div><div class="b"><b>초파리와 features팀 · X2</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="x2_e09" alt="X2" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>나무는 질문으로 나누는 계단 모양이라 기울기가 없어.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 초파리와 features팀 1점</b></p>의사결정나무는 "어떤 질문으로 나누면 가장 깔끔하게 나뉘나"를 하나씩 찾아 만듭니다. 기울기도, 역전파도 쓰지 않아요. 표 데이터에서는 이런 나무 모델(랜덤 포레스트 등)이 지금도 많이 쓰입니다. 초파리와 features팀 X2의 승리입니다.</div></div></div></div>
 <div class="quiz"><div class="qitem" data-ans="b" data-ok="모든 단계에서 기울기를 구할 수 있어야(미분 가능해야) 거꾸로 곱해 갈 수 있습니다." data-no="데이터 종류보다 &#x27;기울기를 구할 수 있는가&#x27;가 핵심 조건이에요."><p class="qq">역전파를 쓰기 위해 꼭 필요한 조건은?</p><div class="opts"><button class="bt" data-v="a">데이터가 사진이어야 한다</button><button class="bt" data-v="b">계산의 각 단계가 미분 가능해야 한다</button><button class="bt" data-v="c">손잡이가 10개 이하여야 한다</button></div><p class="fb" aria-live="polite"></p></div></div>
 <div class="tb"><table>
 <tr><th>사례</th><th>역전파</th><th>이유</th></tr>
@@ -564,16 +564,16 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <!-- 대결 -->
 <section class="level" id="duel">
 <h2>대결 — 같은 계산 예산으로 손실을 더 낮추는 쪽은?</h2>
-<div class="say " data-team="j"><img class="who" data-s="doc_e08" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>마지막 대결입니다. 손잡이 337개짜리 작은 분류 망(숨은 층 16 × 2)을 학습시킵니다. 계산 예산은 '앞으로 계산 몇 번 분량'으로 똑같이 줍니다. USER팀은 두 가지 흔들기 작전, 블랙팀은 역전파입니다.</p></div></div>
+<div class="say " data-team="j"><img class="who" data-s="doc_e08" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>마지막 대결입니다. 손잡이 337개짜리 작은 분류 망(숨은 층 16 × 2)을 학습시킵니다. 계산 예산은 '앞으로 계산 몇 번 분량'으로 똑같이 줍니다. USER팀은 두 가지 흔들기 작전, 초파리와 features팀은 역전파입니다.</p></div></div>
 <div class="tb"><table>
 <tr><th>팀</th><th>작전</th><th>한 번 고치는 데 드는 예산</th></tr>
 <tr><td style="color:var(--user);font-weight:700">USER팀 ①</td><td>하나씩 흔들기 → 기울기로 한 걸음</td><td>약 675 (손잡이 337 × 2 + 1)</td></tr>
 <tr><td style="color:var(--user);font-weight:700">USER팀 ②</td><td>전체를 무작위로 살짝 바꿔 보고 좋아지면 채택</td><td>1</td></tr>
-<tr><td style="font-weight:700">블랙팀</td><td>역전파로 기울기 → 한 걸음 (Adam)</td><td>약 3 (앞으로 1 + 거꾸로 약 2)</td></tr>
+<tr><td style="font-weight:700">초파리와 features팀</td><td>역전파로 기울기 → 한 걸음 (Adam)</td><td>약 3 (앞으로 1 + 거꾸로 약 2)</td></tr>
 </table></div>
 <div class="talk">
 <div class="say " data-team="u"><img class="who" data-s="robo_e16" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>무작위 작전은 한 번에 1만 써요! 횟수로 밀어붙이면 이깁니다!</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">블랙팀 주장</small></div><p>횟수는 많아도 방향을 모르잖아. 역전파는 337개 손잡이 방향을 한 번에 알아.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="fly_e09" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">초파리와 features팀 주장</small></div><p>횟수는 많아도 방향을 모르잖아. 역전파는 337개 손잡이 방향을 한 번에 알아.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="asst_e07" alt="조수(하루)" width="62" height="62"><div><div class="name asst">조수(하루)<small class="u">USER팀</small></div><p>예산을 정하고 "대결 시작"을 누르면 세 작전이 같은 출발점에서 학습해요.</p></div></div>
 </div>
 <div class="tool"><h3><span class="badge">도구 대결</span>계산 예산 대결장</h3>
@@ -583,10 +583,10 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <button class="bt primary" id="duRun">대결 시작</button></div>
 <div class="readout" id="duOut"></div>
 <div class="cwrap"><canvas id="cvD" aria-label="예산에 따른 세 작전의 손실 곡선"></canvas></div>
-<div class="legend"><span><i style="background:#7c3aed"></i>USER ① 하나씩 흔들기</span><span><i style="background:#2563eb"></i>USER ② 무작위 바꿔 보기</span><span><i style="background:#20222b"></i>블랙 · 역전파</span></div>
+<div class="legend"><span><i style="background:#7c3aed"></i>USER ① 하나씩 흔들기</span><span><i style="background:#2563eb"></i>USER ② 무작위 바꿔 보기</span><span><i style="background:#20222b"></i>features팀 · 역전파</span></div>
 <p class="msg" id="duMsg">아직 시작하지 않았어요.</p>
 </div>
-<div class="round" data-win="b" id=""><h4><span>라운드 6</span> · 대결: 같은 예산으로 손실을 더 낮추는 쪽은?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>무작위 작전은 횟수로 밀어붙이니 이겨요!</p></div></div><div class="b"><b>블랙팀 · 초파리 연구원</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="fly_e09" alt="초파리 연구원" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>역전파는 모든 손잡이의 방향을 한 번에 알아. 같은 예산이면 역전파가 이겨.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">블랙팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 블랙팀 1점</b></p>예산 3000 기준으로 역전파는 손실을 가장 낮게 끌어내렸습니다. 하나씩 흔들기는 한 걸음에 예산 675를 써서 겨우 네 걸음만 갔고, 무작위 작전은 횟수는 많았지만 방향을 몰라 느리게 내려갔어요. 시드를 바꿔도 순서는 같습니다. 블랙팀 승리! 손잡이가 많을수록 이 차이는 더 커집니다.</div></div></div></div>
+<div class="round" data-win="b" id=""><h4><span>라운드 6</span> · 대결: 같은 예산으로 손실을 더 낮추는 쪽은?</h4><div class="claims"><div class="u"><b>주판봇 USER팀 · 주판봇</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="robo_e16" alt="주판봇" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>무작위 작전은 횟수로 밀어붙이니 이겨요!</p></div></div><div class="b"><b>초파리와 features팀 · 초파리 연구원</b><div style="display:flex;gap:8px;align-items:flex-start"><img data-s="fly_e09" alt="초파리 연구원" width="46" height="46" style="flex:0 0 46px;border-radius:9px;background:#fff"><p>역전파는 모든 손잡이의 방향을 한 번에 알아. 같은 예산이면 역전파가 이겨.</p></div></div></div><div class="pick"><span class="glabel">어느 팀 말이 맞을까요? 먼저 골라 보세요.</span><button class="bt" data-v="u">USER팀</button><button class="bt" data-v="b">초파리와 features팀</button><button class="bt" data-v="d">둘 다 반씩</button><button class="bt" data-v="skip">그냥 판정 보기</button></div><div class="result"><p class="calm mine" style="margin:0"></p><div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p><b class="wtxt">판정: 초파리와 features팀 1점</b></p>예산 3000 기준으로 역전파는 손실을 가장 낮게 끌어내렸습니다. 하나씩 흔들기는 한 걸음에 예산 675를 써서 겨우 네 걸음만 갔고, 무작위 작전은 횟수는 많았지만 방향을 몰라 느리게 내려갔어요. 시드를 바꿔도 순서는 같습니다. 초파리와 features팀 승리! 손잡이가 많을수록 이 차이는 더 커집니다.</div></div></div></div>
 <div class="aicheck"><h4>AI 판단 코너 — AI가 짜 준 기울기 코드, 믿어도 될까?</h4>
 <p>새 손실 함수를 쓰려고 AI 코딩 도우미에게 "기울기 계산 코드를 짜 줘"라고 했어요. 코드는 깔끔하고 학습도 돌아갑니다. 그런데 손실이 이상하게 천천히 줄어요.</p>
 <div class="say " data-team="u"><img class="who" data-s="robo_e16" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>AI가 짰으니 맞겠죠! 학습률만 올려 볼게요!</p></div></div>
@@ -606,19 +606,19 @@ pre.cite,#export li,#export p,footer p{overflow-wrap:anywhere}
 <tr><td>흔들어 보기는 쓸모없나</td><td>아님. 역전파 코드가 맞는지 확인하는 검산에 씀</td></tr>
 </table></div>
 <div class="recap"><b>업무에서 3줄.</b> ① 신경망을 학습한다면 역전파는 프로그램이 자동으로 해 준다(직접 짤 일은 드묾). ② 학습이 안 되면 층별 기울기 크기를 찍어 소실·폭발부터 본다. ③ 표 데이터·설정값 몇 개 문제라면 신경망과 역전파가 아닌 방법이 더 맞을 수 있다.</div>
-<div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>이번 편 점수는 블랙팀이 조금 앞섰지만, USER팀도 연쇄법칙의 재사용과 지름길 라운드를 정확히 맞혔어요. 결국 이긴 건 <b>재 보고 말한 쪽</b>입니다.</p></div></div>
+<div class="say " data-team="j"><img class="who" data-s="doc_e10" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>이번 편 점수는 초파리와 features팀이 조금 앞섰지만, USER팀도 연쇄법칙의 재사용과 지름길 라운드를 정확히 맞혔어요. 결국 이긴 건 <b>재 보고 말한 쪽</b>입니다.</p></div></div>
 </section>
 
 <section class="level" id="outro">
 <h2>아웃트로</h2>
 <div class="say " data-team="u"><img class="who" data-s="robo_e15" alt="주판봇" width="62" height="62"><div><div class="name robo">주판봇<small class="u">USER팀 주장</small></div><p>흔들기 작전… 네 걸음밖에 못 갔어요. 그래도 검산용으로는 제가 최고죠?</p></div></div>
-<div class="say " data-team="b"><img class="who" data-s="fly_e16" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">블랙팀 주장</small></div><p>맞아. 빠른 역전파도 느린 흔들기로 검산해야 믿을 수 있지. 오늘은 둘 다 필요했어.</p></div></div>
+<div class="say " data-team="b"><img class="who" data-s="fly_e16" alt="초파리 연구원" width="62" height="62"><div><div class="name fly">초파리 연구원<small class="b">초파리와 features팀 주장</small></div><p>맞아. 빠른 역전파도 느린 흔들기로 검산해야 믿을 수 있지. 오늘은 둘 다 필요했어.</p></div></div>
 <div class="say " data-team="u"><img class="who" data-s="sia_e12" alt="인턴1 시아" width="62" height="62"><div><div class="name sia">인턴1 시아<small class="u">USER팀</small></div><p>1부의 문, 2부의 출발 가중치, 3부의 역전파가 한 줄로 이어졌어요!</p></div></div>
 <div class="say " data-team="j"><img class="who" data-s="doc_e08" alt="박사" width="62" height="62"><div><div class="name doc">박사<small class="j">심판</small></div><p>이제 배운 것을 직접 써 볼 차례입니다. <b>실전 연습장</b>에서 배송 회사, 쇼핑몰, 공장의 모델을 운영해 보세요. 여기서 한 번 쉬어 가도 괜찮아요.</p></div></div>
 <div class="sernav"><a href="02_reaction_race.html">← 2부 반응속도 대회</a><a href="index.html">목차</a><a class="now" href="practice/index.html">마지막 장: 실전 연습장 →</a></div>
 </section>
 </main>
-<div class="board" id="board" aria-live="polite"><span class="u">USER팀 <b>0</b></span><span class="b">블랙팀 <b>0</b></span><span class="me">내 예측 0/0</span></div>
+<div class="board" id="board" aria-live="polite"><span class="u">USER팀 <b>0</b></span><span class="b">초파리와 features팀 <b>0</b></span><span class="me">내 예측 0/0</span></div>
 
 
 <!-- lab-kg:body -->
@@ -882,7 +882,7 @@ L.rounds = function(){
       b.addEventListener('click',function(){
         if(done) return; done=true;
         if (L.hooks[r.id]){ var h=L.hooks[r.id](); win=h.win; r.setAttribute('data-win',win); var vt=r.querySelector('.vtext'); if(vt) vt.innerHTML=h.html; }
-        var wt=r.querySelector('.wtxt'); if(wt) wt.textContent='판정: '+{u:'주판봇 USER팀 1점',b:'블랙팀 1점',d:'무승부 · 두 팀 0.5점씩'}[win];
+        var wt=r.querySelector('.wtxt'); if(wt) wt.textContent='판정: '+{u:'주판봇 USER팀 1점',b:'초파리와 features팀 1점',d:'무승부 · 두 팀 0.5점씩'}[win];
         var me=b.getAttribute('data-v'); r.classList.add('open','win-'+win);
         r.querySelectorAll('.pick .bt').forEach(function(x){x.disabled=true;}); b.classList.add('on');
         if (win==='u') SC.u+=1; else if (win==='b') SC.b+=1; else { SC.u+=0.5; SC.b+=0.5; }
@@ -1064,7 +1064,7 @@ var A=LAB.ACT;
   function run(budget){
     var d=(function(){ var r=LAB.rng(11),X=[],Y=[],T=3.0; for (var c=0;c<2;c++) for (var i=0;i<60;i++){ var t=i/60*T+0.3,a=t*2+c*Math.PI; X.push([t*Math.cos(a)/(T+0.3)+r.gauss()*0.03,t*Math.sin(a)/(T+0.3)+r.gauss()*0.03]); Y.push(c);} return {X:X,Y:Y}; })(), mk=function(){ return new LAB.Net([2,16,16,1],'tanh',{seed:40+seed,init:'std',out:'sigmoid'}); };
     var L0=mk().evalSet(d.X,d.Y).loss;
-    // 블랙: 역전파 + Adam, 한 걸음 = 3
+    // features팀: 역전파 + Adam, 한 걸음 = 3
     var nb=mk(), cb=[[0,L0]], used=0; while(used+3<=budget){ nb.step(d.X,d.Y,0.02,'adam'); used+=3; if(used%60===0) cb.push([used,nb.evalSet(d.X,d.Y).loss]); }
     cb.push([used,nb.evalSet(d.X,d.Y).loss]);
     // USER ②: 무작위 바꿔 보기, 한 번 = 1
@@ -1090,7 +1090,7 @@ var A=LAB.ACT;
     setTimeout(function(){
       var B=+document.getElementById('duB').value; res=run(B); draw();
       var lb=res.b[res.b.length-1][1], lr=res.r[res.r.length-1][1], lf=res.f[res.f.length-1][1];
-      document.getElementById('duOut').innerHTML='<div class="good">블랙 · 역전파<b>'+lb.toFixed(3)+'</b>'+Math.floor(B/3)+'걸음</div><div>USER ② 무작위<b>'+lr.toFixed(3)+'</b>'+B+'번 시도</div><div class="bad">USER ① 하나씩 흔들기<b>'+lf.toFixed(3)+'</b>'+res.steps+'걸음</div>';
+      document.getElementById('duOut').innerHTML='<div class="good">features팀 · 역전파<b>'+lb.toFixed(3)+'</b>'+Math.floor(B/3)+'걸음</div><div>USER ② 무작위<b>'+lr.toFixed(3)+'</b>'+B+'번 시도</div><div class="bad">USER ① 하나씩 흔들기<b>'+lf.toFixed(3)+'</b>'+res.steps+'걸음</div>';
       var best=[['역전파',lb],['무작위 바꿔 보기',lr],['하나씩 흔들기',lf]].sort(function(a,b){return a[1]-b[1];});
       var m=document.getElementById('duMsg'); m.className='msg ok'; m.textContent='예산 '+B+', 시드 '+seed+': 손실이 가장 낮은 작전은 '+best[0][0]+'('+best[0][1].toFixed(3)+')입니다. 하나씩 흔들기는 손잡이 '+res.N+'개를 하나씩 재느라 '+res.steps+'걸음밖에 못 갔어요.';
       bt.disabled=false;
