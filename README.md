@@ -31,7 +31,7 @@ index.html                    시리즈 목차
 practice/index.html           마지막 장 실전 연습장 (#delivery #shop #factory)
 sp1_reaction_race.html        예전 2부 주소 → 새 2부로 이동
 kg/{편}/                       지식 색인 원본(kg.json·refs.json·meta.json)과 점검 보고서
-assets/img/                   공유 미리보기 og_v2_*.jpg (임시판), 예전 표지
+assets/img/                   표지 cover_v2_*.webp, 공유 미리보기 og_v2_*.jpg, 원본 src/, 썸네일 thumb/, 예전 표지
 docs/                         감사 보고서, 강의자용 가이드, 그림 명세·프롬프트(IMG_v2_prompts.md)
 old/v1/                       예전 판 페이지·지시문·데이터
 _build/                       페이지 원본(src/)과 빌드 스크립트 (공통 엔진 lab.js·lab.css)
@@ -46,8 +46,8 @@ cover_manifest.json           표지·그림 목록 (ahnboat lab 표지 현황�
 ## 표지 그림 현황
 | 키 | 상태 | 비고 |
 |---|---|---|
-| og_v2_index · 01 · 02 · 03 | 임시판 반영 (2026-11-22) | 캐릭터 팩 그림을 합성한 공유 미리보기 |
-| cover_v2_index · 01 · 02 · 03 · practice | 요청 전 | 16비트 RPG 픽셀아트, 낮의 연구실 — [docs/IMG_v2_prompts.md](docs/IMG_v2_prompts.md) |
+| cover_v2_index · 01 · 02 · 03 · practice | **반영 완료** (2026-11-22) | Genspark 16비트 RPG 픽셀아트, 낮의 연구실 — 페이지 표지에 내장, 원본 `assets/img/src/`, 목차 썸네일 `assets/img/thumb/` |
+| og_v2_index · 01 · 02 · 03 · practice | **반영 완료** | 받은 표지의 공유 미리보기(1200×630) |
 | cover_01 · cover_SP1 (v1) | 보관 | old/v1 페이지에서 사용 |
 
 ## 출처와 참고

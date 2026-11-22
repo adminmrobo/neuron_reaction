@@ -132,6 +132,15 @@ def build(src, out):
     s = open(src, encoding='utf-8').read()
     m = re.match(r'<!--META\s*(\{.*?\})\s*-->\s*', s, re.S)
     meta = json.loads(m.group(1)); body = s[m.end():]
+    cov = meta.get('cover')
+    if cov:
+        import base64
+        b64 = base64.b64encode(open(os.path.join(HERE, 'img', 'cover', cov + '.webp'), 'rb').read()).decode()
+        cap = meta.get('coverCap', '')
+        cover_html = (f'<div class="cover cover-img"><div class="cimg"><img src="data:image/webp;base64,{b64}" width="1600" height="900" alt="{meta.get("coverAlt","표지 그림")}">'
+                      + (f'<div class="ccap" aria-hidden="true"><span>뉴런 반응 연구실</span><b>{cap}</b></div>' if cap else '') + '</div>'
+                      + '<div class="lab"><span class="u">주판봇 USER팀</span><span class="j">심판 · 박사</span><span class="b">초파리와 features팀</span></div></div>')
+        body = body.replace('<cover/>', cover_html)
     body = body.replace('<cover/>', COVER).replace('<teams/>', TEAMS).replace('<board/>', BOARD)
     body = expand(body)
     page_js = ''

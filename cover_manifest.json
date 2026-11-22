@@ -310,10 +310,10 @@
    "robot": "jupanbot-v2",
    "prompt_en": null,
    "source_of": null,
-   "status": "temporary",
-   "bytes": 89921,
+   "status": "ok",
+   "bytes": 118823,
    "received": "2026-11-22",
-   "note": "캐릭터 팩 그림 합성 임시판 — 픽셀아트 표지를 받으면 교체 (docs/IMG_v2_prompts.md)"
+   "note": "받은 표지 og(1200×630)를 JPG로 변환 — 임시판 교체"
   },
   {
    "id": "og_v2_01",
@@ -339,10 +339,10 @@
    "robot": "jupanbot-v2",
    "prompt_en": null,
    "source_of": null,
-   "status": "temporary",
-   "bytes": 86075,
+   "status": "ok",
+   "bytes": 110778,
    "received": "2026-11-22",
-   "note": "캐릭터 팩 그림 합성 임시판 — 픽셀아트 표지를 받으면 교체 (docs/IMG_v2_prompts.md)"
+   "note": "받은 표지 og(1200×630)를 JPG로 변환 — 임시판 교체"
   },
   {
    "id": "og_v2_02",
@@ -368,10 +368,10 @@
    "robot": "jupanbot-v2",
    "prompt_en": null,
    "source_of": null,
-   "status": "temporary",
-   "bytes": 93798,
+   "status": "ok",
+   "bytes": 129893,
    "received": "2026-11-22",
-   "note": "캐릭터 팩 그림 합성 임시판 — 픽셀아트 표지를 받으면 교체 (docs/IMG_v2_prompts.md)"
+   "note": "받은 표지 og(1200×630)를 JPG로 변환 — 임시판 교체"
   },
   {
    "id": "og_v2_03",
@@ -397,10 +397,10 @@
    "robot": "jupanbot-v2",
    "prompt_en": null,
    "source_of": null,
-   "status": "temporary",
-   "bytes": 84663,
+   "status": "ok",
+   "bytes": 139571,
    "received": "2026-11-22",
-   "note": "캐릭터 팩 그림 합성 임시판 — 픽셀아트 표지를 받으면 교체 (docs/IMG_v2_prompts.md)"
+   "note": "받은 표지 og(1200×630)를 JPG로 변환 — 임시판 교체"
   },
   {
    "id": "cover_v2_index",
@@ -426,9 +426,13 @@
    "robot": "jupanbot-v2",
    "prompt_en": "see docs/IMG_v2_prompts.md",
    "source_of": null,
-   "status": "requested",
-   "bytes": 0,
-   "received": null
+   "status": "ok",
+   "bytes": 68378,
+   "received": "2026-11-22",
+   "source_png": "assets/img/src/cover_v2_index.png",
+   "og_webp": "assets/img/og/cover_v2_index_og.webp",
+   "thumb": "assets/img/thumb/thumb_v2_index.webp",
+   "note": "Genspark 16비트 RPG 픽셀아트 · 페이지 표지에 내장"
   },
   {
    "id": "cover_v2_01",
@@ -454,9 +458,13 @@
    "robot": "jupanbot-v2",
    "prompt_en": "see docs/IMG_v2_prompts.md",
    "source_of": null,
-   "status": "requested",
-   "bytes": 0,
-   "received": null
+   "status": "ok",
+   "bytes": 65580,
+   "received": "2026-11-22",
+   "source_png": "assets/img/src/cover_v2_01.png",
+   "og_webp": "assets/img/og/cover_v2_01_og.webp",
+   "thumb": "assets/img/thumb/thumb_v2_01.webp",
+   "note": "Genspark 16비트 RPG 픽셀아트 · 페이지 표지에 내장"
   },
   {
    "id": "cover_v2_02",
@@ -482,9 +490,13 @@
    "robot": "jupanbot-v2",
    "prompt_en": "see docs/IMG_v2_prompts.md",
    "source_of": null,
-   "status": "requested",
-   "bytes": 0,
-   "received": null
+   "status": "ok",
+   "bytes": 72898,
+   "received": "2026-11-22",
+   "source_png": "assets/img/src/cover_v2_02.png",
+   "og_webp": "assets/img/og/cover_v2_02_og.webp",
+   "thumb": "assets/img/thumb/thumb_v2_02.webp",
+   "note": "Genspark 16비트 RPG 픽셀아트 · 페이지 표지에 내장"
   },
   {
    "id": "cover_v2_03",
@@ -510,9 +522,13 @@
    "robot": "jupanbot-v2",
    "prompt_en": "see docs/IMG_v2_prompts.md",
    "source_of": null,
-   "status": "requested",
-   "bytes": 0,
-   "received": null
+   "status": "ok",
+   "bytes": 76814,
+   "received": "2026-11-22",
+   "source_png": "assets/img/src/cover_v2_03.png",
+   "og_webp": "assets/img/og/cover_v2_03_og.webp",
+   "thumb": "assets/img/thumb/thumb_v2_03.webp",
+   "note": "Genspark 16비트 RPG 픽셀아트 · 페이지 표지에 내장"
   },
   {
    "id": "cover_v2_practice",
@@ -538,9 +554,13 @@
    "robot": "jupanbot-v2",
    "prompt_en": "see docs/IMG_v2_prompts.md",
    "source_of": null,
-   "status": "requested",
-   "bytes": 0,
-   "received": null
+   "status": "ok",
+   "bytes": 61526,
+   "received": "2026-11-22",
+   "source_png": "assets/img/src/cover_v2_practice.png",
+   "og_webp": "assets/img/og/cover_v2_practice_og.webp",
+   "thumb": "assets/img/thumb/thumb_v2_practice.webp",
+   "note": "Genspark 16비트 RPG 픽셀아트 · 페이지 표지에 내장"
   }
  ],
  "updated": "2026-11-22",
