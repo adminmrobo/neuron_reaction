@@ -1,0 +1,40 @@
+{
+ "title": "연구실 반응속도 대회 — 빠른 문, 끝까지 전하는 문, 정확히 배우는 문",
+ "number": "2부",
+ "series": "뉴런 반응 연구실",
+ "about": [
+  "lab:method/relu",
+  "lab:method/gelu",
+  "lab:method/he-init",
+  "lab:method/adam",
+  "lab:concept/seed-variance"
+ ],
+ "basedOn": [
+  "he2015delving",
+  "kingma2015adam"
+ ],
+ "educationalLevel": "입문",
+ "creator": [
+  {
+   "name": "안상선",
+   "role": "author"
+  }
+ ],
+ "contributor": [
+  {
+   "name": "AI 보조 제작",
+   "role": "assistant"
+  }
+ ],
+ "date": "2026-11-22",
+ "version": "2.0",
+ "language": [
+  "ko"
+ ],
+ "license": "",
+ "url": "https://adminmrobo.github.io/neuron_reaction/02_reaction_race.html",
+ "registry": "KG_00_registry 0.2",
+ "learningResourceType": "interactive explainer",
+ "seeAlso": "",
+ "suggestedCitation": "안상선 (2026). 연구실 반응속도 대회 — 빠른 문, 끝까지 전하는 문, 정확히 배우는 문. 뉴런 반응 연구실 2부, v2.0."
+}

@@ -1,6 +1,6 @@
 {
  "series_ko": "뉴런 반응 연구실",
- "title_ko": "뉴런 반응 연구실 — 신경망 칸은 어떻게 반응하고 배울까",
+ "title_ko": "뉴런 반응 연구실 — 뉴런은 어떻게 반응하고 배울까",
  "site_title": "뉴런 반응 연구실",
  "site_url": "https://adminmrobo.github.io/neuron_reaction/",
  "ontology": {
@@ -16,14 +16,25 @@
     "export": true
    },
    {
-    "path": "sp1_reaction_race.html",
+    "path": "02_reaction_race.html",
     "kg": true,
     "export": true
+   },
+   {
+    "path": "03_backprop.html",
+    "kg": true,
+    "export": true
+   },
+   {
+    "path": "practice/index.html",
+    "kg": false,
+    "export": false
    }
   ],
   "files": [
-   "data/kg_01.json",
-   "data/kg_SP1.json"
+   "kg/01_activation/kg.json",
+   "kg/02_reaction_race/kg.json",
+   "kg/03_backprop/kg.json"
   ]
  },
  "i18n": {
@@ -31,7 +42,7 @@
    "ko"
   ],
   "pages": {
-   "ko": 3
+   "ko": 5
   },
   "readme_langs": [
    "ko"
@@ -62,9 +73,10 @@
    "robot": "jupanbot-v2",
    "prompt_en": "see docs/COVER_01_activation.md",
    "source_of": null,
-   "status": "ok",
+   "status": "archived_v1",
    "bytes": 124842,
-   "received": "2026-11-12"
+   "received": "2026-11-12",
+   "note": "v1.1 표지(밤의 연구실). v2.0 페이지에서는 쓰지 않음, old/v1 페이지가 사용"
   },
   {
    "id": "cover_01_960",
@@ -87,9 +99,10 @@
    "robot": "jupanbot-v2",
    "prompt_en": null,
    "source_of": "cover_01",
-   "status": "ok",
+   "status": "archived_v1",
    "bytes": 68480,
-   "received": "2026-11-12"
+   "received": "2026-11-12",
+   "note": "v1.1 표지(밤의 연구실). v2.0 페이지에서는 쓰지 않음, old/v1 페이지가 사용"
   },
   {
    "id": "og_01",
@@ -112,9 +125,10 @@
    "robot": "jupanbot-v2",
    "prompt_en": null,
    "source_of": "cover_01",
-   "status": "ok",
+   "status": "archived_v1",
    "bytes": 137292,
-   "received": "2026-11-12"
+   "received": "2026-11-12",
+   "note": "v1.1 표지(밤의 연구실). v2.0 페이지에서는 쓰지 않음, old/v1 페이지가 사용"
   },
   {
    "id": "og_index",
@@ -137,9 +151,10 @@
    "robot": "jupanbot-v2",
    "prompt_en": null,
    "source_of": "cover_01",
-   "status": "ok",
+   "status": "archived_v1",
    "bytes": 137292,
-   "received": "2026-11-12"
+   "received": "2026-11-12",
+   "note": "v1.1 표지(밤의 연구실). v2.0 페이지에서는 쓰지 않음, old/v1 페이지가 사용"
   },
   {
    "id": "thumb_01",
@@ -162,9 +177,10 @@
    "robot": "jupanbot-v2",
    "prompt_en": null,
    "source_of": "cover_01",
-   "status": "ok",
+   "status": "archived_v1",
    "bytes": 40652,
-   "received": "2026-11-12"
+   "received": "2026-11-12",
+   "note": "v1.1 표지(밤의 연구실). v2.0 페이지에서는 쓰지 않음, old/v1 페이지가 사용"
   },
   {
    "id": "cover_SP1",
@@ -187,9 +203,10 @@
    "robot": "jupanbot-v2",
    "prompt_en": "see docs/COVER_sp1_reaction_race.md",
    "source_of": null,
-   "status": "ok",
+   "status": "archived_v1",
    "bytes": 114298,
-   "received": "2026-11-12"
+   "received": "2026-11-12",
+   "note": "v1.1 표지(밤의 연구실). v2.0 페이지에서는 쓰지 않음, old/v1 페이지가 사용"
   },
   {
    "id": "cover_SP1_960",
@@ -212,9 +229,10 @@
    "robot": "jupanbot-v2",
    "prompt_en": null,
    "source_of": "cover_SP1",
-   "status": "ok",
+   "status": "archived_v1",
    "bytes": 62164,
-   "received": "2026-11-12"
+   "received": "2026-11-12",
+   "note": "v1.1 표지(밤의 연구실). v2.0 페이지에서는 쓰지 않음, old/v1 페이지가 사용"
   },
   {
    "id": "og_SP1",
@@ -237,9 +255,10 @@
    "robot": "jupanbot-v2",
    "prompt_en": null,
    "source_of": "cover_SP1",
-   "status": "ok",
+   "status": "archived_v1",
    "bytes": 127783,
-   "received": "2026-11-12"
+   "received": "2026-11-12",
+   "note": "v1.1 표지(밤의 연구실). v2.0 페이지에서는 쓰지 않음, old/v1 페이지가 사용"
   },
   {
    "id": "thumb_SP1",
@@ -262,10 +281,268 @@
    "robot": "jupanbot-v2",
    "prompt_en": null,
    "source_of": "cover_SP1",
-   "status": "ok",
+   "status": "archived_v1",
    "bytes": 36610,
-   "received": "2026-11-12"
+   "received": "2026-11-12",
+   "note": "v1.1 표지(밤의 연구실). v2.0 페이지에서는 쓰지 않음, old/v1 페이지가 사용"
+  },
+  {
+   "id": "og_v2_index",
+   "role": "og",
+   "path": "assets/img/og_v2_index.jpg",
+   "size": [
+    1200,
+    630
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa",
+    "x1",
+    "x2",
+    "x3"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": null,
+   "source_of": null,
+   "status": "temporary",
+   "bytes": 89921,
+   "received": "2026-11-22",
+   "note": "캐릭터 팩 그림 합성 임시판 — 픽셀아트 표지를 받으면 교체 (docs/IMG_v2_prompts.md)"
+  },
+  {
+   "id": "og_v2_01",
+   "role": "og",
+   "path": "assets/img/og_v2_01.jpg",
+   "size": [
+    1200,
+    630
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa",
+    "x1",
+    "x2",
+    "x3"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": null,
+   "source_of": null,
+   "status": "temporary",
+   "bytes": 86075,
+   "received": "2026-11-22",
+   "note": "캐릭터 팩 그림 합성 임시판 — 픽셀아트 표지를 받으면 교체 (docs/IMG_v2_prompts.md)"
+  },
+  {
+   "id": "og_v2_02",
+   "role": "og",
+   "path": "assets/img/og_v2_02.jpg",
+   "size": [
+    1200,
+    630
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa",
+    "x1",
+    "x2",
+    "x3"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": null,
+   "source_of": null,
+   "status": "temporary",
+   "bytes": 93798,
+   "received": "2026-11-22",
+   "note": "캐릭터 팩 그림 합성 임시판 — 픽셀아트 표지를 받으면 교체 (docs/IMG_v2_prompts.md)"
+  },
+  {
+   "id": "og_v2_03",
+   "role": "og",
+   "path": "assets/img/og_v2_03.jpg",
+   "size": [
+    1200,
+    630
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa",
+    "x1",
+    "x2",
+    "x3"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": null,
+   "source_of": null,
+   "status": "temporary",
+   "bytes": 84663,
+   "received": "2026-11-22",
+   "note": "캐릭터 팩 그림 합성 임시판 — 픽셀아트 표지를 받으면 교체 (docs/IMG_v2_prompts.md)"
+  },
+  {
+   "id": "cover_v2_index",
+   "role": "cover",
+   "path": "assets/img/cover_v2_index.webp",
+   "size": [
+    1600,
+    900
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa",
+    "x1",
+    "x2",
+    "x3"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": "see docs/IMG_v2_prompts.md",
+   "source_of": null,
+   "status": "requested",
+   "bytes": 0,
+   "received": null
+  },
+  {
+   "id": "cover_v2_01",
+   "role": "cover",
+   "path": "assets/img/cover_v2_01.webp",
+   "size": [
+    1600,
+    900
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa",
+    "x1",
+    "x2",
+    "x3"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": "see docs/IMG_v2_prompts.md",
+   "source_of": null,
+   "status": "requested",
+   "bytes": 0,
+   "received": null
+  },
+  {
+   "id": "cover_v2_02",
+   "role": "cover",
+   "path": "assets/img/cover_v2_02.webp",
+   "size": [
+    1600,
+    900
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa",
+    "x1",
+    "x2",
+    "x3"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": "see docs/IMG_v2_prompts.md",
+   "source_of": null,
+   "status": "requested",
+   "bytes": 0,
+   "received": null
+  },
+  {
+   "id": "cover_v2_03",
+   "role": "cover",
+   "path": "assets/img/cover_v2_03.webp",
+   "size": [
+    1600,
+    900
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa",
+    "x1",
+    "x2",
+    "x3"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": "see docs/IMG_v2_prompts.md",
+   "source_of": null,
+   "status": "requested",
+   "bytes": 0,
+   "received": null
+  },
+  {
+   "id": "cover_v2_practice",
+   "role": "cover",
+   "path": "assets/img/cover_v2_practice.webp",
+   "size": [
+    1600,
+    900
+   ],
+   "characters": [
+    "doc",
+    "asst",
+    "fly",
+    "jupanbot"
+   ],
+   "characters_extra": [
+    "sia",
+    "moa",
+    "x1",
+    "x2",
+    "x3"
+   ],
+   "robot": "jupanbot-v2",
+   "prompt_en": "see docs/IMG_v2_prompts.md",
+   "source_of": null,
+   "status": "requested",
+   "bytes": 0,
+   "received": null
   }
  ],
- "updated": "2026-11-12"
+ "updated": "2026-11-22",
+ "version": "2.0"
 }

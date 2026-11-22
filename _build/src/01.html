@@ -1,0 +1,552 @@
+<!--META {"title":"뉴런 반응 연구실 1부 · 활성화 함수","ctitle":"활성화 함수 — 뉴런의 반응을 정하는 문","file":"01_activation.html","og":"og_v2_01.jpg","cite":"1부 활성화 함수 — 뉴런의 반응을 정하는 문","desc":"뉴런 하나가 곱하고 더한 숫자를 '문'에 통과시키는 이유를, 주판봇 USER팀과 블랙팀의 라운드 대결과 여섯 개의 실험 도구로 직접 확인하는 비전공자용 활성화 함수 해설.","nav":"<a href=\"#three\">3줄 요약</a><a href=\"#cast\">팀 소개</a><a href=\"#big\">큰 그림</a><a href=\"#lv1\">단계 1</a><a href=\"#lv2\">단계 2</a><a href=\"#lv3\">단계 3</a><a href=\"#lv4\">단계 4</a><a href=\"#lv5\">단계 5</a><a href=\"#duel\">대결</a><a href=\"#sum\">정리</a><a href=\"#kg\">지식 색인</a>"} -->
+<cover/>
+<header class="hero" id="hero"><div class="wrap">
+<div class="kicker">뉴런 반응 연구실 · 1부 (비전공자판 v2.0)</div>
+<h1>활성화 함수 — 뉴런의 반응을 정하는 문</h1>
+<p class="q">곱하고 더한 숫자를 그대로 다음으로 넘기면 안 될까?</p>
+<p class="byline">글 · 안상선 ((주)M-Robo 대표) · 2026-11-22 · 읽는 시간 약 30분 · 실험 도구 6개</p>
+<div class="sernav"><a class="now" href="01_activation.html">1부 활성화 함수</a><a href="02_reaction_race.html">2부 반응속도 대회</a><a href="03_backprop.html">3부 역전파</a><a href="practice/index.html">실전 연습장</a></div>
+<say who="doc" e="e08">오늘은 두 팀이 겨룹니다. 주판봇 USER팀은 빨리 결론을 내고, 블랙팀은 눌러 보고 의심합니다. 저는 심판이에요. 라운드마다 실험으로 확인하고 판정하겠습니다.</say>
+<say who="robo" e="e16">숫자를 곱하고 더하면 끝이죠! 문 같은 건 장식이에요. 우리 USER팀이 이깁니다!</say>
+<say who="fly" e="e09">장식이라고? 그 문을 떼고 한 번 돌려 보자. 블랙팀은 결과를 보고 말할게.</say>
+</div></header>
+
+<main class="wrap">
+<section class="level" id="three">
+<h2>처음 오신 분께 — 이 페이지를 3줄로</h2>
+<div class="three">
+<div><b>무엇을</b><p>인공지능(신경망)의 뉴런 하나는 받은 숫자를 곱하고 더합니다. 그 합계를 '문'에 통과시켜 반응 크기를 정합니다. 이 문이 <b>활성화 함수</b>입니다.</p></div>
+<div><b>왜 중요한가</b><p>문이 없으면 층을 아무리 쌓아도 직선 하나밖에 못 그립니다. 문의 모양에 따라 학습이 빨라지기도 하고 멈추기도 합니다.</p></div>
+<div><b>업무에서는</b><p>수요 예측, 불량 판정, 메일 분류 모델에서 "어떤 문을 달았나"가 정확도와 학습 시간을 바꿉니다. 모델 설정표에서 이 이름을 자주 보게 됩니다.</p></div>
+</div>
+<p class="calm">코드·수식을 몰라도 됩니다. 슬라이더를 움직이고 버튼을 누르면서 따라오시면 됩니다.</p>
+<details class="abbr"><summary>이 페이지에 나오는 영어 이름 풀이 (눌러서 펼치기)</summary>
+<div class="tb"><table>
+<tr><th>이름</th><th>읽는 법</th><th>뜻</th></tr>
+<tr><td>Sigmoid</td><td>시그모이드</td><td>S자 모양 곡선. 결과를 0과 1 사이로 눌러 담습니다.</td></tr>
+<tr><td>tanh</td><td>탄에이치</td><td>S자 곡선인데 −1과 1 사이로 담습니다.</td></tr>
+<tr><td>ReLU</td><td>렐루</td><td>Rectified Linear Unit. 음수는 0, 양수는 그대로 넘깁니다.</td></tr>
+<tr><td>Leaky ReLU</td><td>리키 렐루</td><td>음수 쪽에서 아주 조금(0.01배) 새어 나가게 한 ReLU입니다.</td></tr>
+<tr><td>GELU · SiLU</td><td>젤루 · 실루</td><td>ReLU의 꺾인 곳을 부드럽게 다듬은 문. 요즘 언어모델에서 많이 씁니다.</td></tr>
+<tr><td>Softmax</td><td>소프트맥스</td><td>여러 점수를 합이 1인 비율(확률)로 바꿉니다.</td></tr>
+</table></div></details>
+</section>
+
+<section class="level" id="cast">
+<h2>팀 소개와 이 페이지 사용법</h2>
+<teams/>
+<div class="steps" style="margin-top:16px">
+<div><b>① 읽기</b><br>단계마다 "왜 이 방법을 쓰나" 상자와, 조수가 대신 묻는 수식 상자가 있습니다.</div>
+<div><b>② 움직이기</b><br>실험 도구에서 슬라이더를 움직이고 결과 숫자를 봅니다. 모든 계산은 이 페이지 안에서 합니다.</div>
+<div><b>③ 판정 맞히기</b><br>라운드마다 어느 팀이 맞을지 먼저 고르고, 박사의 판정을 확인합니다.</div>
+</div>
+</section>
+
+<section class="level" id="why">
+<h2>왜 활성화 함수인가</h2>
+<say who="doc" e="e07">상황 하나로 시작할게요. 쇼핑몰이 광고비를 두 배로 늘렸어요. 주문도 두 배가 될까요? 보통은 아니죠. 처음엔 많이 늘다가 점점 덜 늡니다. 이렇게 <b>굽은 관계</b>를 배우려면 뉴런에 굽힐 수 있는 장치가 있어야 해요. 그 장치가 오늘의 주인공입니다.</say>
+<div class="recap"><b>30초 복습 — 신경망이 배운다는 것.</b> 신경망은 숫자를 곱하고 더하는 계산을 여러 층 쌓은 것입니다. 곱하는 숫자(가중치)를 조금씩 고쳐 가며 정답에 가까워지는 것이 '학습'입니다. 고칠 방향은 기울기로 정합니다(경사하강법). 처음이시면 <a href="https://adminmrobo.github.io/what_is_tensor/">텐서 연구실</a>을 먼저 보셔도 좋아요.</div>
+</section>
+
+<section class="level" id="big">
+<h2>큰 그림 — 뉴런 하나 안에서 일어나는 일</h2>
+<div class="map"><span class="now">1부 문의 모양</span><i>→</i><span>2부 문끼리 겨루기</span><i>→</i><span>3부 학습 신호가 거꾸로 가는 길(역전파)</span><i>→</i><span>실전 연습장</span></div>
+<div class="tool"><h3><span class="badge">개요</span>뉴런 하나의 흐름</h3>
+<p class="how">입력 숫자 → 중요도를 곱해 더한 합계 z → 문(활성화 함수) → 반응 a. 이 페이지는 가운데 '문'을 다섯 단계로 살펴봅니다.</p>
+<div class="cwrap"><canvas id="cvBig" aria-label="입력 두 개가 곱해지고 더해져 문을 지나 반응이 되는 흐름 그림"></canvas></div>
+</div>
+<p class="sub">다섯 단계: ① 뉴런 하나 계산해 보기 → ② 문이 없으면 왜 직선뿐인가 → ③ S자 문과 '둔해지는 양 끝' → ④ ReLU 문과 '멈춘 뉴런' → ⑤ 마지막 문 고르기. 그다음 두 팀이 깊은 망에서 대결합니다.</p>
+</section>
+
+<!-- 단계 1 -->
+<section class="level" id="lv1">
+<div class="lvhead"><div class="lvno">1<small>단계</small></div><h2>뉴런 하나 — 곱하고, 더하고, 문을 지난다</h2></div>
+<span class="lvtag g">일상: 우산을 챙길까?</span><span class="lvtag">방법: 가중합 + 활성화</span>
+<say who="doc" e="e07">아침에 우산을 챙길지 정한다고 해 봐요. 강수확률도 보고 하늘의 구름도 봅니다. 둘 중 무엇을 더 믿을지 정하고, 마지막에 "챙긴다/안 챙긴다"를 정하죠. 뉴런 하나가 하는 일이 바로 이것입니다.</say>
+<div class="wm">
+<div class="whybox"><h4>왜 이 방법을 쓰나</h4>
+<ol><li><b>문제 상황</b> — 판단에 쓸 신호가 여러 개이고, 신호마다 믿을 만한 정도가 다릅니다.</li>
+<li><b>앞 방법의 한계</b> — "강수확률 50% 넘으면 우산" 같은 규칙 하나로는 구름 같은 다른 신호를 섞기 어렵습니다.</li>
+<li><b>해법</b> — 신호마다 중요도(가중치)를 곱해 더한 합계를 만들고, 문(활성화 함수)이 반응 크기를 정합니다. 중요도는 데이터로 배웁니다.</li></ol>
+<p class="easy"><b>쉽게 말하면</b> 과목마다 비중을 다르게 해서 총점을 내고, 총점으로 합격 정도를 정하는 것과 같아요.</p></div>
+<div class="mathbox"><h4>수학 수식을 어려워하는 조수가 대신 물어봅니다</h4>
+<say who="asst" e="e04">z = w₁x₁ + w₂x₂ + b … 글자가 너무 많아요. 이게 다 뭐예요?</say>
+<p class="school"><b>학교 수학으로 보면</b> 일차함수 y = ax + b 와 같아요. 입력이 두 개로 늘었을 뿐입니다.</p>
+<div class="tb"><table class="ftab">
+<tr><td>x₁, x₂</td><td>입력(엑스 원, 엑스 투). 강수확률, 구름 양</td></tr>
+<tr><td>w₁, w₂</td><td>가중치(더블유). 각 입력을 얼마나 믿을지</td></tr>
+<tr><td>b</td><td>편향(비). 입력과 상관없는 기본 성향</td></tr>
+<tr><td>z</td><td>합계 점수(제트)</td></tr>
+<tr><td>a = f(z)</td><td>문 f를 지난 반응(에이)</td></tr>
+</table></div>
+<p class="try"><b>숫자로 한 번 해 보기</b><br>x₁ = 0.7, x₂ = 0.5, w₁ = 2, w₂ = 1, b = −1.5<br>z = 2×0.7 + 1×0.5 − 1.5 = 1.4 + 0.5 − 1.5 = <b>0.4</b><br>시그모이드 문이면 a ≈ <b>0.60</b>, ReLU 문이면 a = <b>0.4</b></p>
+<say who="asst" e="e10">아하, 점수를 매기고(곱하고 더하기) 문에서 반응을 정하는 두 단계군요!</say>
+</div></div>
+<div class="pair"><div class="life"><h4>일상으로 치면</h4><p>총점은 같아도 "합격·불합격만 알려 주는 학교"와 "점수를 그대로 알려 주는 학교"는 결과 모양이 다릅니다. 문이 그 차이를 만듭니다.</p></div>
+<div class="work"><h4>현장에서는</h4><p>카드사 이상거래 탐지 모델의 뉴런 하나는 결제 금액, 시간대, 지역 같은 신호에 중요도를 곱해 더하고 문을 통과시킵니다. 이런 뉴런 수천 개가 모여 판정합니다.</p></div></div>
+<div class="talk">
+<say who="doc" e="e09">같은 합계 z라도 문을 바꾸면 반응이 달라질까요?</say>
+<say who="robo" e="e16">z가 같으면 반응도 같아요. 문은 장식이에요!</say>
+<say who="x2" e="e09">숫자부터 확인하자. 아래 계산기에서 문만 바꿔 봐.</say>
+<say who="asst" e="e07">계산기 준비됐어요. 슬라이더로 입력과 중요도를, 버튼으로 문을 바꿀 수 있어요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 1</span>뉴런 하나 계산기 — 우산 판단 뉴런</h3>
+<p class="how">입력·중요도·기본 성향을 움직여 합계 z를 만들고, 문을 바꿔 반응 a가 어떻게 달라지는지 보세요. 오른쪽 그래프의 점이 지금 위치입니다.</p>
+<div class="ctrl">
+<label class="group"><span class="glabel">강수확률 x₁</span><input type="range" id="n1x1" min="0" max="1" step="0.05" value="0.7"><span class="val" id="n1x1V">0.7</span></label>
+<label class="group"><span class="glabel">구름 양 x₂</span><input type="range" id="n1x2" min="0" max="1" step="0.05" value="0.5"><span class="val" id="n1x2V">0.5</span></label>
+<label class="group"><span class="glabel">중요도 w₁</span><input type="range" id="n1w1" min="-3" max="3" step="0.1" value="2"><span class="val" id="n1w1V">2</span></label>
+<label class="group"><span class="glabel">중요도 w₂</span><input type="range" id="n1w2" min="-3" max="3" step="0.1" value="1"><span class="val" id="n1w2V">1</span></label>
+<label class="group"><span class="glabel">기본 성향 b</span><input type="range" id="n1b" min="-4" max="4" step="0.1" value="-1.5"><span class="val" id="n1bV">-1.5</span></label>
+</div>
+<div class="ctrl"><div class="group" id="n1f"><span class="glabel">문</span><button class="bt" data-v="none" aria-pressed="false">없음</button><button class="bt" data-v="sigmoid" aria-pressed="true">시그모이드</button><button class="bt" data-v="tanh" aria-pressed="false">tanh</button><button class="bt" data-v="relu" aria-pressed="false">ReLU</button></div></div>
+<div class="eq" id="n1eq"></div>
+<div class="readout"><div>합계 z<b id="n1z">0.40</b></div><div>반응 a<b id="n1a">0.60</b></div><div>판단<b id="n1d">-</b></div></div>
+<div class="cwrap"><canvas id="cv1" aria-label="문 그래프와 지금 위치"></canvas></div>
+<div class="legend"><span><i style="background:#2563eb"></i>문의 모양 a = f(z)</span><span><i style="background:#b45309"></i>지금 z와 반응</span></div>
+<p class="lim">이 단계의 한계: 뉴런 하나는 "중요도를 곱해 더한 뒤 한 번 꺾는" 일만 합니다. 복잡한 관계는 뉴런을 여러 개, 여러 층으로 이어야 배웁니다.</p>
+</div>
+<round no="1" title="같은 합계 z라도 문을 바꾸면 반응이 달라질까?" win="b">
+<cu who="robo" e="e16">z가 같으면 반응도 같아요. 문은 그냥 장식!</cu>
+<cb who="x2" e="e09">z = 0.4일 때 시그모이드는 0.60, ReLU는 0.4야. 다르잖아.</cb>
+<verdict e="e10">계산기에서 z = 0.4일 때 시그모이드는 0.60, ReLU는 0.40, tanh는 0.38이 나옵니다. 같은 점수도 문에 따라 반응이 달라요. 문은 장식이 아니라 "반응의 모양"을 정하는 부품입니다.</verdict>
+</round>
+<div class="quiz"><quiz q="뉴런이 하는 일의 순서로 맞는 것은?" ans="b" ok="입력에 중요도를 곱해 더한 합계 z를 만들고, 문을 지나 반응 a가 됩니다." no="먼저 곱하고 더해 합계를 만든 다음 문을 지납니다."><o v="a">문 → 곱하기 → 더하기</o><o v="b">곱하기·더하기 → 문</o><o v="c">더하기 → 문 → 곱하기</o></quiz></div>
+<details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>a = torch.sigmoid(w @ x + b)</code> — 중요도와 입력을 곱해 더하고(<code>w @ x + b</code>), 시그모이드 문을 지나게 한다는 뜻입니다.</p></details>
+</section>
+
+<!-- 단계 2 -->
+<section class="level" id="lv2">
+<div class="lvhead"><div class="lvno">2<small>단계</small></div><h2>문이 없으면 — 층을 쌓아도 직선 하나</h2></div>
+<span class="lvtag g">일상: 곧은 자 이어 붙이기</span><span class="lvtag">방법: 층 사이에 문 넣기</span>
+<say who="doc" e="e07">광고비와 주문 수 이야기로 돌아갈게요. 광고비를 늘리면 주문이 늘다가 점점 덜 늡니다. 이 굽은 모양을 따라 그리려면 무엇이 필요할까요? 이번 단계는 1단계에서 본 뉴런을 여러 개 묶어 봅니다.</say>
+<div class="wm">
+<div class="whybox"><h4>왜 이 방법을 쓰나</h4>
+<ol><li><b>문제 상황</b> — 현실의 관계는 대부분 굽어 있습니다. 광고 효과, 가격과 판매량, 온도와 전력 사용이 그렇습니다.</li>
+<li><b>앞 방법의 한계</b> — 곱하고 더하기만 하는 층은 몇 층을 쌓아도 직선 하나로 합쳐집니다.</li>
+<li><b>해법</b> — 층과 층 사이에 문을 끼웁니다. 문마다 한 번씩 꺾이니, 뉴런이 많을수록 곡선을 잘게 따라갑니다.</li></ol>
+<p class="easy"><b>쉽게 말하면</b> 곧은 자를 아무리 길게 이어도 곧은 자예요. 관절(문)이 있어야 굽힐 수 있습니다.</p></div>
+<div class="mathbox"><h4>수학 수식을 어려워하는 조수가 대신 물어봅니다</h4>
+<say who="asst" e="e09">층을 두 개 겹쳤는데 왜 다시 한 층이랑 같아요?</say>
+<p class="school"><b>학교 수학으로 보면</b> 일차함수의 합성입니다. 일차함수 안에 일차함수를 넣어도 일차함수가 나와요.</p>
+<div class="tb"><table class="ftab">
+<tr><td>f(x) = 2x + 1</td><td>첫째 층</td></tr>
+<tr><td>g(u) = 3u − 2</td><td>둘째 층 (u 자리에 첫째 층 결과가 들어감)</td></tr>
+<tr><td>g(f(x)) = 6x + 1</td><td>합쳐 보면 다시 일차함수, 곧 직선</td></tr>
+</table></div>
+<p class="try"><b>숫자로 한 번 해 보기</b><br>x = 1이면 f(1) = 3, g(3) = 3×3 − 2 = 7<br>한 번에 계산하면 6×1 + 1 = <b>7</b>. 같습니다.</p>
+<say who="asst" e="e10">층을 겹쳐도 기울기와 시작점만 바뀐 직선이군요. 그래서 중간에 꺾는 문이 필요하구나!</say>
+</div></div>
+<div class="pair"><div class="life"><h4>일상으로 치면</h4><p>택시 요금처럼 "기본요금 구간 뒤에 거리만큼" 꺾이는 요금표는 꺾이는 지점이 있어야 표현됩니다.</p></div>
+<div class="work"><h4>현장에서는</h4><p>마케팅팀이 광고비별 주문 수를 예측할 때, 직선 모델은 "광고비를 열 배 쓰면 주문도 열 배"라고 과장합니다. 굽은 관계를 배운 모델은 효과가 줄어드는 지점을 보여 줍니다.</p></div></div>
+<div class="talk">
+<say who="doc" e="e09">문 없이 숨은 뉴런을 아주 많이 쓰면 곡선이 될까요?</say>
+<say who="moa" e="e16">뉴런이 많으면 뭐든 그릴 수 있죠! 열두 개면 충분해요.</say>
+<say who="fly" e="e09">문을 '없음'으로 두고 뉴런 수를 끝까지 올려 봐.</say>
+<say who="asst" e="e07">아래 도구는 숨은 뉴런 결과를 가장 잘 맞게 섞어 곡선을 그립니다. 평균 오차도 함께 보여요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 2</span>곡선 따라 그리기 — 광고비와 주문 수</h3>
+<p class="how">회색 점은 설명용 데이터(24개 지점, 시드 고정)입니다. 문과 숨은 뉴런 수를 바꿔 파란 선이 점을 얼마나 잘 따라가는지 보세요.</p>
+<div class="ctrl"><div class="group" id="fitF"><span class="glabel">문</span><button class="bt" data-v="none" aria-pressed="true">없음</button><button class="bt" data-v="relu" aria-pressed="false">ReLU</button><button class="bt" data-v="tanh" aria-pressed="false">tanh</button><button class="bt" data-v="sigmoid" aria-pressed="false">시그모이드</button></div>
+<label class="group"><span class="glabel">숨은 뉴런 수</span><input type="range" id="fitN" min="1" max="12" step="1" value="3"><span class="val" id="fitNV">3</span></label></div>
+<div class="readout"><div>평균 오차<b id="fitE">-</b></div><div>꺾이는 곳<b id="fitK">-</b></div></div>
+<div class="cwrap"><canvas id="cv2" aria-label="광고비와 주문 수 데이터와 맞춘 선"></canvas></div>
+<div class="legend"><span><i style="background:#9aa3b5"></i>데이터</span><span><i style="background:#2563eb"></i>모델이 그린 선</span></div>
+<p class="msg" id="fitMsg"></p>
+<p class="lim">여기서는 단순하게 봤어요: 숨은 뉴런이 꺾이는 위치는 광고비 구간에 고르게 고정해 두고, 마지막에 섞는 비율만 계산해 가장 잘 맞게 했습니다(실제 학습은 꺾이는 위치까지 함께 배웁니다). 이 단계의 한계: 뉴런을 너무 많이 쓰면 점 하나하나의 흔들림까지 따라가는 '과적합'이 생깁니다. 그래서 실제로는 학습에 쓰지 않은 데이터로 따로 확인합니다.</p>
+</div>
+<round no="2" title="문 없이 숨은 뉴런만 늘리면 곡선을 그릴 수 있을까?" win="b">
+<cu who="moa" e="e16">뉴런을 열두 개로 늘리면 곡선이 돼요!</cu>
+<cb who="fly" e="e09">문이 없으면 몇 개를 쌓아도 직선이야.</cb>
+<verdict e="e10">'없음'에서는 뉴런을 열두 개로 늘려도 선이 곧고 평균 오차가 줄지 않습니다. ReLU로 바꾸면 뉴런 수만큼 꺾여 곡선을 따라가죠. 곡선을 만드는 건 뉴런 수가 아니라 문입니다.</verdict>
+</round>
+<div class="quiz"><quiz q="문(활성화 함수) 없이 곱하기·더하기 층을 10층 쌓으면?" ans="a" ok="일차함수를 몇 번 합성해도 일차함수라서 직선 하나와 같습니다." no="층 수와 상관없이 하나의 직선으로 합쳐집니다."><o v="a">직선 하나와 같다</o><o v="b">10번 꺾인 선이 된다</o><o v="c">곡선이 된다</o></quiz></div>
+<details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>nn.Sequential(nn.Linear(1,8), nn.ReLU(), nn.Linear(8,1))</code> — 층 사이에 <code>nn.ReLU()</code> 문을 끼운 모습입니다. 이 줄을 빼면 직선 모델이 됩니다.</p></details>
+</section>
+
+<!-- 단계 3 -->
+<section class="level" id="lv3">
+<div class="lvhead"><div class="lvno">3<small>단계</small></div><h2>S자 문(시그모이드·tanh) — 부드럽지만 양 끝에서 둔해진다</h2></div>
+<span class="lvtag g">일상: 스피커 볼륨</span><span class="lvtag">설정: 시그모이드, tanh</span>
+<say who="doc" e="e07">2단계에서 문이 곡선을 만든다는 걸 봤어요. 그럼 어떤 모양의 문이 좋을까요? 가장 먼저 쓰인 것은 부드러운 S자 문입니다. 반응을 일정한 범위에 담아 주거든요.</say>
+<div class="wm">
+<div class="whybox"><h4>왜 이 방법을 쓰나</h4>
+<ol><li><b>문제 상황</b> — 반응이 끝없이 커지면 다루기 어렵습니다. "0~1 사이 확률처럼" 정리하고 싶습니다.</li>
+<li><b>해법</b> — S자 문은 어떤 z든 시그모이드는 0~1, tanh는 −1~1 사이로 눌러 담습니다. 모양이 매끄러워 기울기도 어디서나 계산됩니다.</li>
+<li><b>새 한계</b> — z가 아주 크거나 작으면 곡선이 평평해집니다(포화). 평평한 곳은 기울기가 0에 가까워 배울 신호가 거의 사라집니다.</li></ol>
+<p class="easy"><b>쉽게 말하면</b> 스피커 볼륨이 최대일 때는 손잡이를 더 돌려도 소리가 커지지 않아요. 손잡이를 돌린 효과(기울기)가 0이 됩니다.</p></div>
+<div class="mathbox"><h4>수학 수식을 어려워하는 조수가 대신 물어봅니다</h4>
+<say who="asst" e="e04">σ(z) = 1 / (1 + e<sup>−z</sup>)… σ는 뭐고 e는 뭐예요?</say>
+<p class="school"><b>학교 수학으로 보면</b> 지수함수예요. σ는 '시그마'라고 읽고 시그모이드를 뜻합니다. e는 약 2.718인 고정된 수입니다.</p>
+<div class="tb"><table class="ftab">
+<tr><td>e<sup>−z</sup></td><td>z가 크면 0에 가깝고, z가 작으면(음수) 아주 커짐</td></tr>
+<tr><td>σ(z)</td><td>그래서 결과는 언제나 0과 1 사이</td></tr>
+<tr><td>σ(z)(1 − σ(z))</td><td>시그모이드의 기울기. z = 0에서 가장 큰 0.25</td></tr>
+<tr><td>tanh</td><td>−1~1 사이 S자, 기울기는 z = 0에서 최대 1</td></tr>
+</table></div>
+<p class="try"><b>숫자로 한 번 해 보기</b><br>z = 0 → σ = 0.5, 기울기 0.5×0.5 = <b>0.25</b><br>z = 4 → σ ≈ 0.982, 기울기 0.982×0.018 ≈ <b>0.018</b><br>z가 0에서 4로 가니 기울기가 약 14분의 1로 줄었어요.</p>
+<say who="asst" e="e10">양 끝으로 갈수록 곡선이 눕고, 누우면 기울기가 작아지는 거군요.</say>
+</div></div>
+<div class="pair"><div class="life"><h4>일상으로 치면</h4><p>시험이 너무 쉬우면 모두 만점이라 실력 차이가 안 보이죠. 끝에 몰린 점수는 차이를 구별하지 못합니다.</p></div>
+<div class="work"><h4>현장에서는</h4><p>예전 신경망은 숨은 층에 S자 문을 많이 썼습니다. 층이 깊어지자 학습이 멈추는 문제가 자주 생겼고, 이것이 다음 단계의 ReLU가 널리 쓰인 이유입니다. 지금도 확률을 내는 마지막 문에는 시그모이드를 씁니다.</p></div></div>
+<div class="talk">
+<say who="doc" e="e09">시그모이드와 tanh, 어느 쪽이 학습 신호를 더 크게 넘길까요?</say>
+<say who="sia" e="e07">기울기 최대값을 비교하면 되겠네요. tanh는 1, 시그모이드는 0.25예요.</say>
+<say who="x3" e="e09">둘 다 S자인데 같은 거 아니야? 다이얼을 0에 두고 문만 바꿔 봐.</say>
+<say who="asst" e="e07">도구 3에서 z를 움직이면 반응과 기울기가 같이 나와요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 3</span>볼륨 다이얼 — 포화 관찰기</h3>
+<p class="how">z 다이얼을 양 끝으로 밀어 보세요. 파란 선(반응)이 평평해지면서 주황 선(기울기)이 0에 붙는 곳이 '포화'입니다.</p>
+<div class="ctrl"><label class="group"><span class="glabel">합계 z (다이얼)</span><input type="range" id="satZ" min="-8" max="8" step="0.1" value="0"><span class="val" id="satZV">0</span></label>
+<div class="group" id="satF"><span class="glabel">문</span><button class="bt" data-v="sigmoid" aria-pressed="true">시그모이드</button><button class="bt" data-v="tanh" aria-pressed="false">tanh</button></div></div>
+<div class="readout"><div>반응 a<b id="satA">-</b></div><div>기울기<b id="satD">-</b></div><div>최대 기울기 대비<b id="satP">-</b></div><div>이 기울기로 5층을 지나면<b id="sat5">-</b></div></div>
+<div class="cwrap"><canvas id="cv3" aria-label="S자 문의 반응과 기울기 그래프"></canvas></div>
+<div class="legend"><span><i style="background:#2563eb"></i>반응 f(z)</span><span><i style="background:#ea580c"></i>기울기 f′(z)</span></div>
+<p class="msg" id="satMsg"></p>
+<p class="lim">이 단계의 한계: S자 문은 기울기가 아무리 커도 1(tanh) 또는 0.25(시그모이드)를 넘지 못합니다. 층마다 이 값이 곱해지면 깊은 망에서 신호가 빠르게 작아집니다(3부에서 자세히).</p>
+</div>
+<round no="3" title="S자 문 중 학습 신호를 더 크게 넘기는 쪽은?" win="u">
+<cu who="sia" e="e07">tanh예요. 기울기 최대값이 1로, 시그모이드의 0.25보다 4배 커요.</cu>
+<cb who="x3" e="e09">둘 다 S자니까 똑같을 거야.</cb>
+<verdict e="e10">z = 0에서 시그모이드의 기울기는 0.25, tanh는 1입니다. 모양은 닮았지만 tanh가 가운데에서 신호를 4배 크게 넘깁니다. 다만 양 끝에서 둔해지는 약점은 둘 다 같아요.</verdict>
+</round>
+<div class="quiz"><quiz q="시그모이드 문에서 기울기가 0에 가까워지는 곳은?" ans="c" ok="양 끝(포화)에서는 곡선이 평평해져 기울기가 거의 0입니다." no="가운데(z=0)는 기울기가 가장 큰 곳이에요. 양 끝을 보세요."><o v="a">z = 0 근처</o><o v="b">z = 0.5 근처</o><o v="c">z가 아주 크거나 아주 작을 때</o></quiz></div>
+<details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>nn.Sigmoid()</code>, <code>nn.Tanh()</code> — 문 이름만 바꿔 끼우면 됩니다.</p></details>
+</section>
+
+<!-- 단계 4 -->
+<section class="level" id="lv4">
+<div class="lvhead"><div class="lvno">4<small>단계</small></div><h2>ReLU 문 — 양수는 그대로, 음수는 0</h2></div>
+<span class="lvtag g">일상: 수도꼭지</span><span class="lvtag">설정: ReLU, Leaky ReLU</span>
+<say who="doc" e="e07">3단계의 S자 문은 양 끝에서 둔해졌어요. 그래서 나온 아이디어가 아주 단순합니다. "양수면 그대로, 음수면 0." 이 문이 ReLU입니다. 지금도 가장 흔한 기본값이에요.</say>
+<div class="wm">
+<div class="whybox"><h4>왜 이 방법을 쓰나</h4>
+<ol><li><b>문제 상황</b> — S자 문을 깊게 쌓으면 학습 신호가 층마다 줄어 앞쪽 층이 배우지 못합니다.</li>
+<li><b>해법</b> — ReLU는 양수 쪽 기울기가 늘 1입니다. 신호가 줄지 않고, 계산도 "0보다 큰가?" 한 번이면 끝나 빠릅니다(Nair·Hinton 2010, Glorot 외 2011).</li>
+<li><b>새 한계</b> — 음수 쪽 기울기는 0입니다. 합계가 늘 음수인 뉴런은 학습 신호를 받지 못해 멈춥니다(죽은 뉴런). 그래서 음수 쪽에 0.01배만 흘리는 Leaky ReLU가 나왔습니다.</li></ol>
+<p class="easy"><b>쉽게 말하면</b> 수도꼭지를 열면 물이 그대로, 잠그면 0이에요. 완전히 잠긴 꼭지는 물이 어느 쪽으로 가야 하는지도 알려 주지 못합니다. Leaky는 살짝 새는 꼭지입니다.</p></div>
+<div class="mathbox"><h4>수학 수식을 어려워하는 조수가 대신 물어봅니다</h4>
+<say who="asst" e="e09">max(0, z)는 어떻게 읽어요?</say>
+<p class="school"><b>학교 수학으로 보면</b> 구간마다 식이 다른 함수예요. 절댓값 그래프처럼 한 점에서 꺾이는 직선 두 개입니다.</p>
+<div class="tb"><table class="ftab">
+<tr><td>max(0, z)</td><td>"0과 z 중 큰 것"이라고 읽음</td></tr>
+<tr><td>z &gt; 0</td><td>반응 = z, 기울기 = 1</td></tr>
+<tr><td>z ≤ 0</td><td>반응 = 0, 기울기 = 0</td></tr>
+<tr><td>Leaky</td><td>z ≤ 0일 때 반응 = 0.01z, 기울기 = 0.01</td></tr>
+</table></div>
+<p class="try"><b>숫자로 한 번 해 보기</b><br>z = 3 → ReLU <b>3</b>, 기울기 1<br>z = −2 → ReLU <b>0</b>, 기울기 0<br>z = −2 → Leaky <b>−0.02</b>, 기울기 0.01</p>
+<say who="asst" e="e10">계산이 정말 간단하네요. 그런데 음수 쪽에서 기울기 0이면 고칠 방향을 모르는 거죠?</say>
+</div></div>
+<div class="pair"><div class="life"><h4>일상으로 치면</h4><p>"적자면 성과급 0원, 흑자면 흑자만큼" 같은 규칙입니다. 적자일 때는 조금 더 노력해도 성과급이 그대로 0이라 노력의 방향이 안 보여요.</p></div>
+<div class="work"><h4>현장에서는</h4><p>공장 사진으로 불량을 찾는 이미지 모델은 숨은 층에 ReLU를 기본으로 씁니다. 학습 기록에서 "반응이 늘 0인 뉴런 비율"이 높으면 학습률이나 출발 가중치를 다시 봅니다.</p></div></div>
+<div class="talk">
+<say who="doc" e="e09">ReLU는 깊게 쌓아도 신호가 줄지 않을까요?</say>
+<say who="robo" e="e16">양수 쪽 기울기는 늘 1! 신호가 하나도 안 줄어요. 이번엔 우리가 맞습니다!</say>
+<say who="x1" e="e09">양수 쪽은 그렇다 치자. 출발점이 음수면? 아래 도구에서 출발점을 −3에 두고 학습시켜 봐.</say>
+<say who="asst" e="e07">도구 4에서 ReLU 뉴런과 Leaky 뉴런을 같은 출발점에서 동시에 학습시킬 수 있어요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 4</span>멈춘 뉴런 살리기 실험</h3>
+<p class="how">뉴런 하나가 점(정답)을 따라가도록 학습합니다. 출발점 b가 음수이면 모든 데이터에서 합계 z가 음수입니다. "학습 50걸음"을 눌러 두 뉴런을 비교하세요.</p>
+<div class="ctrl"><label class="group"><span class="glabel">출발점 b</span><input type="range" id="dB" min="-3" max="1" step="0.5" value="-3"><span class="val" id="dBV">-3</span></label>
+<button class="bt" id="dStep">학습 1걸음</button><button class="bt primary" id="dRun">학습 50걸음</button><button class="bt" id="dReset">처음부터</button></div>
+<div class="readout"><div>학습 걸음<b id="dT">0</b></div><div>ReLU 오차<b id="dLr">-</b></div><div>Leaky 오차<b id="dLl">-</b></div><div>ReLU 기울기 크기<b id="dGr">-</b></div></div>
+<div class="cwrap"><canvas id="cv4" aria-label="두 뉴런이 정답 점을 따라가는 모습"></canvas></div>
+<div class="legend"><span><i style="background:#9aa3b5"></i>정답 점</span><span><i style="background:#2563eb"></i>ReLU 뉴런</span><span><i style="background:#20222b"></i>Leaky 뉴런</span></div>
+<p class="msg" id="dMsg"></p>
+<p class="lim">이 단계의 한계: 실제 망에서는 뉴런 일부만 멈춥니다. 출발 가중치를 잘 고르고(2부), 학습률을 너무 크게 하지 않으면 대부분 피할 수 있습니다.</p>
+</div>
+<round no="4" title="ReLU는 양수 쪽에서 학습 신호를 줄이지 않을까?" win="d">
+<cu who="robo" e="e16">양수 쪽 기울기는 늘 1이라 신호가 안 줄어요!</cu>
+<cb who="x1" e="e09">출발점이 음수인 뉴런은 기울기가 0이라 아예 못 배워.</cb>
+<verdict e="e09">둘 다 맞는 말을 반씩 했습니다. 양수 쪽 기울기가 1이라 S자 문보다 신호를 잘 넘기는 건 사실이에요. 하지만 도구 4에서 보듯 합계가 늘 음수인 뉴런은 한 걸음도 움직이지 못합니다. 그래서 무승부입니다.</verdict>
+</round>
+<div class="quiz"><quiz q="Leaky ReLU가 ReLU의 어떤 약점을 줄이나요?" ans="b" ok="음수 쪽에도 0.01의 작은 기울기를 남겨 멈춘 뉴런이 다시 움직일 수 있게 합니다." no="계산 속도나 출력 범위가 아니라, 음수 쪽 기울기 0 문제를 줄입니다."><o v="a">계산이 느린 점</o><o v="b">음수 쪽 기울기가 0이라 멈추는 점</o><o v="c">반응이 0~1을 벗어나는 점</o></quiz></div>
+<details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>nn.ReLU()</code>, <code>nn.LeakyReLU(0.01)</code> — 괄호 안 0.01이 음수 쪽으로 새는 비율입니다.</p></details>
+</section>
+
+<!-- 단계 5 -->
+<section class="level" id="lv5">
+<div class="lvhead"><div class="lvno">5<small>단계</small></div><h2>마지막 문 — 답의 모양에 맞춰 고른다</h2></div>
+<span class="lvtag g">일상: 메뉴에 맞는 그릇</span><span class="lvtag">설정: 그대로, 시그모이드, 소프트맥스</span>
+<say who="doc" e="e07">지금까지는 망 안쪽(숨은 층)의 문이었어요. 맨 마지막 층의 문은 역할이 다릅니다. 우리가 받고 싶은 답의 모양에 맞춰야 해요. 숫자가 필요한지, 예·아니오가 필요한지, 여러 개 중 하나가 필요한지요.</say>
+<div class="wm">
+<div class="whybox"><h4>왜 이 방법을 쓰나</h4>
+<ol><li><b>문제 상황</b> — 같은 점수라도 "배송 시간(숫자)", "스팸인가(예·아니오)", "어느 폴더(하나 고르기)"는 답의 모양이 다릅니다.</li>
+<li><b>앞 방법의 한계</b> — 숨은 층용 문(ReLU 등)을 마지막에 쓰면 음수를 못 내거나 확률이 되지 않습니다.</li>
+<li><b>해법</b> — 숫자는 그대로, 예·아니오와 '여러 개 동시 가능'은 시그모이드, 하나 고르기는 소프트맥스를 씁니다.</li></ol>
+<p class="easy"><b>쉽게 말하면</b> 국은 대접에, 커피는 컵에 담아요. 답의 종류에 맞는 그릇이 마지막 문입니다.</p></div>
+<div class="mathbox"><h4>수학 수식을 어려워하는 조수가 대신 물어봅니다</h4>
+<say who="asst" e="e04">소프트맥스 e<sup>zᵢ</sup> / Σe<sup>zⱼ</sup>… Σ가 무서워요.</say>
+<p class="school"><b>학교 수학으로 보면</b> 지수함수와 비율 계산이에요. Σ(시그마)는 "모두 더한다"는 기호입니다.</p>
+<div class="tb"><table class="ftab">
+<tr><td>zᵢ</td><td>i번째 항목의 점수(로짓이라고도 부름)</td></tr>
+<tr><td>e<sup>zᵢ</sup></td><td>점수를 지수로 바꿔 모두 양수로 만듦</td></tr>
+<tr><td>Σe<sup>zⱼ</sup></td><td>모든 항목의 값을 더한 것</td></tr>
+<tr><td>나누기</td><td>내 몫 ÷ 전체 = 비율. 합이 1이 됨</td></tr>
+</table></div>
+<p class="try"><b>숫자로 한 번 해 보기</b> 점수 (업무 2, 광고 1, 스팸 0)<br>e² ≈ 7.389, e¹ ≈ 2.718, e⁰ = 1 → 합 ≈ 11.107<br>업무 ≈ <b>0.665</b>, 광고 ≈ <b>0.245</b>, 스팸 ≈ <b>0.090</b> (합 1)</p>
+<say who="asst" e="e10">점수 차이가 1인데 비율은 꽤 크게 벌어지네요. 지수 덕분이군요.</say>
+</div></div>
+<div class="pair"><div class="life"><h4>일상으로 치면</h4><p>"오늘 점심 메뉴 하나 고르기"는 소프트맥스, "먹고 싶은 메뉴 모두 체크"는 시그모이드 여러 개, "몇 인분?"은 숫자 그대로입니다.</p></div>
+<div class="work"><h4>현장에서는</h4><p>고객센터 문의를 '배송/환불/교환' 중 하나로 보낼 때는 소프트맥스, 상품 태그를 여러 개 붙일 때는 시그모이드를 씁니다. 학습할 때는 문을 거치기 전 점수(로짓)를 손실 계산에 바로 넣는 경우가 많습니다.</p></div></div>
+<div class="talk">
+<say who="doc" e="e09">메일을 '업무/광고/스팸' 중 하나로만 나눈다면 마지막 문은?</say>
+<say who="moa" e="e07">소프트맥스요. 합이 1이니까 하나를 고르기 좋아요.</say>
+<say who="x2" e="e09">시그모이드 세 개로도 되지 않아? 세 비율을 더해 봐.</say>
+<say who="asst" e="e07">도구 5에서 같은 점수를 세 가지 문에 동시에 넣어 볼게요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 5</span>마지막 문 고르기 — 메일 분류기</h3>
+<p class="how">먼저 과제를 고르세요. 그다음 세 점수를 움직여 문마다 결과가 어떻게 다른지 봅니다. 초록 테두리가 이 과제에 맞는 문입니다.</p>
+<div class="ctrl"><div class="group" id="outT"><span class="glabel">과제</span><button class="bt" data-v="one" aria-pressed="true">폴더 하나 고르기</button><button class="bt" data-v="multi" aria-pressed="false">태그 여러 개 붙이기</button><button class="bt" data-v="num" aria-pressed="false">답장까지 걸릴 시간(분)</button></div></div>
+<div class="ctrl">
+<label class="group"><span class="glabel">업무 점수</span><input type="range" id="o1" min="-4" max="4" step="0.1" value="2"><span class="val" id="o1V">2</span></label>
+<label class="group"><span class="glabel">광고 점수</span><input type="range" id="o2" min="-4" max="4" step="0.1" value="1"><span class="val" id="o2V">1</span></label>
+<label class="group"><span class="glabel">스팸 점수</span><input type="range" id="o3" min="-4" max="4" step="0.1" value="0"><span class="val" id="o3V">0</span></label></div>
+<div class="three" id="outBox" style="margin-top:8px"></div>
+<p class="msg" id="outMsg"></p>
+<p class="lim">이 단계의 한계: 소프트맥스는 "정답이 딱 하나"라고 가정합니다. 정답이 여러 개일 수 있는 과제에 쓰면 한 항목이 오를 때 다른 항목이 억지로 내려갑니다.</p>
+</div>
+<details class="more"><summary>더 알아보기 — 요즘 언어모델의 숨은 문 GELU·SiLU</summary>
+<p>GELU와 SiLU는 ReLU처럼 양수 쪽은 거의 그대로 넘기면서, 0 근처를 부드럽게 굽힌 문입니다. z가 스스로 "얼마나 통과할지" 비율을 정합니다(z × 통과 비율). 음수 쪽에 작은 음수 값(GELU 최저 약 −0.17, SiLU 최저 약 −0.28)이 남아 멈춘 뉴런이 덜 생깁니다. BERT 같은 트랜스포머 언어모델(Devlin 외 2019)은 GELU(Hendrycks·Gimpel 2016)를, 최근 공개 언어모델 다수는 SiLU를 문으로 쓰는 SwiGLU(Shazeer 2020)를 씁니다. 계산은 ReLU보다 조금 무겁습니다. 정리의 도구 6에서 모양을 비교해 보세요.</p></details>
+<round no="5" title="메일을 셋 중 하나로만 나눌 때 마지막 문은?" win="u">
+<cu who="moa" e="e07">소프트맥스! 세 비율의 합이 1이라 하나를 고르기 좋아요.</cu>
+<cb who="x2" e="e09">시그모이드 세 개로도 충분하지 않을까?</cb>
+<verdict e="e10">도구 5에서 같은 점수 (2, 1, 0)를 넣으면 시그모이드 세 개는 0.88, 0.73, 0.50이라 합이 2를 넘습니다. "하나만 고르기"에는 합이 1인 소프트맥스가 맞아요. 시그모이드 여러 개는 태그를 동시에 붙이는 과제에 씁니다.</verdict>
+</round>
+<div class="quiz"><quiz q="'배송까지 걸릴 시간(시간 단위)'을 예측하는 모델의 마지막 문은?" ans="a" ok="숫자를 그대로 내야 하므로 문을 달지 않습니다(그대로)." no="시그모이드는 0~1, 소프트맥스는 비율이라 시간 같은 숫자를 낼 수 없어요."><o v="a">그대로(문 없음)</o><o v="b">시그모이드</o><o v="c">소프트맥스</o></quiz>
+<quiz q="상품 사진에 '빨강', '세일', '신상' 태그를 동시에 붙일 수 있게 하려면?" ans="b" ok="태그마다 독립적으로 0~1을 내는 시그모이드 여러 개가 맞습니다." no="소프트맥스는 합이 1이라 한 태그가 오르면 다른 태그가 억지로 내려가요."><o v="a">소프트맥스 하나</o><o v="b">태그마다 시그모이드</o><o v="c">ReLU</o></quiz></div>
+<details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>torch.softmax(logits, dim=-1)</code> — 점수 묶음을 비율로 바꿉니다. 학습할 때는 <code>nn.CrossEntropyLoss()</code>에 점수를 바로 넣는 경우가 많습니다.</p></details>
+</section>
+
+<!-- 대결 -->
+<section class="level" id="duel">
+<h2>대결 — 깊은 망에서 학습 신호가 첫 층까지 더 많이 남는 문은?</h2>
+<say who="doc" e="e08">마지막 라운드입니다. 숨은 층이 여러 겹인 망을 만들고, 맨 끝의 학습 신호가 맨 앞 층까지 얼마나 남는지 잽니다. USER팀은 시그모이드, 블랙팀은 ReLU를 골랐어요. 조건은 같습니다. 폭 32, 같은 출발 가중치(크기 1/n), 같은 입력 16개입니다.</say>
+<div class="talk">
+<say who="sia" e="e16">부드러운 시그모이드가 안정적이에요. 신호도 고르게 전할 거예요.</say>
+<say who="fly" e="e09">3단계에서 봤잖아. 시그모이드 기울기는 최대 0.25야. 층마다 곱해지면 어떻게 될까?</say>
+<say who="asst" e="e07">층 수를 정하고 "대결 시작"을 누르면 두 망을 실제로 계산해요. 위쪽 선일수록 신호가 많이 남은 거예요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 대결</span>깊은 망 학습 신호 측정기</h3>
+<p class="how">맨 끝 층의 신호 크기를 100%로 두고, 앞쪽 층으로 갈수록 몇 %가 남는지 보여 줍니다. 세로축은 10배마다 한 눈금(로그 눈금)입니다.</p>
+<div class="ctrl"><label class="group"><span class="glabel">숨은 층 수</span><input type="range" id="duD" min="3" max="20" step="1" value="10"><span class="val" id="duDV">10</span></label>
+<button class="bt primary" id="duRun">대결 시작</button></div>
+<div class="readout"><div class="bad">시그모이드 · 첫 층에 남은 신호<b id="duS">-</b></div><div class="good">ReLU · 첫 층에 남은 신호<b id="duR">-</b></div><div>차이<b id="duX">-</b></div></div>
+<div class="cwrap"><canvas id="cvD" aria-label="층마다 남은 학습 신호 비율"></canvas></div>
+<div class="legend"><span><i style="background:#2563eb"></i>시그모이드 (USER팀)</span><span><i style="background:#20222b"></i>ReLU (블랙팀)</span></div>
+<p class="msg" id="duMsg">아직 계산하지 않았어요. "대결 시작"을 눌러 주세요.</p>
+</div>
+<round no="6" title="대결: 깊은 망에서 신호가 첫 층까지 더 많이 남는 문은?" win="b">
+<cu who="sia" e="e16">부드러운 시그모이드가 신호를 고르게 전해요.</cu>
+<cb who="fly" e="e09">층마다 0.25 이하가 곱해지는 시그모이드는 금방 사라져. ReLU가 더 남아.</cb>
+<verdict e="e10">숨은 층 10개 기준으로 ReLU는 첫 층에 약 3분의 1(32%)이 남지만, 시그모이드는 0.0001%보다도 작아집니다. 층 수를 바꿔도 순서는 같아요. 블랙팀 승리입니다. 다만 출발 가중치를 바꾸면 남는 양이 크게 달라져요. 그 이야기는 2부 종목 ②에서 겨룹니다.</verdict>
+</round>
+<div class="aicheck"><h4>AI 판단 코너 — AI가 낸 추천, 그대로 써도 될까?</h4>
+<p>AI 코딩 도우미에게 "15층 분류 모델을 만들어 줘"라고 했더니, 숨은 층 15개 모두에 시그모이드를 단 코드를 줬다고 해 봐요. 학습을 돌리니 손실이 거의 줄지 않습니다.</p>
+<say who="robo" e="e16">AI가 짜 준 코드니까 맞겠죠! 학습을 더 오래 돌리면 돼요.</say>
+<say who="doc" e="e09">먼저 확인할 것 두 가지. ① 깊이에 비해 숨은 층 문이 포화에 약한 시그모이드가 아닌가? ② 앞쪽 층의 기울기 크기를 찍어 봤나? 위 측정기처럼 앞쪽이 0에 가깝다면 오래 돌려도 소용없어요. 숨은 층을 ReLU나 GELU로 바꾸는 게 먼저입니다.</say>
+</div>
+</section>
+
+<section class="level" id="sum">
+<h2>정리 — 어디에 어떤 문을 다나</h2>
+<div class="tb"><table>
+<tr><th>자리</th><th>흔한 선택</th><th>이유</th><th>조심할 점</th></tr>
+<tr><td>숨은 층 (작은 망·이미지)</td><td>ReLU</td><td>계산이 빠르고 양수 쪽 신호가 줄지 않음</td><td>합계가 늘 음수인 뉴런은 멈춤 → Leaky ReLU</td></tr>
+<tr><td>숨은 층 (트랜스포머·언어모델)</td><td>GELU, SiLU(SwiGLU)</td><td>0 근처가 부드러워 학습이 매끄러움</td><td>ReLU보다 계산이 조금 무거움</td></tr>
+<tr><td>숨은 층 (얕은 망, 기억 장치의 문)</td><td>시그모이드, tanh</td><td>값을 일정 범위로 눌러 담음</td><td>깊게 쌓으면 양 끝 포화로 신호가 사라짐</td></tr>
+<tr><td>마지막 층 · 숫자</td><td>그대로</td><td>값의 범위를 막지 않음</td><td>—</td></tr>
+<tr><td>마지막 층 · 예/아니오, 태그 여러 개</td><td>시그모이드</td><td>항목마다 0~1</td><td>합이 1이 아님</td></tr>
+<tr><td>마지막 층 · 하나 고르기</td><td>소프트맥스</td><td>합이 1인 비율</td><td>정답이 하나라는 가정</td></tr>
+</table></div>
+<div class="recap"><b>업무에서 고를 때 3줄.</b> ① 마지막 문은 답의 모양(숫자/예·아니오/하나 고르기)으로 정한다. ② 숨은 층은 ReLU에서 시작하고, 트랜스포머면 GELU·SiLU를 쓴다. ③ 학습이 멈추면 기울기 크기와 '반응이 늘 0인 뉴런 비율'부터 확인한다.</div>
+<div class="tool"><h3><span class="badge">도구 6</span>문 모양 비교판</h3>
+<p class="how">보고 싶은 문을 골라 겹쳐 보세요. "기울기 보기"를 누르면 각 문의 기울기 곡선으로 바뀝니다.</p>
+<div class="ctrl"><div class="group" id="cmpSel"><button class="bt" data-v="sigmoid" aria-pressed="true">시그모이드</button><button class="bt" data-v="tanh" aria-pressed="false">tanh</button><button class="bt" data-v="relu" aria-pressed="true">ReLU</button><button class="bt" data-v="leaky" aria-pressed="false">Leaky ReLU</button><button class="bt" data-v="gelu" aria-pressed="true">GELU</button><button class="bt" data-v="silu" aria-pressed="false">SiLU</button></div>
+<div class="group" id="cmpMode"><button class="bt" data-v="f" aria-pressed="true">반응 보기</button><button class="bt" data-v="d" aria-pressed="false">기울기 보기</button></div></div>
+<div class="cwrap"><canvas id="cv6" aria-label="여러 활성화 함수 비교 그래프"></canvas></div>
+<div class="legend" id="cmpLeg"></div>
+</div>
+<say who="doc" e="e10">점수를 볼까요? 라운드마다 이긴 팀이 달랐죠. 성급하게 결론 낸 쪽도, 의심만 한 쪽도 늘 이기지는 못했어요. <b>도구로 확인한 쪽이 이겼습니다.</b> 이것이 오늘의 진짜 판정입니다.</say>
+</section>
+
+<section class="level" id="outro">
+<h2>아웃트로</h2>
+<say who="robo" e="e15">문이 장식이라고 한 건 취소할게요… 그래도 마지막 문 라운드는 우리가 이겼어요!</say>
+<say who="fly" e="e16">우리도 4단계에서는 반만 맞았지. 다음엔 문끼리 직접 겨뤄 보자. 빠르기, 전달력, 정확도로.</say>
+<say who="asst" e="e12">2부 「연구실 반응속도 대회」에서 만나요! 시그모이드, ReLU, GELU, SiLU가 세 종목으로 겨룹니다.</say>
+<say who="doc" e="e08">그리고 3부에서는 오늘 계속 나온 "학습 신호가 거꾸로 전해지는 길", 역전파를 다룹니다. 여기서 한 번 쉬어 가도 괜찮아요.</say>
+<div class="sernav"><a href="index.html">목차</a><a class="now" href="02_reaction_race.html">다음: 2부 반응속도 대회 →</a><a href="03_backprop.html">3부 역전파</a></div>
+</section>
+</main>
+<board/>
+
+<pagejs>
+var A=LAB.ACT;
+/* 큰 그림 */
+(function(){
+  var cv=document.getElementById('cvBig');
+  function draw(){
+    var P=new LAB.Plot(cv,{x0:0,x1:10,y0:0,y1:4,ratio:0.32,minH:170,maxH:260,pad:{l:6,r:6,t:6,b:6},noXlab:true,noYlab:true,gx:100,gy:100});
+    var c=P.ctx; c.clearRect(0,0,P.W,P.H);
+    function box(x,y,t,col,w){ var X=P.X(x),Y=P.Y(y),bw=P.X(x+w)-X; c.fillStyle=col; c.strokeStyle='#cfd5e2'; c.lineWidth=1.5; c.beginPath(); c.roundRect? c.roundRect(X,Y-22,bw,44,10):c.rect(X,Y-22,bw,44); c.fill(); c.stroke(); c.fillStyle='#1d2230'; c.font='13px "IBM Plex Sans KR",sans-serif'; c.textAlign='center'; c.fillText(t,X+bw/2,Y+5); c.textAlign='left'; }
+    function arr(x0,y0,x1,y1,t){ c.strokeStyle='#7a8194'; c.lineWidth=1.6; c.beginPath(); c.moveTo(P.X(x0),P.Y(y0)); c.lineTo(P.X(x1),P.Y(y1)); c.stroke(); c.fillStyle='#b45309'; c.font='12px "IBM Plex Sans KR",sans-serif'; if(t) c.fillText(t,(P.X(x0)+P.X(x1))/2-12,(P.Y(y0)+P.Y(y1))/2-6); }
+    box(0.2,3,'강수확률 x₁','#eaf1ff',1.8); box(0.2,1,'구름 양 x₂','#eaf1ff',1.8);
+    arr(2,3,3.6,2.1,'× w₁'); arr(2,1,3.6,1.9,'× w₂');
+    box(3.6,2,'더하기 + b = z','#f7f8fb',2); arr(5.6,2,6.3,2,'');
+    box(6.3,2,'문 f','#fff6e6',1.4); arr(7.7,2,8.2,2,'');
+    box(8.2,2,'반응 a','#e9f8ee',1.6);
+  }
+  draw(); LAB.onResize(draw);
+})();
+/* 도구 1 */
+(function(){
+  var f='sigmoid', cv=document.getElementById('cv1'), P;
+  function g(id){return +document.getElementById(id).value;}
+  function draw(){
+    var x1=g('n1x1'),x2=g('n1x2'),w1=g('n1w1'),w2=g('n1w2'),b=g('n1b');
+    var z=w1*x1+w2*x2+b, F=A[f], a=F.f(z);
+    document.getElementById('n1eq').innerHTML='z = <b>'+w1+'</b>×<i>'+x1+'</i> + <b>'+w2+'</b>×<i>'+x2+'</i> + ('+b+') = <em>'+z.toFixed(2)+'</em> → '+F.ko+' 문 → a = <em>'+a.toFixed(2)+'</em>';
+    document.getElementById('n1z').textContent=z.toFixed(2); document.getElementById('n1a').textContent=a.toFixed(2);
+    var d = f==='none'||f==='relu' ? (a>0.5?'우산 챙김 쪽':'안 챙김 쪽')+' (반응 '+a.toFixed(2)+')' : f==='tanh' ? (a>0?'챙김 쪽':'안 챙김 쪽') : '챙길 확률 '+Math.round(a*100)+'%';
+    document.getElementById('n1d').textContent=d;
+    P=new LAB.Plot(cv,{x0:-5,x1:5,y0:-1.5,y1:5,ratio:0.42,minH:220,maxH:340,xlab:'합계 z',ylab:'반응 a'}); P.clear();
+    P.fn(F.f,'#2563eb',2.6); var zz=Math.max(-5,Math.min(5,z)); P.vline(zz,'#b45309',[4,4]); P.dot(zz,Math.max(-1.5,Math.min(5,a)),'#b45309',6);
+  }
+  ['n1x1','n1x2','n1w1','n1w2','n1b'].forEach(function(id){LAB.bindRange(id,draw);});
+  LAB.seg('n1f',function(v){f=v;draw();}); draw(); LAB.onResize(draw);
+})();
+/* 도구 2: 곡선 따라 그리기 */
+(function(){
+  var r=LAB.rng(7), DX=[], DY=[];
+  for (var i=0;i<24;i++){ var x=i/23*10; DX.push(x); DY.push(20+180*(1-Math.exp(-0.32*x))+r.gauss()*7); }
+  var f='none', cv=document.getElementById('cv2');
+  function feats(x,n){ var o=[1]; for (var k=0;k<n;k++){ var c=(k+0.5)/n*10, s=(f==='relu')?1:(k%2?1:-1); var z = f==='none' ? (0.3+0.2*k)*(x-c)*(k%2?1:-1) : (f==='relu' ? (x-c) : 1.2*(x-c)); o.push(A[f].f(z)); } return o; }
+  function solve(n){
+    var m=n+1, M=[], v=[]; for (var i=0;i<m;i++){ M.push(new Float64Array(m)); v.push(0); }
+    for (var p=0;p<DX.length;p++){ var h=feats(DX[p],n); for (i=0;i<m;i++){ v[i]+=h[i]*DY[p]; for (var j=0;j<m;j++) M[i][j]+=h[i]*h[j]; } }
+    for (i=0;i<m;i++) M[i][i]+=1e-6*(1+M[i][i]);
+    for (i=0;i<m;i++){ var piv=i; for (var k=i+1;k<m;k++) if(Math.abs(M[k][i])>Math.abs(M[piv][i])) piv=k; var t=M[i];M[i]=M[piv];M[piv]=t; var tv=v[i];v[i]=v[piv];v[piv]=tv;
+      for (k=i+1;k<m;k++){ var q=M[k][i]/M[i][i]; for (var j2=i;j2<m;j2++) M[k][j2]-=q*M[i][j2]; v[k]-=q*v[i]; } }
+    var w=new Float64Array(m); for (i=m-1;i>=0;i--){ var s=v[i]; for (j=i+1;j<m;j++) s-=M[i][j]*w[j]; w[i]=s/M[i][i]; } return w;
+  }
+  function draw(){
+    var n=+document.getElementById('fitN').value, w=solve(n);
+    var pred=function(x){ var h=feats(x,n), s=0; for (var i=0;i<h.length;i++) s+=w[i]*h[i]; return s; };
+    var err=0; for (var p=0;p<DX.length;p++) err+=Math.abs(pred(DX[p])-DY[p]); err/=DX.length;
+    var P=new LAB.Plot(cv,{x0:0,x1:10,y0:0,y1:240,ratio:0.46,minH:230,maxH:360,xlab:'광고비(백만 원)',ylab:'주문 수(건)'}); P.clear();
+    P.dots(DX.map(function(x,i){return [x,DY[i]];}),'#9aa3b5',4); P.fn(pred,'#2563eb',2.8);
+    document.getElementById('fitE').textContent=err.toFixed(1)+'건';
+    document.getElementById('fitK').textContent= f==='none' ? '0곳 (직선)' : (f==='relu' ? '최대 '+n+'곳' : n+'곳에서 부드럽게');
+    var m=document.getElementById('fitMsg');
+    if (f==='none'){ m.className='msg bad'; m.textContent='문이 없으니 뉴런이 '+n+'개여도 직선입니다. 평균 '+err.toFixed(1)+'건씩 빗나가요.'; }
+    else { m.className='msg ok'; m.textContent=A[f].ko+' 문으로 뉴런 '+n+'개를 섞어 굽은 선을 만들었어요. 평균 '+err.toFixed(1)+'건 빗나갑니다.'; }
+  }
+  LAB.bindRange('fitN',draw); LAB.seg('fitF',function(v){f=v;draw();}); draw(); LAB.onResize(draw);
+})();
+/* 도구 3: 포화 */
+(function(){
+  var f='sigmoid', cv=document.getElementById('cv3');
+  function draw(){
+    var z=+document.getElementById('satZ').value, F=A[f], a=F.f(z), d=F.d(z), mx=f==='sigmoid'?0.25:1;
+    var P=new LAB.Plot(cv,{x0:-8,x1:8,y0:-1.1,y1:1.1,ratio:0.42,minH:220,maxH:330,xlab:'합계 z'}); P.clear();
+    P.fn(F.f,'#2563eb',2.6); P.fn(F.d,'#ea580c',2.2,[6,4]); P.vline(z,'#b45309',[3,3]); P.dot(z,a,'#2563eb',6); P.dot(z,d,'#ea580c',5);
+    document.getElementById('satA').textContent=a.toFixed(3); document.getElementById('satD').textContent=d.toFixed(4);
+    document.getElementById('satP').textContent=(d/mx*100).toFixed(1)+'%'; document.getElementById('sat5').textContent=LAB.pct(Math.pow(d,5));
+    var m=document.getElementById('satMsg');
+    if (d/mx<0.1){ m.className='msg bad'; m.textContent='포화 구간이에요. 곡선이 누워 기울기가 최대의 '+(d/mx*100).toFixed(1)+'%뿐입니다. 이 뉴런은 거의 배우지 못해요.'; }
+    else { m.className='msg ok'; m.textContent='아직 곡선이 서 있어요. 기울기가 최대의 '+(d/mx*100).toFixed(0)+'%라 학습 신호가 잘 지나갑니다.'; }
+  }
+  LAB.bindRange('satZ',draw); LAB.seg('satF',function(v){f=v;draw();}); draw(); LAB.onResize(draw);
+})();
+/* 도구 4: 멈춘 뉴런 */
+(function(){
+  var X=[],Y=[]; for (var i=0;i<10;i++){ X.push(i/9); Y.push(1.5*i/9+0.3); }
+  var S, cv=document.getElementById('cv4');
+  function mk(act,b0){ return {act:act,w:1,b:b0,mw:0,vw:0,mb:0,vb:0,t:0,loss:0,g:0}; }
+  function reset(){ var b0=+document.getElementById('dB').value; S={t:0,n:[mk('relu',b0),mk('leaky',b0)]}; S.n.forEach(evalN); draw(); }
+  function evalN(n){ var F=A[n.act],L=0,gw=0,gb=0; for (var i=0;i<X.length;i++){ var z=n.w*X[i]+n.b, e=F.f(z)-Y[i]; L+=e*e/2; gw+=e*F.d(z)*X[i]; gb+=e*F.d(z); } n.loss=L/X.length; n.gw=gw/X.length; n.gb=gb/X.length; n.g=Math.hypot(n.gw,n.gb); }
+  function adam(n){ var lr=0.05,b1=0.9,b2=0.999; n.t++; n.mw=b1*n.mw+(1-b1)*n.gw; n.vw=b2*n.vw+(1-b2)*n.gw*n.gw; n.mb=b1*n.mb+(1-b1)*n.gb; n.vb=b2*n.vb+(1-b2)*n.gb*n.gb;
+    var c1=1-Math.pow(b1,n.t),c2=1-Math.pow(b2,n.t); n.w-=lr*(n.mw/c1)/(Math.sqrt(n.vw/c2)+1e-8); n.b-=lr*(n.mb/c1)/(Math.sqrt(n.vb/c2)+1e-8); }
+  function step(k){ for (var j=0;j<k;j++){ S.n.forEach(function(n){ evalN(n); adam(n); }); S.t++; } S.n.forEach(evalN); draw(); }
+  function draw(){
+    var P=new LAB.Plot(cv,{x0:0,x1:1,y0:-0.4,y1:2.2,ratio:0.44,minH:220,maxH:330,xlab:'입력 x'}); P.clear();
+    P.dots(X.map(function(x,i){return [x,Y[i]];}),'#9aa3b5',5);
+    var r=S.n[0], l=S.n[1];
+    P.fn(function(x){return A.relu.f(r.w*x+r.b);},'#2563eb',2.8); P.fn(function(x){return A.leaky.f(l.w*x+l.b);},'#20222b',2.2,[7,4]);
+    document.getElementById('dT').textContent=S.t; document.getElementById('dLr').textContent=r.loss.toFixed(3); document.getElementById('dLl').textContent=l.loss.toFixed(3);
+    document.getElementById('dGr').textContent=r.g===0?'0 (멈춤)':r.g.toFixed(3);
+    var m=document.getElementById('dMsg');
+    if (S.t===0){ m.className='msg'; m.textContent = r.g===0 ? '지금 ReLU 뉴런은 모든 점에서 합계가 음수라 기울기가 정확히 0입니다. 학습 버튼을 눌러 보세요.' : '출발점이 충분히 커서 두 뉴런 모두 기울기가 있어요. 학습 버튼을 눌러 보세요.'; }
+    else if (r.g===0 && l.loss<r.loss*0.5){ m.className='msg bad'; m.textContent=S.t+'걸음 뒤: ReLU 뉴런은 한 번도 움직이지 못했어요(멈춘 뉴런). Leaky 뉴런은 작은 기울기로 빠져나와 오차를 '+l.loss.toFixed(3)+'까지 줄였어요.'; }
+    else if (r.g===0){ m.className='msg bad'; m.textContent=S.t+'걸음 뒤: ReLU 뉴런은 그대로예요. Leaky 뉴런은 조금씩 움직이는 중입니다.'; }
+    else { m.className='msg ok'; m.textContent=S.t+'걸음 뒤: 두 뉴런 모두 배우고 있어요. 출발점이 양수 쪽이면 ReLU도 문제없습니다.'; }
+  }
+  document.getElementById('dStep').onclick=function(){step(1);}; document.getElementById('dRun').onclick=function(){step(50);}; document.getElementById('dReset').onclick=reset;
+  LAB.bindRange('dB',reset); reset(); LAB.onResize(draw);
+})();
+/* 도구 5: 마지막 문 */
+(function(){
+  var task='one', names=['업무','광고','스팸'];
+  function bars(vals,max,fmt){ return vals.map(function(v,i){ var w=Math.max(0,Math.min(100,v/max*100)); return '<div class="bar" style="grid-template-columns:44px 1fr 54px"><span>'+names[i]+'</span><span class="track"><span class="fill" style="display:block;width:'+w+'%;background:#2563eb"></span></span><span>'+fmt(v)+'</span></div>'; }).join(''); }
+  function draw(){
+    var z=[+o1.value,+o2.value,+o3.value];
+    var sg=z.map(A.sigmoid.f), mx=Math.max.apply(null,z), ex=z.map(function(v){return Math.exp(v-mx);}), se=ex.reduce(function(a,b){return a+b;}), sm=ex.map(function(v){return v/se;});
+    var lin=z.map(function(v){return 30+v*12;});
+    var ok={one:'s',multi:'g',num:'n'}[task];
+    var col=function(k,t,inner,sum){ return '<div style="border-left-color:'+(ok===k?'#15803d':'#cfd5e2')+';'+(ok===k?'outline:2px solid #15803d;':'')+'"><b style="color:'+(ok===k?'#15803d':'#5d6577')+'">'+t+'</b>'+inner+'<p style="font-size:13px;color:#5d6577;margin:.3em 0 0">'+sum+'</p></div>'; };
+    document.getElementById('outBox').innerHTML =
+      col('n','그대로 (숫자)', bars(lin,90,function(v){return v.toFixed(0)+'분';}), '점수를 그대로 숫자로 씀 (설명용: 30 + 점수×12분)') +
+      col('g','시그모이드 (항목마다)', bars(sg,1,function(v){return v.toFixed(2);}), '합계 '+sg.reduce(function(a,b){return a+b;}).toFixed(2)+' — 항목끼리 독립') +
+      col('s','소프트맥스 (하나 고르기)', bars(sm,1,function(v){return v.toFixed(3);}), '합계 '+sm.reduce(function(a,b){return a+b;}).toFixed(2)+' — 1등: '+names[sm.indexOf(Math.max.apply(null,sm))]);
+    var m=document.getElementById('outMsg'); m.className='msg ok';
+    m.textContent = task==='one' ? '폴더는 하나만 고르니 합이 1인 소프트맥스가 맞아요. 지금 1등은 '+names[sm.indexOf(Math.max.apply(null,sm))]+'('+(Math.max.apply(null,sm)*100).toFixed(1)+'%)입니다.'
+      : task==='multi' ? '태그는 여러 개 붙을 수 있으니 항목마다 0~1을 내는 시그모이드가 맞아요. 0.5를 넘는 태그: '+(names.filter(function(n,i){return sg[i]>0.5;}).join(', ')||'없음')+'.'
+      : '시간 같은 숫자는 문 없이 그대로 냅니다. 시그모이드·소프트맥스는 0~1 안에 갇혀 "몇 분"을 표현하지 못해요.';
+  }
+  var o1=document.getElementById('o1'),o2=document.getElementById('o2'),o3=document.getElementById('o3');
+  ['o1','o2','o3'].forEach(function(id){LAB.bindRange(id,draw);}); LAB.seg('outT',function(v){task=v;draw();}); draw();
+})();
+/* 대결 */
+(function(){
+  var cv=document.getElementById('cvD'), res=null;
+  function measure(act,D){
+    var sizes=[16]; for (var i=0;i<D;i++) sizes.push(32); sizes.push(1);
+    var net=new LAB.Net(sizes,act,{seed:11,init:'std'}), r=LAB.rng(5), norms=new Float64Array(sizes.length-1), G=net.zeroGrads();
+    for (var p=0;p<16;p++){ var x=new Float64Array(16); for (var k=0;k<16;k++) x[k]=r.gauss(); var fw=net.forward(x); net.backward(fw,new Float64Array([1]),G.gW,G.gb,norms); }
+    var last=norms[norms.length-1]; return Array.prototype.map.call(norms,function(v){return v/last;});
+  }
+  function draw(){
+    var D=+document.getElementById('duD').value;
+    var P=new LAB.Plot(cv,{x0:1,x1:D+1,y0:-12,y1:0.5,ratio:0.44,minH:230,maxH:340,xlab:'층 (왼쪽 = 첫 층, 오른쪽 = 끝 층)',ylab:'남은 신호 (10의 거듭제곱)',gy:2,gx:D>12?2:1,yfmt:function(v){return v===0?'100%':'10^'+v;}}); P.clear();
+    if (!res) return;
+    P.line(res.s.map(function(v,i){return [i+1,Math.log10(Math.max(v,1e-13))];}),'#2563eb',2.6);
+    P.line(res.r.map(function(v,i){return [i+1,Math.log10(Math.max(v,1e-13))];}),'#20222b',2.6,[7,4]);
+  }
+  var pct=LAB.pct;
+  document.getElementById('duRun').onclick=function(){
+    var D=+document.getElementById('duD').value; res={s:measure('sigmoid',D), r:measure('relu',D)};
+    var s0=res.s[0], r0=res.r[0];
+    document.getElementById('duS').textContent=pct(s0); document.getElementById('duR').textContent=pct(r0);
+    document.getElementById('duX').textContent='약 '+Math.round(r0/s0).toLocaleString('ko-KR')+'배';
+    var m=document.getElementById('duMsg'); m.className='msg ok';
+    m.textContent='숨은 층 '+D+'개: ReLU는 첫 층에 '+pct(r0)+', 시그모이드는 '+pct(s0)+'가 남았어요. 시그모이드 쪽 선이 층마다 가파르게 내려갑니다.';
+    draw();
+  };
+  LAB.bindRange('duD',function(){ res=null; draw(); var m=document.getElementById('duMsg'); m.className='msg'; m.textContent='층 수를 바꿨어요. "대결 시작"을 다시 눌러 주세요.'; });
+  draw(); LAB.onResize(draw);
+})();
+/* 도구 6: 비교판 */
+(function(){
+  var on={sigmoid:1,relu:1,gelu:1}, mode='f', cv=document.getElementById('cv6');
+  var C={sigmoid:'#2563eb',tanh:'#7c3aed',relu:'#20222b',leaky:'#6b7280',gelu:'#ea580c',silu:'#15803d'};
+  function draw(){
+    var P=new LAB.Plot(cv,{x0:-4,x1:4,y0:mode==='f'?-1.2:-0.2,y1:mode==='f'?3:1.3,ratio:0.44,minH:230,maxH:340,xlab:'합계 z'}); P.clear();
+    var leg='';
+    Object.keys(C).forEach(function(k){ if(!on[k]) return; P.fn(mode==='f'?A[k].f:A[k].d,C[k],2.4); leg+='<span><i style="background:'+C[k]+'"></i>'+A[k].ko+'</span>'; });
+    document.getElementById('cmpLeg').innerHTML=leg;
+  }
+  document.querySelectorAll('#cmpSel .bt').forEach(function(b){ b.onclick=function(){ var v=b.getAttribute('data-v'); on[v]=!on[v]; b.setAttribute('aria-pressed',on[v]?'true':'false'); draw(); }; });
+  LAB.seg('cmpMode',function(v){mode=v;draw();}); draw(); LAB.onResize(draw);
+})();
+</pagejs>

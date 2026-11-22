@@ -1,0 +1,415 @@
+[
+ {
+  "id": "rumelhart1986learning",
+  "type": "article-journal",
+  "title": "Learning representations by back-propagating errors",
+  "author": [
+   {
+    "family": "Rumelhart",
+    "given": "David E."
+   },
+   {
+    "family": "Hinton",
+    "given": "Geoffrey E."
+   },
+   {
+    "family": "Williams",
+    "given": "Ronald J."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     1986
+    ]
+   ]
+  },
+  "container-title": "Nature",
+  "lab": {
+   "work": "lab:work/rumelhart1986learning",
+   "role": "primary",
+   "supports": [
+    "lab:claim/rumelhart"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ },
+ {
+  "id": "goodfellow2016deep",
+  "type": "book",
+  "title": "Deep Learning",
+  "author": [
+   {
+    "family": "Goodfellow",
+    "given": "Ian"
+   },
+   {
+    "family": "Bengio",
+    "given": "Yoshua"
+   },
+   {
+    "family": "Courville",
+    "given": "Aaron"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2016
+    ]
+   ]
+  },
+  "container-title": "MIT Press",
+  "lab": {
+   "work": "lab:work/goodfellow2016deep",
+   "role": "primary",
+   "supports": [
+    "lab:claim/bp-wins-budget"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ },
+ {
+  "id": "he2016deep",
+  "type": "paper-conference",
+  "title": "Deep Residual Learning for Image Recognition",
+  "author": [
+   {
+    "family": "He",
+    "given": "Kaiming"
+   },
+   {
+    "family": "Zhang",
+    "given": "Xiangyu"
+   },
+   {
+    "family": "Ren",
+    "given": "Shaoqing"
+   },
+   {
+    "family": "Sun",
+    "given": "Jian"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2016
+    ]
+   ]
+  },
+  "container-title": "CVPR",
+  "lab": {
+   "work": "lab:work/he2016deep",
+   "role": "background",
+   "supports": [
+    "lab:claim/resnet"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ },
+ {
+  "id": "pascanu2013difficulty",
+  "type": "paper-conference",
+  "title": "On the difficulty of training recurrent neural networks",
+  "author": [
+   {
+    "family": "Pascanu",
+    "given": "Razvan"
+   },
+   {
+    "family": "Mikolov",
+    "given": "Tomas"
+   },
+   {
+    "family": "Bengio",
+    "given": "Yoshua"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2013
+    ]
+   ]
+  },
+  "container-title": "ICML",
+  "lab": {
+   "work": "lab:work/pascanu2013difficulty",
+   "role": "background",
+   "supports": [
+    "lab:claim/clip-explode"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ },
+ {
+  "id": "salimans2017evolution",
+  "type": "article",
+  "title": "Evolution Strategies as a Scalable Alternative to Reinforcement Learning",
+  "author": [
+   {
+    "family": "Salimans",
+    "given": "Tim"
+   },
+   {
+    "family": "Ho",
+    "given": "Jonathan"
+   },
+   {
+    "family": "Chen",
+    "given": "Xi"
+   },
+   {
+    "family": "Sidor",
+    "given": "Szymon"
+   },
+   {
+    "family": "Sutskever",
+    "given": "Ilya"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2017
+    ]
+   ]
+  },
+  "container-title": "arXiv:1703.03864",
+  "lab": {
+   "work": "lab:work/salimans2017evolution",
+   "role": "background",
+   "supports": [
+    "lab:claim/es-alternative"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ },
+ {
+  "id": "hinton2022forward",
+  "type": "article",
+  "title": "The Forward-Forward Algorithm: Some Preliminary Investigations",
+  "author": [
+   {
+    "family": "Hinton",
+    "given": "Geoffrey"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2022
+    ]
+   ]
+  },
+  "container-title": "arXiv:2212.13345",
+  "lab": {
+   "work": "lab:work/hinton2022forward",
+   "role": "background",
+   "supports": [
+    "lab:claim/brain-debate"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ },
+ {
+  "id": "chen2016training",
+  "type": "article",
+  "title": "Training Deep Nets with Sublinear Memory Cost",
+  "author": [
+   {
+    "family": "Chen",
+    "given": "Tianqi"
+   },
+   {
+    "family": "Xu",
+    "given": "Bing"
+   },
+   {
+    "family": "Zhang",
+    "given": "Chiyuan"
+   },
+   {
+    "family": "Guestrin",
+    "given": "Carlos"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2016
+    ]
+   ]
+  },
+  "container-title": "arXiv:1604.06174",
+  "lab": {
+   "work": "lab:work/chen2016training",
+   "role": "background",
+   "supports": [
+    "lab:claim/checkpoint"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ },
+ {
+  "id": "lillicrap2020backpropagation",
+  "type": "article-journal",
+  "title": "Backpropagation and the brain",
+  "author": [
+   {
+    "family": "Lillicrap",
+    "given": "Timothy P."
+   },
+   {
+    "family": "Santoro",
+    "given": "Adam"
+   },
+   {
+    "family": "Marris",
+    "given": "Luke"
+   },
+   {
+    "family": "Akerman",
+    "given": "Colin J."
+   },
+   {
+    "family": "Hinton",
+    "given": "Geoffrey"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2020
+    ]
+   ]
+  },
+  "container-title": "Nature Reviews Neuroscience",
+  "lab": {
+   "work": "lab:work/lillicrap2020backpropagation",
+   "role": "background",
+   "supports": [
+    "lab:claim/brain-debate"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ },
+ {
+  "id": "breiman2001random",
+  "type": "article-journal",
+  "title": "Random Forests",
+  "author": [
+   {
+    "family": "Breiman",
+    "given": "Leo"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2001
+    ]
+   ]
+  },
+  "container-title": "Machine Learning",
+  "lab": {
+   "work": "lab:work/breiman2001random",
+   "role": "background",
+   "supports": [
+    "lab:claim/trees-no-backprop"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ }
+]

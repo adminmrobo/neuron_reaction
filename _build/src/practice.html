@@ -1,0 +1,265 @@
+<!--META {"title":"뉴런 반응 연구실 · 마지막 장 실전 연습장","ctitle":"실전 연습장 — 배송 회사, 쇼핑몰, 공장에서 직접 운영해 보기","file":"practice/index.html","root":"../","og":"og_v2_index.jpg","cite":"마지막 장 실전 연습장","desc":"1~3부에서 배운 활성화 함수, 출발 가중치·학습 방법, 역전파를 가상 사업장 세 곳(배송 회사·쇼핑몰·공장)의 시뮬레이터에서 직접 운영하며 미션으로 확인하는 연습장.","nav":"<a href=\"#delivery\">배송 회사</a><a href=\"#shop\">쇼핑몰</a><a href=\"#factory\">공장</a><a href=\"#wrap\">마무리</a>"} -->
+<style>
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.tabs button{font:inherit;border:1px solid var(--rule2);background:#fff;border-radius:12px;padding:8px 14px;cursor:pointer;text-align:left;min-height:44px}
+.tabs button[aria-selected=true]{background:var(--user);color:#fff;border-color:var(--user)}
+.tabs small{display:block;font-size:12px;opacity:.85}
+.scene{display:none}.scene.on{display:block}
+.situ{background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:12px 16px;margin:10px 0}
+.ctlbox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.ctlbox > div{border-radius:12px;padding:10px 14px;border:1px solid}
+.ctlbox .env{background:#effaf3;border-color:#bfe3ca}.ctlbox .me{background:var(--userbg);border-color:#bcd0fa}
+.ctlbox h4{font-size:14px;margin:0 0 4px}.ctlbox .env h4{color:var(--ok)}.ctlbox .me h4{color:var(--user)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+.cards > div{border-radius:10px;padding:8px 10px;border:1px solid var(--rule);background:#fff;font-size:13px;color:var(--muted)}
+.cards b{display:block;font-size:20px;color:var(--text);font-variant-numeric:tabular-nums}
+.cards .good{background:var(--okbg);border-color:#9fd5b0}.cards .good b{color:var(--ok)}
+.cards .bad{background:var(--badbg);border-color:#f6c7ad}.cards .bad b{color:var(--bad)}
+.graphs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.missions{display:grid;gap:8px;margin:12px 0}
+.mis{border:1px solid var(--rule2);border-radius:12px;padding:8px 12px;display:flex;gap:10px;align-items:flex-start;background:#fff}
+.mis .st{flex:0 0 auto;font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;background:var(--panel2);color:var(--muted)}
+.mis.pass{border-color:#9fd5b0;background:var(--okbg)}.mis.pass .st{background:var(--ok);color:#fff}
+.voices{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+@media (max-width:760px){.ctlbox,.graphs,.voices{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}}
+</style>
+<cover/>
+<header class="hero" id="hero"><div class="wrap">
+<div class="kicker">뉴런 반응 연구실 · 마지막 장</div>
+<h1>실전 연습장 — 배송 회사, 쇼핑몰, 공장에서 직접 운영해 보기</h1>
+<p class="q">배운 것을 현장에 놓으면, 무엇을 먼저 확인해야 할까?</p>
+<p class="byline">글 · 안상선 ((주)M-Robo 대표) · 2026-11-22 · 사업장 3곳 · 미션 9개</p>
+<div class="sernav"><a href="../01_activation.html">1부 활성화 함수</a><a href="../02_reaction_race.html">2부 반응속도 대회</a><a href="../03_backprop.html">3부 역전파</a><a class="now" href="index.html">실전 연습장</a></div>
+<say who="doc" e="e08">이번엔 팀 대결 대신 여러분이 운영자입니다. 가상 사업장 세 곳에서 모델을 직접 설정해 보세요. 초록 상자는 바꿀 수 없는 현장 조건, 파란 상자는 여러분의 결정입니다. 미션은 조작한 뒤에만 통과 표시가 뜹니다.</say>
+<p class="sub">사용법: 탭을 고르고 → 상황을 읽고 → 파란 상자를 조작 → 성적표와 그래프를 보고 → 미션 3개를 통과하세요. 주소 끝에 #delivery, #shop, #factory를 붙이면 그 장면이 바로 열립니다.</p>
+</div></header>
+
+<main class="wrap">
+<div class="tabs" role="tablist">
+<button role="tab" id="tb-delivery" aria-selected="true" data-sc="delivery">① 배송 회사<small>도착 시간 예측 · 1부</small></button>
+<button role="tab" id="tb-shop" aria-selected="false" data-sc="shop">② 쇼핑몰<small>상품 분류기 학습 · 2부</small></button>
+<button role="tab" id="tb-factory" aria-selected="false" data-sc="factory">③ 공장<small>학습 예산 운영 · 3부</small></button>
+</div>
+
+<!-- 장면 1 -->
+<section class="scene on level" id="delivery" style="padding-top:20px">
+<h2>① 배송 회사 — 도착 시간 예측 모델</h2>
+<div class="situ"><b>상황</b> 배송 거리(km)로 도착까지 걸리는 시간(분)을 예측합니다. 도심 구간(5km 근처)을 지나면 정체로 시간이 갑자기 늘어, 관계가 직선이 아닙니다. 고객에게 보여 줄 예측이라 평균 오차 3분 이하가 목표입니다.</div>
+<div class="ctlbox">
+<div class="env"><h4>현장 조건 (초록)</h4><div class="group" id="dvNoise"><span class="glabel">기록의 흔들림</span><button class="bt" data-v="1.2" aria-pressed="true">작음</button><button class="bt" data-v="4" aria-pressed="false">큼(비 오는 달)</button></div></div>
+<div class="me"><h4>내 결정 (파랑)</h4>
+<div class="group" id="dvAct"><span class="glabel">숨은 층 문</span><button class="bt" data-v="none" aria-pressed="true">없음</button><button class="bt" data-v="sigmoid" aria-pressed="false">시그모이드</button><button class="bt" data-v="relu" aria-pressed="false">ReLU</button><button class="bt" data-v="gelu" aria-pressed="false">GELU</button></div>
+<label class="group"><span class="glabel">숨은 뉴런 수</span><input type="range" id="dvN" min="1" max="12" value="2"><span class="val" id="dvNV">2</span></label>
+<div class="group" id="dvOut"><span class="glabel">마지막 문</span><button class="bt" data-v="lin" aria-pressed="true">그대로</button><button class="bt" data-v="sig" aria-pressed="false">시그모이드</button><button class="bt" data-v="soft" aria-pressed="false">소프트맥스</button></div></div></div>
+<div class="cards" id="dvCards"></div>
+<div class="graphs"><div class="cwrap"><canvas id="dvG1" aria-label="거리와 도착 시간 데이터, 예측선"></canvas></div><div class="cwrap"><canvas id="dvG2" aria-label="숨은 뉴런 수에 따른 평균 오차"></canvas></div></div>
+<div class="legend"><span><i style="background:#9aa3b5"></i>기록</span><span><i style="background:#2563eb"></i>내 모델</span><span><i style="background:#b45309"></i>오른쪽: 뉴런 수별 오차(점 = 내 선택, 초록 선 = 목표 3분)</span></div>
+<div class="voices" id="dvVoice"></div>
+<h3>미션</h3>
+<div class="missions" id="dvMis"></div>
+<p class="sub">배운 곳 다시 보기: <a href="../01_activation.html#lv2">1부 단계 2 (문이 없으면 직선)</a> · <a href="../01_activation.html#lv5">1부 단계 5 (마지막 문)</a></p>
+</section>
+
+<!-- 장면 2 -->
+<section class="scene level" id="shop" style="padding-top:20px">
+<h2>② 쇼핑몰 — 상품 분류기 학습</h2>
+<div class="situ"><b>상황</b> 상품을 두 가지 특징(가격대 점수, 후기 점수)으로 '재구매 상품'과 '일회성 상품'으로 나눕니다. 두 무리가 서로 감겨 있어 경계가 복잡합니다. 시험 정확도 95% 이상, 학습은 100걸음 안에 끝내야 합니다.</div>
+<div class="ctlbox">
+<div class="env"><h4>현장 조건 (초록)</h4><div class="group" id="shData"><span class="glabel">데이터 모양</span><button class="bt" data-v="spiral" aria-pressed="true">서로 감긴 나선</button><button class="bt" data-v="moons" aria-pressed="false">초승달 두 개</button></div></div>
+<div class="me"><h4>내 결정 (파랑)</h4>
+<div class="group" id="shAct"><span class="glabel">숨은 층 문</span><button class="bt" data-v="sigmoid" aria-pressed="true">시그모이드</button><button class="bt" data-v="tanh" aria-pressed="false">tanh</button><button class="bt" data-v="relu" aria-pressed="false">ReLU</button><button class="bt" data-v="gelu" aria-pressed="false">GELU</button></div>
+<div class="group" id="shDepth"><span class="glabel">숨은 층 수</span><button class="bt" data-v="2" aria-pressed="false">2</button><button class="bt" data-v="4" aria-pressed="true">4</button><button class="bt" data-v="8" aria-pressed="false">8</button><button class="bt" data-v="12" aria-pressed="false">12</button></div>
+<div class="group" id="shInit"><span class="glabel">출발 가중치</span><button class="bt" data-v="small" aria-pressed="true">고정 0.05</button><button class="bt" data-v="std" aria-pressed="false">표준 1/n</button><button class="bt" data-v="he" aria-pressed="false">He 2/n</button></div>
+<div class="group" id="shOpt"><span class="glabel">학습 방법</span><button class="bt" data-v="adam" aria-pressed="true">Adam</button><button class="bt" data-v="sgd" aria-pressed="false">일반 경사하강</button></div>
+<button class="bt primary" id="shRun" style="margin-top:6px">100걸음 학습하기</button></div></div>
+<div class="cards" id="shCards"></div>
+<div class="graphs"><div class="cwrap"><canvas id="shG1" aria-label="학습 걸음에 따른 시험 정확도"></canvas></div><div class="cwrap"><canvas id="shG2" aria-label="층마다 남은 학습 신호"></canvas></div></div>
+<div class="legend"><span><i style="background:#2563eb"></i>왼쪽: 시험 정확도(주황 점선 = 95%)</span><span><i style="background:#20222b"></i>오른쪽: 층마다 남은 학습 신호(10배마다 한 눈금)</span></div>
+<div class="voices" id="shVoice"></div>
+<h3>미션</h3>
+<div class="missions" id="shMis"></div>
+<p class="sub">배운 곳 다시 보기: <a href="../02_reaction_race.html#lv2">2부 종목 2 (출발 가중치)</a> · <a href="../02_reaction_race.html#lv3">2부 종목 3 (Adam)</a> · <a href="../01_activation.html#duel">1부 대결</a></p>
+</section>
+
+<!-- 장면 3 -->
+<section class="scene level" id="factory" style="padding-top:20px">
+<h2>③ 공장 — 학습 예산 운영</h2>
+<div class="situ"><b>상황</b> 공장의 불량 판정 모델을 매일 밤 다시 학습합니다. 서버 시간이 정해져 있어 '앞으로 계산' 예산이 한정됩니다. 예산 안에서 손실을 0.05 이하로 낮추는 것이 목표입니다.</div>
+<div class="ctlbox">
+<div class="env"><h4>현장 조건 (초록)</h4><div class="group" id="fcSize"><span class="glabel">모델 크기(손잡이 수)</span><button class="bt" data-v="s" aria-pressed="false">작은 모델 (2-6-1)</button><button class="bt" data-v="m" aria-pressed="true">보통 모델 (2-16-16-1)</button></div></div>
+<div class="me"><h4>내 결정 (파랑)</h4>
+<div class="group" id="fcM"><span class="glabel">기울기 구하는 방법</span><button class="bt" data-v="shake" aria-pressed="true">하나씩 흔들기</button><button class="bt" data-v="rand" aria-pressed="false">무작위 바꿔 보기</button><button class="bt" data-v="bp" aria-pressed="false">역전파</button></div>
+<label class="group"><span class="glabel">계산 예산</span><input type="range" id="fcB" min="600" max="3600" step="600" value="1800"><span class="val" id="fcBV">1800</span></label>
+<button class="bt primary" id="fcRun" style="margin-top:6px">오늘 밤 학습 돌리기</button></div></div>
+<div class="cards" id="fcCards"></div>
+<div class="graphs"><div class="cwrap"><canvas id="fcG1" aria-label="예산에 따른 손실 곡선"></canvas></div><div class="cwrap"><canvas id="fcG2" aria-label="결과 분류 경계"></canvas></div></div>
+<div class="legend"><span><i style="background:#2563eb"></i>왼쪽: 내 방법의 손실(초록 점선 = 목표 0.05)</span><span><i style="background:#cfd5e2"></i>회색: 같은 예산의 역전파(비교용)</span></div>
+<div class="voices" id="fcVoice"></div>
+<h3>미션</h3>
+<div class="missions" id="fcMis"></div>
+<p class="sub">배운 곳 다시 보기: <a href="../03_backprop.html#lv2">3부 단계 2 (흔들어 보기 비용)</a> · <a href="../03_backprop.html#duel">3부 대결</a> · <a href="../03_backprop.html#lv5">3부 단계 5 (쓸 때와 안 쓸 때)</a></p>
+</section>
+
+<section class="level" id="wrap">
+<h2>마무리 — 세 장면이 함께 묻는 것</h2>
+<p>세 곳 모두에서 결정은 하나의 질문으로 모입니다. <b>"이 결과가 정말 좋은가, 무엇과 비교해 좋은가?"</b> 배송 회사에서는 마지막 문이 답의 모양과 맞는지, 쇼핑몰에서는 학습 신호가 첫 층까지 닿는지, 공장에서는 같은 예산에서 어떤 방법이 더 멀리 가는지를 비교했습니다. 숫자 하나만 보고 결정하지 않고, 조건을 바꿔도 결론이 유지되는지 확인하는 습관이 세 장면에 공통으로 흐릅니다.</p>
+<p class="lim">모형의 한계: 세 장면의 데이터와 비용은 교육용으로 만든 예시입니다(시드 고정). 실제 사업장의 모델 설계·투자 판단에 대한 권고가 아닙니다. 실제 모델은 더 많은 데이터, 검증 데이터 분리, 여러 시드 비교가 필요합니다.</p>
+<div class="sernav"><a href="../index.html">목차로</a><a href="../01_activation.html">1부</a><a href="../02_reaction_race.html">2부</a><a href="../03_backprop.html">3부</a></div>
+</section>
+</main>
+
+<pagejs>
+var A=LAB.ACT;
+/* 탭 */
+(function(){
+  var tabs=document.querySelectorAll('.tabs button');
+  function open(id, scroll){ tabs.forEach(function(t){ t.setAttribute('aria-selected',t.getAttribute("data-sc")===id?'true':'false'); });
+    document.querySelectorAll('.scene').forEach(function(s){ s.classList.toggle('on',s.id===id); }); window.dispatchEvent(new Event('scene')); if(window['draw_'+id]) window['draw_'+id](); if(scroll) document.querySelector('.tabs').scrollIntoView({behavior:LAB.reduced?'auto':'smooth'}); }
+  tabs.forEach(function(t){ t.onclick=function(){ open(t.getAttribute("data-sc")); try{ history.replaceState(null,'','#'+t.getAttribute("data-sc")); }catch(e){} }; });
+  document.querySelectorAll('nav.top a[href^="#"]').forEach(function(a){ var id=a.getAttribute('href').slice(1); if(document.getElementById('tb-'+id)) a.addEventListener('click',function(e){ e.preventDefault(); open(id,true); try{history.replaceState(null,'','#'+id);}catch(x){} }); });
+  var h=(location.hash||'').slice(1); if (document.getElementById('tb-'+h)) setTimeout(function(){open(h,true);},50);
+})();
+/* 공통: 대사 상자 */
+function voices(id, list){ document.getElementById(id).innerHTML=list.map(function(v){
+  var who=v[0], N={doc:['박사','j','판정'],asst:['조수(하루)','u','수치 보고'],fly:['초파리 연구원','b','의심'],robo:['주판봇','u','성급한 확신']}[who];
+  return '<div class="say" data-team="'+N[1]+'"><img class="who" src="'+SPRITE[v[1]]+'" alt="'+N[0]+'" width="62" height="62"><div><div class="name '+who+'">'+N[0]+'<small class="'+N[1]+'">'+N[2]+'</small></div><p>'+v[2]+'</p></div></div>'; }).join(''); }
+function missions(id, list, touched){ document.getElementById(id).innerHTML=list.map(function(m,i){ var ok=touched&&m[1]; return '<div class="mis'+(ok?' pass':'')+'"><span class="st">'+(ok?'통과':'미션 '+(i+1))+'</span><div>'+m[0]+'</div></div>'; }).join(''); }
+function cards(id, list){ document.getElementById(id).innerHTML=list.map(function(c){ return '<div class="'+(c[2]||'')+'">'+c[0]+'<b>'+c[1]+'</b></div>'; }).join(''); }
+var FACES=[face('doc_e10'),face('doc_e09'),face('doc_e16'),face('asst_e07'),face('asst_e10'),face('asst_e04'),face('fly_e09'),face('fly_e16'),face('robo_e16'),face('robo_e15'),face('robo_e20')];
+/* ---------- 장면 1: 배송 ---------- */
+(function(){
+  var st={noise:1.2,act:'none',n:2,out:'lin'}, touched=false, seen={trap:false}, passOnce={};
+  function data(){ var r=LAB.rng(17),X=[],Y=[]; for (var i=0;i<30;i++){ var d=i/29*10; X.push(d); Y.push(12+4*d+22/(1+Math.exp(-(d-5)*1.6))+r.gauss()*st.noise); } return {X:X,Y:Y}; }
+  function feats(x,n,act){ var o=[1]; for (var k=0;k<n;k++){ var c=(k+0.5)/n*10; var z = act==='none' ? (0.3+0.2*k)*(x-c)*(k%2?1:-1) : (act==='relu'||act==='gelu' ? (x-c) : 1.4*(x-c)); o.push(A[act].f(z)); } return o; }
+  function fit(D,n,act,out){
+    var m=n+1, M=[], v=[], tr=function(y){ return out==='lin'?y:(y-0)/100; };
+    for (var i=0;i<m;i++){ M.push(new Float64Array(m)); v.push(0); }
+    for (var p=0;p<D.X.length;p++){ var h=feats(D.X[p],n,act), t=out==='sig'?Math.log(Math.min(0.99,tr(D.Y[p]))/(1-Math.min(0.99,tr(D.Y[p])))):D.Y[p]; for (i=0;i<m;i++){ v[i]+=h[i]*t; for (var j=0;j<m;j++) M[i][j]+=h[i]*h[j]; } }
+    for (i=0;i<m;i++) M[i][i]+=1e-6*(1+M[i][i]);
+    for (i=0;i<m;i++){ var piv=i; for (var k=i+1;k<m;k++) if(Math.abs(M[k][i])>Math.abs(M[piv][i])) piv=k; var t2=M[i];M[i]=M[piv];M[piv]=t2; var tv=v[i];v[i]=v[piv];v[piv]=tv; for (k=i+1;k<m;k++){ var q=M[k][i]/M[i][i]; for (var j2=i;j2<m;j2++) M[k][j2]-=q*M[i][j2]; v[k]-=q*v[i]; } }
+    var w=new Float64Array(m); for (i=m-1;i>=0;i--){ var s=v[i]; for (j=i+1;j<m;j++) s-=M[i][j]*w[j]; w[i]=s/M[i][i]; }
+    var pred=function(x){ var h=feats(x,n,act), s=0; for (var i=0;i<h.length;i++) s+=w[i]*h[i]; if(out==='sig') return 1/(1+Math.exp(-s)); if(out==='soft') return 1; return s; };
+    var e=0; for (p=0;p<D.X.length;p++) e+=Math.abs(pred(D.X[p])-D.Y[p]); return {pred:pred,err:e/D.X.length};
+  }
+  window.draw_delivery=function(){
+    var D=data(), F=fit(D,st.n,st.act,st.out), err=F.err;
+    var cost=st.n*(st.act==='none'?1:st.act==='relu'?1.2:st.act==='sigmoid'?2.5:3);
+    var P=new LAB.Plot(document.getElementById('dvG1'),{x0:0,x1:10,y0:0,y1:90,ratio:0.62,minH:220,maxH:320,xlab:'거리(km)',ylab:'도착 시간(분)'}); P.clear();
+    P.dots(D.X.map(function(x,i){return [x,D.Y[i]];}),'#9aa3b5',4); P.fn(F.pred,'#2563eb',2.8);
+    var curve=[], best=[1,1e9]; for (var n=1;n<=12;n++){ var e=fit(D,n,st.act,st.out).err; curve.push([n,e]); if(e<best[1]) best=[n,e]; }
+    var Q=new LAB.Plot(document.getElementById('dvG2'),{x0:1,x1:12,y0:0,y1:Math.max(12,Math.min(80,Math.max.apply(null,curve.map(function(c){return c[1];}))*1.1)),ratio:0.62,minH:220,maxH:320,xlab:'숨은 뉴런 수',ylab:'평균 오차(분)',gx:1}); Q.clear();
+    Q.hline(3,'#15803d',[5,4],'목표 3분'); Q.line(curve,'#b45309',2.4); Q.dot(st.n,Math.min(err,Q.o.y1),'#2563eb',7);
+    var good=err<=3;
+    cards('dvCards',[['평균 오차',err.toFixed(1)+'분',good?'good':'bad'],['목표(3분) 대비',good?'달성':'+'+(err-3).toFixed(1)+'분',good?'good':'bad'],['계산 부담(상대)',cost.toFixed(1),cost>20?'bad':''],['이 문의 최저 오차',best[1].toFixed(1)+'분 (뉴런 '+best[0]+')','']]);
+    var trap = st.out!=='lin';
+    if (trap) seen.trap=true;
+    var V=[];
+    if (st.out==='soft') V.push(['doc',FACES[1],'판정: 소프트맥스는 출력이 하나일 때 늘 1을 냅니다. "몇 분"이라는 숫자 답에는 맞지 않는 그릇이에요.']);
+    else if (st.out==='sig') V.push(['doc',FACES[1],'판정: 시그모이드 마지막 문은 0~1만 냅니다. 여기서는 시간을 100으로 나눠 맞췄지만, 범위를 벗어나는 값은 표현할 수 없어요. 숫자 예측에는 "그대로"가 맞습니다.']);
+    else if (st.act==='none') V.push(['doc',FACES[1],'판정: 숨은 문이 없으니 뉴런 수와 상관없이 직선입니다. 정체 구간의 꺾임을 못 따라가요.']);
+    else if (good) V.push(['doc',FACES[0],'판정: 목표 달성입니다. '+A[st.act].ko+' 문, 뉴런 '+st.n+'개로 평균 '+err.toFixed(1)+'분 빗나가요.']);
+    else V.push(['doc',FACES[1],'판정: 곡선은 그리지만 아직 '+err.toFixed(1)+'분 빗나갑니다. 오른쪽 그래프에서 오차가 가장 낮은 뉴런 수를 찾아보세요.']);
+    V.push(['asst',good?FACES[4]:FACES[3],'평균 오차 '+err.toFixed(1)+'분, 계산 부담 '+cost.toFixed(1)+'이에요. 이 문으로는 뉴런 '+best[0]+'개일 때 '+best[1].toFixed(1)+'분이 가장 좋아요.']);
+    V.push(['fly',FACES[6], st.noise>2 ? '기록이 많이 흔들리는 달이야. 오차 3분은 모델 탓이 아니라 데이터 탓일 수도 있지 않을까?' : '뉴런을 12개까지 늘려서 오차가 조금 줄면, 그게 진짜 좋아진 걸까, 흔들림까지 외운 걸까?']);
+    V.push(['robo',st.n>=10?FACES[8]:FACES[8], st.n>=10 ? '뉴런은 많을수록 좋아요! 12개로 갑시다!' : '오차가 이 정도면 충분해요. 바로 고객 화면에 띄워요!']);
+    voices('dvVoice',V);
+    if (good && touched) passOnce.m1=true;
+    if (st.noise>2 && st.act!=='none' && st.out==='lin' && touched){ var noneErr=fit(D,st.n,'none','lin').err; if (err<noneErr-1) passOnce.m3=true; }
+    missions('dvMis',[['<b>최적 찾기</b> — 숨은 문과 뉴런 수를 골라 평균 오차 3분 이하를 만드세요.',passOnce.m1],
+      ['<b>함정 관찰</b> — 마지막 문을 시그모이드나 소프트맥스로 바꿔, 숫자 예측에 맞지 않는 이유를 판정에서 확인하세요.',seen.trap&&touched],
+      ['<b>조건 바꾸기</b> — 기록의 흔들림을 "큼"으로 바꾼 뒤에도, 문이 있는 모델이 문 없는 모델보다 1분 이상 덜 틀리는지 확인하세요.',passOnce.m3]],touched);
+  };
+  function on(){ touched=true; draw_delivery(); }
+  LAB.seg('dvNoise',function(v){st.noise=+v;on();}); LAB.seg('dvAct',function(v){st.act=v;on();}); LAB.seg('dvOut',function(v){st.out=v;on();});
+  LAB.bindRange('dvN',function(v){st.n=v;on();});
+  draw_delivery(); LAB.onResize(function(){ if(document.getElementById('delivery').classList.contains('on')) draw_delivery(); });
+})();
+/* ---------- 장면 2: 쇼핑몰 ---------- */
+(function(){
+  var st={data:'spiral',act:'sigmoid',depth:4,init:'small',opt:'adam'}, res=null, touched=false, pass={};
+  function sets(){ if (st.data==='spiral'){ var mk=function(seed){ var r=LAB.rng(seed),X=[],Y=[],T=3.2; for (var c=0;c<2;c++) for (var i=0;i<70;i++){ var t=i/70*T+0.3,a=t*2+c*Math.PI; X.push([t*Math.cos(a)/(T+0.3)+r.gauss()*0.04,t*Math.sin(a)/(T+0.3)+r.gauss()*0.04]); Y.push(c);} return {X:X,Y:Y}; }; return {tr:mk(3),te:mk(9)}; }
+    var mm=function(seed){ var d=LAB.moons(70,seed,0.12); d.X=d.X.map(function(p){return [p[0]*0.8,p[1]*0.8];}); return d; }; return {tr:mm(3),te:mm(9)}; }
+  function signal(){ var sizes=[2]; for (var i=0;i<st.depth;i++) sizes.push(16); sizes.push(1);
+    var net=new LAB.Net(sizes,st.act,{seed:21,init:st.init,out:'sigmoid'}), S=sets(), norms=new Float64Array(sizes.length-1), G=net.zeroGrads();
+    for (var p=0;p<40;p++){ var fw=net.forward(S.tr.X[p]); net.backward(fw,new Float64Array([fw.y[0]-S.tr.Y[p]]),G.gW,G.gb,norms); }
+    var last=norms[norms.length-1]; return Array.prototype.map.call(norms,function(v){return v/(last||1e-300);}); }
+  window.draw_shop=function(){
+    var sig=signal(), first=sig[0];
+    var P=new LAB.Plot(document.getElementById('shG1'),{x0:0,x1:100,y0:0.4,y1:1,ratio:0.62,minH:220,maxH:320,xlab:'학습 걸음',ylab:'시험 정확도'}); P.clear(); P.hline(0.95,'#ea580c',[5,4],'95%');
+    if (res) P.line(res.curve,'#2563eb',2.8);
+    var Q=new LAB.Plot(document.getElementById('shG2'),{x0:1,x1:st.depth+1,y0:-10,y1:2,ratio:0.62,minH:220,maxH:320,gy:2,gx:st.depth>8?2:1,xlab:'층 (왼쪽 = 첫 층)',yfmt:function(v){return v===0?'100%':'10^'+v;}}); Q.clear(); Q.hline(0,'#b45309',[5,4]);
+    Q.line(sig.map(function(v,i){return [i+1,Math.max(-10,Math.log10(Math.max(v,1e-30)))];}),'#20222b',2.6);
+    var acc=res?res.acc:null, good=acc!==null&&acc>=0.95, fp=LAB.pct(first);
+    cards('shCards',[['시험 정확도',acc===null?'학습 전':(acc*100).toFixed(1)+'%',acc===null?'':(good?'good':'bad')],['첫 층 남은 신호',fp,first<1e-3?'bad':(Math.abs(Math.log10(first))<1?'good':'')],['95% 도달',res?(res.hit?res.hit+'걸음':'못 함'):'-',res?(res.hit?'good':'bad'):''],['설정',A[st.act].ko+' · '+st.depth+'층','']]);
+    var V=[];
+    if (!res) V.push(['doc',FACES[1],'설정을 고르고 "100걸음 학습하기"를 눌러 주세요. 학습 전에도 오른쪽 그래프로 신호가 첫 층까지 닿을지 미리 볼 수 있어요.']);
+    else if (good) V.push(['doc',FACES[0],'판정: 목표 달성! '+A[st.act].ko+', '+st.depth+'층, '+{small:'고정 0.05',std:'표준 1/n',he:'He'}[st.init]+' 출발로 '+(res.hit||100)+'걸음 안에 95%를 넘었어요.']);
+    else if (first<1e-3) V.push(['doc',FACES[1],'판정: 첫 층에 신호가 '+fp+'밖에 안 닿아요. 앞쪽 층이 거의 배우지 못합니다. 문이나 출발 가중치를 바꿔 보세요.']);
+    else V.push(['doc',FACES[1],'판정: 신호는 닿지만 100걸음 안에 95%에 못 갔어요. 학습 방법이나 층 수를 바꿔 보세요.']);
+    V.push(['asst',good?FACES[4]:FACES[3],res?'정확도 '+(acc*100).toFixed(1)+'%, 첫 층 신호 '+fp+'예요.'+(st.opt==='sgd'?' 일반 경사하강은 같은 걸음 수에서 Adam보다 느린 편이에요.':''):'학습 전 점검: 첫 층 신호 '+fp+'예요.']);
+    V.push(['fly',FACES[6],st.data==='spiral'?'이 설정이 초승달 데이터에서도 통할까? 조건을 바꿔 확인해 봐.':'초승달은 쉬운 편이야. 나선에서도 되는지 봐야 하지 않을까?']);
+    V.push(['robo',FACES[8],st.depth>=8?'층이 많을수록 똑똑해져요! 12층 최고!':'정확도 숫자 하나면 충분해요. 바로 배포!']);
+    voices('shVoice',V);
+    if (touched && res && good) pass.m1=true;
+    if (touched && st.act==='sigmoid' && st.depth>=12 && first<1e-4) pass.m2=true;
+    if (touched && res && res.cfg.act!=='sigmoid' && res.cfg.init==='he') { pass.dataOk=pass.dataOk||{}; if (acc>=0.9) pass.dataOk[res.cfg.data+res.cfg.act]=true; if (pass.dataOk['spiral'+res.cfg.act]&&pass.dataOk['moons'+res.cfg.act]) pass.m3=true; }
+    missions('shMis',[['<b>최적 찾기</b> — 100걸음 안에 시험 정확도 95% 이상을 만드세요.',pass.m1],
+      ['<b>함정 관찰</b> — 시그모이드 문으로 12층을 쌓아, 첫 층 신호가 0.0001%보다 작아지는 것을 확인하세요.',pass.m2],
+      ['<b>조건 바꾸기</b> — He 출발 가중치와 시그모이드가 아닌 문 하나로, 두 데이터 모양 모두에서 90% 이상을 내세요.',pass.m3]],touched);
+  };
+  function on(){ touched=true; res=null; draw_shop(); }
+  LAB.seg('shData',function(v){st.data=v;on();}); LAB.seg('shAct',function(v){st.act=v;on();}); LAB.seg('shDepth',function(v){st.depth=+v;on();}); LAB.seg('shInit',function(v){st.init=v;on();}); LAB.seg('shOpt',function(v){st.opt=v;on();});
+  document.getElementById('shRun').onclick=function(){
+    touched=true; var b=this; b.disabled=true; var S=sets(), sizes=[2]; for (var i=0;i<st.depth;i++) sizes.push(16); sizes.push(1);
+    var net=new LAB.Net(sizes,st.act,{seed:21,init:st.init,out:'sigmoid'}), t=0, curve=[[0,net.evalSet(S.te.X,S.te.Y).acc]], hit=0, cfg={act:st.act,init:st.init,data:st.data};
+    (function loop(){ for (var j=0;j<5;j++){ net.step(S.tr.X,S.tr.Y,st.opt==='adam'?0.01:0.5,st.opt); t++; } var a=net.evalSet(S.te.X,S.te.Y).acc; curve.push([t,a]); if(!hit&&a>=0.95) hit=t;
+      res={curve:curve,acc:a,hit:hit,cfg:cfg}; draw_shop(); if (t<100) setTimeout(loop,LAB.reduced?0:10); else b.disabled=false; })();
+  };
+  draw_shop();
+})();
+/* ---------- 장면 3: 공장 ---------- */
+(function(){
+  var st={size:'m',m:'shake',B:1800}, res=null, ref=null, touched=false, pass={};
+  var d=(function(){ var dd=LAB.moons(60,23,0.1); dd.X=dd.X.map(function(p){return [p[0]*0.8,p[1]*0.8];}); return dd; })();
+  function sizes(){ return st.size==='s'?[2,6,1]:[2,16,16,1]; }
+  function train(method,B){
+    var net=new LAB.Net(sizes(),'tanh',{seed:31,init:'std',out:'sigmoid'}), L0=net.evalSet(d.X,d.Y).loss, curve=[[0,L0]], used=0, steps=0, N=net.nParams();
+    if (method==='bp'){ while(used+3<=B){ net.step(d.X,d.Y,0.02,'adam'); used+=3; steps++; if(steps%20===0) curve.push([used,net.evalSet(d.X,d.Y).loss]); } }
+    else if (method==='rand'){ var r=LAB.rng(77), cur=L0; while(used<B){ var sW=net.W.map(function(a){return a.slice();}), sB=net.b.map(function(a){return a.slice();});
+        for (var l=0;l<net.W.length;l++){ for (var i=0;i<net.W[l].length;i++) net.W[l][i]+=r.gauss()*0.03; for (i=0;i<net.b[l].length;i++) net.b[l][i]+=r.gauss()*0.03; }
+        var lt=net.evalSet(d.X,d.Y).loss; used++; steps++; if(lt<cur) cur=lt; else { net.W=sW; net.b=sB; } if(used%40===0) curve.push([used,cur]); } }
+    else { var cost=2*N+1, h=1e-4; while(used+cost<=B){ var gs=[]; for (l=0;l<net.W.length;l++){ [net.W[l],net.b[l]].forEach(function(Par){ var g=new Float64Array(Par.length); for (var i=0;i<Par.length;i++){ var o=Par[i]; Par[i]=o+h; var lp=net.evalSet(d.X,d.Y).loss; Par[i]=o-h; var lm=net.evalSet(d.X,d.Y).loss; Par[i]=o; g[i]=(lp-lm)/(2*h);} gs.push([Par,g]); }); }
+        gs.forEach(function(pg){ for (var i=0;i<pg[0].length;i++) pg[0][i]-=0.8*pg[1][i]; }); used+=cost; steps++; curve.push([used,net.evalSet(d.X,d.Y).loss]); } }
+    var fin=net.evalSet(d.X,d.Y); curve.push([B,fin.loss]); return {net:net,curve:curve,loss:fin.loss,acc:fin.acc,steps:steps,N:N,method:method,size:st.size,B:B};
+  }
+  window.draw_factory=function(){
+    var N=st.size==='s'?25:337;
+    var P=new LAB.Plot(document.getElementById('fcG1'),{x0:0,x1:st.B,y0:0,y1:0.75,ratio:0.62,minH:220,maxH:320,xlab:'쓴 예산',ylab:'손실'}); P.clear(); P.hline(0.05,'#15803d',[5,4],'목표 0.05');
+    if (ref) P.line(ref.curve,'#cfd5e2',3); if (res) P.line(res.curve,'#2563eb',2.8);
+    var Q=new LAB.Plot(document.getElementById('fcG2'),{x0:-1.2,x1:1.2,y0:-1,y1:1,ratio:0.62,minH:220,maxH:320,noXlab:true,noYlab:true,pad:{l:6,r:6,t:6,b:6}}); Q.clear();
+    if (res) Q.field(function(x,y){return res.net.forward([x,y]).y[0];},4);
+    Q.dots(d.X.filter(function(p,i){return d.Y[i]===1;}),'#2563eb',3,'#fff'); Q.dots(d.X.filter(function(p,i){return d.Y[i]===0;}),'#20222b',3,'#fff');
+    var good=res&&res.loss<=0.05, cost={shake:2*N+1,rand:1,bp:3}[st.m];
+    cards('fcCards',[['최종 손실',res?res.loss.toFixed(3):'-',res?(good?'good':'bad'):''],['학습 걸음 수',res?res.steps.toLocaleString('ko-KR'):'-',res&&res.steps<10?'bad':''],['한 걸음 비용',cost.toLocaleString('ko-KR'),cost>100?'bad':''],['손잡이 수',N+'개','']]);
+    var V=[];
+    if (!res) V.push(['doc',FACES[1],'방법과 예산을 정하고 "오늘 밤 학습 돌리기"를 눌러 주세요.']);
+    else if (good) V.push(['doc',FACES[0],'판정: 목표 달성! '+{shake:'하나씩 흔들기',rand:'무작위 바꿔 보기',bp:'역전파'}[res.method]+'로 예산 '+res.B+' 안에 손실 '+res.loss.toFixed(3)+'까지 낮췄어요.']);
+    else V.push(['doc',FACES[1],'판정: 손실 '+res.loss.toFixed(3)+'로 목표에 못 미쳤어요. 회색 선(같은 예산의 역전파)과 비교해 보세요.']);
+    V.push(['asst',good?FACES[4]:FACES[3],res?('한 걸음에 예산 '+cost+'을 써서 '+res.steps+'걸음 갔어요. 같은 예산의 역전파는 손실 '+(ref?ref.loss.toFixed(3):'-')+'이에요.'):'손잡이 '+N+'개라 하나씩 흔들기는 한 걸음에 '+(2*N+1)+'을 써요.']);
+    V.push(['fly',FACES[6],st.size==='s'?'손잡이가 25개뿐이면 흔들기도 꽤 할 만하지 않아? 비교해 봐.':'역전파가 빠른 건 알겠어. 그 역전파 코드가 맞는지는 무엇으로 검산하지?']);
+    V.push(['robo',FACES[8],st.m==='rand'?'무작위로 많이 시도하면 언젠가 맞아요!':'예산을 두 배로 늘리면 다 해결돼요!']);
+    voices('fcVoice',V);
+    if (touched && good) pass.m1=true;
+    if (touched && res && res.method==='shake' && res.size==='m' && res.steps<10) pass.m2=true;
+    if (touched && res && res.method==='shake' && res.size==='s' && res.loss<0.3) pass.m3=true;
+    missions('fcMis',[['<b>최적 찾기</b> — 보통 모델에서 예산 안에 손실 0.05 이하를 만드세요.',pass.m1],
+      ['<b>함정 관찰</b> — 보통 모델(손잡이 337개)에서 하나씩 흔들기를 돌려, 10걸음도 못 가는 것을 확인하세요.',pass.m2],
+      ['<b>조건 바꾸기</b> — 작은 모델(손잡이 25개)에서는 하나씩 흔들기로도 손실 0.3 아래까지 갈 수 있는지 확인하세요. 손잡이가 적으면 결론이 달라질까요?',pass.m3]],touched);
+  };
+  function on(){ touched=true; res=null; ref=null; draw_factory(); }
+  LAB.seg('fcSize',function(v){st.size=v;on();}); LAB.seg('fcM',function(v){st.m=v;on();}); LAB.bindRange('fcB',function(v){st.B=v;on();});
+  document.getElementById('fcRun').onclick=function(){ touched=true; var b=this; b.disabled=true; cards('fcCards',[['학습 중…','잠시만요','']]);
+    setTimeout(function(){ res=train(st.m,st.B); ref= st.m==='bp'?res:train('bp',st.B); draw_factory(); b.disabled=false; },30); };
+  draw_factory();
+})();
+</pagejs>

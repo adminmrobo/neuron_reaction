@@ -1,0 +1,418 @@
+<!--META {"title":"뉴런 반응 연구실 2부 · 연구실 반응속도 대회","ctitle":"연구실 반응속도 대회 — 빠른 문, 끝까지 전하는 문, 정확히 배우는 문","file":"02_reaction_race.html","og":"og_v2_02.jpg","cite":"2부 연구실 반응속도 대회","desc":"ReLU·tanh(주판봇 USER팀)와 GELU·SiLU(블랙팀)가 계산 속도, 학습 신호 전달, 학습 경주, 시드 재경기로 겨룹니다. 출발 가중치와 Adam을 처음 오신 분 눈높이로 풀고, 모든 기록을 이 페이지에서 직접 잽니다.","nav":"<a href=\"#three\">3줄 요약</a><a href=\"#cast\">선수 소개</a><a href=\"#rule\">경기 규칙</a><a href=\"#lv1\">종목 1</a><a href=\"#lv2\">종목 2</a><a href=\"#lv3\">종목 3</a><a href=\"#lv4\">재경기</a><a href=\"#duel\">종합</a><a href=\"#sum\">정리</a><a href=\"#kg\">지식 색인</a>"} -->
+<cover/>
+<header class="hero" id="hero"><div class="wrap">
+<div class="kicker">뉴런 반응 연구실 · 2부 (비전공자판 v2.0)</div>
+<h1>연구실 반응속도 대회 — 빠른 문, 끝까지 전하는 문, 정확히 배우는 문</h1>
+<p class="q">어떤 문이 "가장 좋은 문"일까? 무엇으로 재느냐에 따라 답이 바뀔까?</p>
+<p class="byline">글 · 안상선 ((주)M-Robo 대표) · 2026-11-22 · 읽는 시간 약 30분 · 실험 도구 5개</p>
+<div class="sernav"><a href="01_activation.html">1부 활성화 함수</a><a class="now" href="02_reaction_race.html">2부 반응속도 대회</a><a href="03_backprop.html">3부 역전파</a><a href="practice/index.html">실전 연습장</a></div>
+<say who="doc" e="e08">1부에서 문 모양을 하나씩 봤어요. 오늘은 네 가지 문이 직접 겨룹니다. USER팀은 ReLU와 tanh, 블랙팀은 GELU와 SiLU를 내보냈어요. 저는 이번에도 심판입니다.</say>
+<say who="robo" e="e16">단순한 게 최고! ReLU가 세 종목 다 가져갑니다!</say>
+<say who="fly" e="e09">요즘 언어모델은 GELU·SiLU를 쓴다고. 재 보기 전에는 아무도 몰라.</say>
+</div></header>
+
+<main class="wrap">
+<section class="level" id="three">
+<h2>처음 오신 분께 — 이 페이지를 3줄로</h2>
+<div class="three">
+<div><b>무엇을</b><p>신경망의 문(활성화 함수) 네 가지를 <b>계산 속도, 학습 신호 전달, 학습 경주</b> 세 종목으로 겨루고, 시드를 바꿔 재경기합니다.</p></div>
+<div><b>왜 중요한가</b><p>"무엇이 최고냐"는 무엇으로 재느냐에 따라 바뀝니다. 같은 조건에서 여러 번 재야 공정한 결론이 나옵니다.</p></div>
+<div><b>업무에서는</b><p>모델을 고를 때 속도(비용), 안정성, 정확도를 따로 봐야 합니다. 기록 하나만 보고 "이게 최고"라고 정하면 위험합니다.</p></div>
+</div>
+<p class="calm">코드·수식을 몰라도 됩니다. 버튼을 누르면 이 페이지가 직접 계산합니다.</p>
+<details class="abbr"><summary>이 페이지에 나오는 영어 이름 풀이 (눌러서 펼치기)</summary>
+<div class="tb"><table>
+<tr><th>이름</th><th>읽는 법</th><th>뜻</th></tr>
+<tr><td>ReLU · tanh · GELU · SiLU</td><td>렐루 · 탄에이치 · 젤루 · 실루</td><td>1부에서 본 문들. ReLU는 꺾인 직선, tanh는 S자, GELU·SiLU는 부드럽게 꺾인 문</td></tr>
+<tr><td>He 초기화</td><td>히 초기화</td><td>출발 가중치를 고르는 방법. 처음 제안한 연구자(He Kaiming)의 이름</td></tr>
+<tr><td>Adam</td><td>아담</td><td>걸음 크기를 스스로 맞추며 학습하는 방법(최적화 방법)</td></tr>
+<tr><td>Seed</td><td>시드</td><td>난수의 출발 번호. 같은 시드면 같은 '무작위'가 나와 다시 재현할 수 있음</td></tr>
+</table></div></details>
+</section>
+
+<section class="level" id="cast">
+<h2>선수 소개</h2>
+<teams/>
+<div class="tb" style="margin-top:16px"><table>
+<tr><th>팀</th><th>문</th><th>대표</th><th>한 줄 특징</th></tr>
+<tr><td style="color:var(--user);font-weight:700">USER팀</td><td>ReLU</td><td>주판봇</td><td>음수는 0, 양수는 그대로. 계산이 가장 단순</td></tr>
+<tr><td style="color:var(--user);font-weight:700">USER팀</td><td>tanh</td><td>인턴1 시아</td><td>−1~1 S자. 가운데 기울기 최대 1</td></tr>
+<tr><td style="font-weight:700">블랙팀</td><td>GELU</td><td>초파리 연구원</td><td>z × (통과 비율). BERT 같은 언어모델의 숨은 문</td></tr>
+<tr><td style="font-weight:700">블랙팀</td><td>SiLU</td><td>X1</td><td>z × 시그모이드(z). 최근 언어모델 SwiGLU의 재료</td></tr>
+<tr><td style="color:var(--muted)">번외</td><td>시그모이드</td><td>—</td><td>종목 ②에서 비교용으로만 함께 뜁니다(점수 없음)</td></tr>
+</table></div>
+</section>
+
+<section class="level" id="rule">
+<h2>경기 규칙 — 같은 조건에서 재야 비교가 된다</h2>
+<say who="doc" e="e07">상황 하나. 두 지점의 매출을 비교하는데, 한 지점은 연말 기록, 다른 지점은 비수기 기록이라면? 비교가 안 되죠. 문을 겨룰 때도 같아요. 그래서 규칙을 먼저 정합니다.</say>
+<div class="tb"><table>
+<tr><th>종목</th><th>무엇을 재나</th><th>같게 맞춘 조건</th><th>1위 기준</th></tr>
+<tr><td>① 계산 속도</td><td>문을 100만 번 계산하는 시간</td><td>같은 숫자 묶음, 3번 재서 가장 빠른 기록</td><td>시간이 가장 짧은 문</td></tr>
+<tr><td>② 학습 신호 전달</td><td>끝 층의 신호가 첫 층까지 남는 비율</td><td>숨은 층 12개, 폭 32, He 출발 가중치, 같은 입력 16개</td><td>100%에 가장 가까운 문</td></tr>
+<tr><td>③ 학습 경주</td><td>나선 데이터를 시험 정확도 95%까지 배우는 걸음 수</td><td>숨은 층 3개 × 16, Adam, 같은 시드, 200걸음 제한</td><td>가장 먼저 95%에 닿은 문</td></tr>
+<tr><td>재경기</td><td>시드 5개로 ③을 다시</td><td>시드만 바꿈</td><td>1위가 바뀌는지 확인</td></tr>
+</table></div>
+<p class="sub">종목마다 1위 문을 낸 팀이 1점입니다. 모든 기록은 이 페이지가 여러분 기기에서 직접 계산합니다. 종목 ①만 기기마다 결과가 다를 수 있습니다.</p>
+<div class="map"><span>1부 문의 모양</span><i>→</i><span class="now">2부 문끼리 겨루기</span><i>→</i><span>3부 역전파</span><i>→</i><span>실전 연습장</span></div>
+</section>
+
+<!-- 종목 1 -->
+<section class="level" id="lv1">
+<div class="lvhead"><div class="lvno">1<small>종목</small></div><h2>계산 속도 — 문 하나를 지나는 데 걸리는 시간</h2></div>
+<span class="lvtag g">일상: 계산대 줄</span><span class="lvtag">측정: 내 기기에서 100만 번</span>
+<say who="doc" e="e07">언어모델은 단어 하나를 만들 때마다 층마다 수천 개가 넘는 뉴런이 문을 지납니다. 문 하나가 조금만 느려도 전체로는 큰 차이가 되죠. 첫 종목은 순수한 빠르기입니다.</say>
+<div class="wm">
+<div class="whybox"><h4>왜 이 종목을 재나</h4>
+<ol><li><b>문제 상황</b> — 서비스 중인 모델은 하루에 수억 번 계산합니다. 계산 시간은 곧 전기료와 서버 비용입니다.</li>
+<li><b>차이가 나는 곳</b> — ReLU는 "0보다 큰가?" 비교 한 번입니다. tanh·GELU·SiLU는 지수함수(e의 거듭제곱) 계산이 들어가 더 무겁습니다.</li>
+<li><b>조심할 점</b> — 실제 서비스에서는 문 계산보다 곱하기·더하기가 시간을 훨씬 많이 씁니다. 그래서 이 종목의 차이는 전체 시간의 일부일 뿐입니다.</li></ol>
+<p class="easy"><b>쉽게 말하면</b> 계산대에서 "현금이세요?" 한마디로 끝나는 손님과, 포인트 적립까지 하는 손님의 차이예요.</p></div>
+<div class="mathbox"><h4>수학 수식을 어려워하는 조수가 대신 물어봅니다</h4>
+<say who="asst" e="e09">컴퓨터는 e<sup>z</sup>를 어떻게 계산해요? 버튼 하나면 나오는 거 아니에요?</say>
+<p class="school"><b>학교 수학으로 보면</b> 지수함수와 거듭제곱이에요. 컴퓨터는 곱하기·더하기를 여러 번 해서 근사값을 만듭니다.</p>
+<div class="tb"><table class="ftab">
+<tr><td>e<sup>z</sup> ≈ 1 + z + z²/2 + z³/6 + …</td><td>항을 여러 개 더해 근사(실제 방법은 더 정교함)</td></tr>
+<tr><td>max(0, z)</td><td>비교 한 번</td></tr>
+</table></div>
+<p class="try"><b>숫자로 한 번 해 보기</b> z = 1일 때 다섯 항까지<br>1 + 1 + 0.5 + 0.1667 + 0.0417 ≈ <b>2.708</b> (정확한 값 2.718)<br>곱하기·나누기를 여러 번 했는데도 아직 조금 모자라요.</p>
+<say who="asst" e="e10">그래서 지수가 들어간 문은 비교 한 번짜리 ReLU보다 무거운 거군요.</say>
+</div></div>
+<div class="pair"><div class="life"><h4>일상으로 치면</h4><p>택배 분류에서 "주소가 서울인가?"만 보는 줄과, 주소를 읽고 무게를 재는 줄은 처리 속도가 다릅니다.</p></div>
+<div class="work"><h4>현장에서는</h4><p>휴대폰·공장 카메라처럼 계산 자원이 작은 기기에 넣는 모델은 ReLU 계열을 많이 씁니다. 큰 서버의 언어모델은 정확도를 위해 조금 무거운 문도 감수합니다.</p></div></div>
+<div class="talk">
+<say who="doc" e="e09">어느 문이 가장 빠를까요?</say>
+<say who="robo" e="e16">그야 ReLU죠! 비교 한 번이면 끝이에요.</say>
+<say who="fly" e="e09">요즘 기기는 지수 계산도 빠르다던데. 직접 재 보자.</say>
+<say who="asst" e="e07">"측정 시작"을 누르면 네 문을 각각 100만 번씩, 세 번 재요. 1초쯤 걸려요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 1</span>문 속도 측정기 (내 기기 실측)</h3>
+<p class="how">같은 숫자 100만 개를 문에 통과시키는 시간을 잽니다. 세 번 재서 가장 빠른 기록을 씁니다. 다시 누르면 기록이 조금씩 달라질 수 있어요.</p>
+<div class="ctrl"><button class="bt primary" id="spRun">측정 시작</button><span class="glabel" id="spInfo">아직 재지 않았어요.</span></div>
+<div class="bars" id="spBars"></div>
+<p class="msg" id="spMsg"></p>
+<p class="lim">이 종목의 한계: 브라우저 안에서 잰 시간이라 그래픽 칩(GPU)에서의 실제 속도와 다릅니다. 순서를 보는 참고 기록으로만 씁니다.</p>
+</div>
+<round no="1" title="종목 ① 계산 속도 1위는?" win="d" id="r1">
+<cu who="robo" e="e16">ReLU가 제일 빨라요. 비교 한 번이면 끝!</cu>
+<cb who="fly" e="e09">GELU도 충분히 빠를 수 있어. 재 보기 전엔 몰라.</cb>
+<verdict e="e10"><span class="vtext"></span></verdict>
+</round>
+<div class="quiz"><quiz q="ReLU가 tanh·GELU보다 계산이 가벼운 이유는?" ans="b" ok="ReLU는 0과 비교만 하고, 나머지 문들은 지수함수 계산이 들어갑니다." no="정확도와는 상관없이, 계산 단계 수의 차이입니다."><o v="a">정확도가 낮아서</o><o v="b">지수 계산 없이 비교 한 번이면 돼서</o><o v="c">출력이 0~1이라서</o></quiz></div>
+<details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>timeit(lambda: F.gelu(x), number=100)</code> — 같은 입력으로 여러 번 계산해 시간을 재는 방식입니다.</p></details>
+</section>
+
+<!-- 종목 2 -->
+<section class="level" id="lv2">
+<div class="lvhead"><div class="lvno">2<small>종목</small></div><h2>학습 신호 전달 — 출발 가중치가 승부를 가른다</h2></div>
+<span class="lvtag g">일상: 전화 말 전하기 놀이</span><span class="lvtag">설정: He 출발 가중치</span>
+<say who="doc" e="e07">1부 대결에서 시그모이드 신호가 깊은 층에서 사라지는 걸 봤죠. 그런데 신호가 남는 양은 문만이 아니라 <b>처음에 가중치를 어떤 크기로 뽑느냐</b>에도 달려 있어요. 오늘은 출발 가중치까지 맞춰 놓고 겨룹니다.</say>
+<div class="wm">
+<div class="whybox"><h4>왜 이 방법(He 출발 가중치)을 쓰나</h4>
+<ol><li><b>문제 상황</b> — 학습 신호는 끝 층에서 앞 층으로 층마다 곱해지며 전해집니다(3부에서 자세히). 곱하는 값이 1보다 작으면 사라지고, 크면 터집니다.</li>
+<li><b>앞 방법의 한계</b> — 가중치를 아무렇게나 작게 뽑으면 신호가 층마다 줄고, 크게 뽑으면 층마다 불어납니다.</li>
+<li><b>해법</b> — He 출발 가중치(He 외 2015)는 입력 개수 n에 맞춰 크기를 정합니다(분산 2/n). ReLU가 음수 절반을 0으로 만드는 만큼 두 배로 보충해, 층을 지나도 신호 크기가 비슷하게 유지되게 합니다.</li></ol>
+<p class="easy"><b>쉽게 말하면</b> 말 전하기 놀이에서 사람마다 목소리를 너무 작게 하면 끝에서 안 들리고, 너무 크면 소리가 찢어져요. 앞사람 수에 맞춘 적당한 목소리가 He 방법입니다.</p></div>
+<div class="mathbox"><h4>수학 수식을 어려워하는 조수가 대신 물어봅니다</h4>
+<say who="asst" e="e04">"분산 2/n"이요? 분산은 통계 시간에 들었는데 기억이 안 나요.</say>
+<p class="school"><b>학교 수학으로 보면</b> 분산은 "평균에서 얼마나 흩어져 있나"를 제곱해서 잰 값이에요. 제곱근을 씌우면 표준편차, 곧 흔한 흩어짐의 크기입니다.</p>
+<div class="tb"><table class="ftab">
+<tr><td>n</td><td>한 뉴런에 들어오는 입력 개수</td></tr>
+<tr><td>2/n</td><td>가중치를 뽑을 때의 분산(He)</td></tr>
+<tr><td>√(2/n)</td><td>표준편차. 가중치가 대략 이 크기로 흩어짐</td></tr>
+<tr><td>1/n</td><td>비교용 '표준' 방법(1부 대결에서 쓴 조건)</td></tr>
+</table></div>
+<p class="try"><b>숫자로 한 번 해 보기</b> 폭 32인 층이면 n = 32<br>2/32 = 0.0625 → 표준편차 √0.0625 = <b>0.25</b><br>가중치를 평균 0, 대략 −0.25 ~ +0.25 근처로 뽑습니다.</p>
+<say who="asst" e="e10">입력이 많을수록 하나하나는 작게 뽑는 거네요. 더해지는 개수가 많으니까요!</say>
+</div></div>
+<div class="pair"><div class="life"><h4>일상으로 치면</h4><p>단체 사진 조명은 사람 수에 맞춰 밝기를 정해요. 사람이 많을수록 한 사람당 조명을 조금씩 나눠야 전체가 고르게 보입니다.</p></div>
+<div class="work"><h4>현장에서는</h4><p>딥러닝 프로그램은 층을 만들 때 출발 가중치 방법을 정해 둡니다. 학습 첫 몇 걸음에서 손실이 줄지 않거나 '숫자 아님(NaN)'이 뜨면 출발 가중치와 학습률을 먼저 봅니다.</p></div></div>
+<div class="talk">
+<say who="doc" e="e09">숨은 층 12개, He 출발 가중치. 첫 층까지 신호가 100%에 가장 가깝게 남는 문은?</say>
+<say who="sia" e="e07">tanh요. 가운데 기울기가 1이라 신호를 그대로 넘겨요.</say>
+<say who="x1" e="e09">SiLU가 100%에 제일 가까울걸. 조건을 바꿔 가며 확인해 봐.</say>
+<say who="asst" e="e07">도구 2에서 층 수와 출발 가중치를 바꿀 수 있어요. 공식 기록은 12층·He 조건이에요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 2</span>학습 신호 전달 레인</h3>
+<p class="how">끝 층 신호를 100%로 두고 층마다 남은 비율을 그립니다. 세로축은 10배마다 한 눈금입니다. 100% 선(가운데 점선)에 가까울수록 좋습니다. 아래로 멀어지면 사라짐, 위로 멀어지면 터짐입니다.</p>
+<div class="ctrl"><label class="group"><span class="glabel">숨은 층 수</span><input type="range" id="sgD" min="4" max="30" step="1" value="12"><span class="val" id="sgDV">12</span></label>
+<div class="group" id="sgI"><span class="glabel">출발 가중치</span><button class="bt" data-v="small" aria-pressed="false">고정 0.05</button><button class="bt" data-v="std" aria-pressed="false">표준 1/n</button><button class="bt" data-v="he" aria-pressed="true">He 2/n</button></div></div>
+<div class="readout" id="sgOut"></div>
+<div class="cwrap"><canvas id="cvS" aria-label="층마다 남은 학습 신호 비율, 다섯 가지 문"></canvas></div>
+<div class="legend" id="sgLeg"></div>
+<p class="msg" id="sgMsg"></p>
+<p class="lim">이 종목의 한계: 비율만 봅니다. "고정 0.05"는 비율은 100% 근처여도 신호의 절대 크기가 아주 작아 학습이 느립니다. 또 입력 16개·시드 하나의 결과라, 시드를 바꾸면 순위가 조금 바뀔 수 있어요.</p>
+</div>
+<round no="2" title="종목 ② (12층·He) 신호가 100%에 가장 가깝게 남는 문은?" win="d" id="r2">
+<cu who="sia" e="e07">tanh! 가운데 기울기 1이라 신호를 그대로 넘겨요.</cu>
+<cb who="x1" e="e09">SiLU가 가장 100%에 가까울 거야.</cb>
+<verdict e="e10"><span class="vtext"></span></verdict>
+</round>
+<div class="quiz"><quiz q="He 출발 가중치가 '분산 2/n'으로 1/n의 두 배인 이유는?" ans="a" ok="ReLU가 음수 쪽 절반을 0으로 만들어 신호가 반으로 줄어드는 것을 보충합니다." no="ReLU가 음수 절반을 0으로 만드는 점을 떠올려 보세요."><o v="a">ReLU가 신호의 절반을 0으로 만드는 것을 보충하려고</o><o v="b">계산을 빠르게 하려고</o><o v="c">출력을 0~1로 만들려고</o></quiz></div>
+<details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>nn.init.kaiming_normal_(layer.weight)</code> — He 방법으로 출발 가중치를 뽑는다는 뜻입니다(He의 이름이 Kaiming).</p></details>
+</section>
+
+<!-- 종목 3 -->
+<section class="level" id="lv3">
+<div class="lvhead"><div class="lvno">3<small>종목</small></div><h2>학습 경주 — 누가 먼저 95%에 닿나</h2></div>
+<span class="lvtag g">일상: 길 찾기</span><span class="lvtag">설정: Adam, 나선 데이터</span>
+<say who="doc" e="e07">빠르고 신호를 잘 넘겨도, 결국 중요한 건 "잘 배우느냐"죠. 서로 감긴 두 나선을 구분하는 문제를 냅니다. 학습에 쓰지 않은 시험 데이터로 정확도를 재고, 95%에 먼저 닿는 문이 1위입니다.</say>
+<div class="wm">
+<div class="whybox"><h4>왜 이 방법(Adam)을 쓰나</h4>
+<ol><li><b>문제 상황</b> — 가중치마다 기울기 크기가 제각각입니다. 같은 걸음 크기로 고치면 어떤 가중치는 너무 천천히, 어떤 가중치는 너무 크게 움직입니다.</li>
+<li><b>앞 방법의 한계</b> — 일반 경사하강법은 "학습률 × 기울기"만큼 움직여, 기울기가 작은 곳에서 거의 멈춥니다.</li>
+<li><b>해법</b> — Adam(Kingma·Ba 2015)은 최근 기울기들의 평균 방향과 평균 크기를 기억해, 크기로 나눠 걸음을 고르게 맞춥니다. 그래서 출발이 빠르고 안정적입니다.</li></ol>
+<p class="easy"><b>쉽게 말하면</b> 평지에서는 성큼, 비탈에서는 조심스럽게 걷는 등산객이에요. 길의 기울기에 맞춰 보폭을 스스로 조절합니다.</p></div>
+<div class="mathbox"><h4>수학 수식을 어려워하는 조수가 대신 물어봅니다</h4>
+<say who="asst" e="e09">Adam 보폭 = 학습률 × (기울기 평균) ÷ (기울기 크기)… 나누면 뭐가 좋아요?</say>
+<p class="school"><b>학교 수학으로 보면</b> 평균과 비율 계산이에요. 크기로 나누면 "방향"만 남아서 걸음이 학습률 근처로 맞춰집니다.</p>
+<div class="tb"><table class="ftab">
+<tr><td>학습률</td><td>기본 걸음 크기 (여기서는 0.01)</td></tr>
+<tr><td>기울기 평균</td><td>최근 기울기들의 평균(방향과 크기)</td></tr>
+<tr><td>기울기 크기</td><td>최근 기울기 제곱의 평균에 제곱근</td></tr>
+</table></div>
+<p class="try"><b>숫자로 한 번 해 보기</b> 기울기가 계속 0.001인 가중치<br>일반 경사하강: 0.01 × 0.001 = <b>0.00001</b>씩 이동<br>Adam: 0.01 × 0.001 ÷ 0.001 ≈ <b>0.01</b>씩 이동 → 1000배 빨리 움직임</p>
+<say who="asst" e="e10">기울기가 작아도 Adam은 꾸준히 걸어가는 거군요!</say>
+</div></div>
+<div class="pair"><div class="life"><h4>일상으로 치면</h4><p>내비게이션이 막히는 길에서는 천천히, 뻥 뚫린 길에서는 빠르게 도착 시간을 고쳐 계산하는 것과 비슷해요.</p></div>
+<div class="work"><h4>현장에서는</h4><p>대부분의 딥러닝 프로젝트가 Adam(또는 변형 AdamW)으로 시작합니다. 같은 문이라도 학습 방법을 바꾸면 순위가 바뀔 수 있어, 비교할 때는 학습 방법을 같게 맞춥니다.</p></div></div>
+<div class="talk">
+<say who="doc" e="e09">95%에 가장 먼저 닿는 문은?</say>
+<say who="robo" e="e16">ReLU가 1등으로 골인합니다!</say>
+<say who="fly" e="e09">부드러운 GELU가 먼저일걸. 학습 방법을 일반 경사하강으로 바꾸면 어떻게 되는지도 봐.</say>
+<say who="asst" e="e07">"경주 시작"을 누르면 네 망이 동시에 배워요. 공식 기록은 Adam·나선 조건이에요. 몇 초 걸려요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 3</span>학습 경주장</h3>
+<p class="how">네 문을 단 같은 모양의 망(숨은 층 3개 × 16)이 같은 출발점에서 동시에 배웁니다. 왼쪽은 시험 정확도 곡선, 오른쪽은 고른 문이 그린 경계선(파랑·검정 영역)입니다.</p>
+<div class="ctrl"><div class="group" id="rcData"><span class="glabel">데이터</span><button class="bt" data-v="spiral" aria-pressed="true">나선</button><button class="bt" data-v="moons" aria-pressed="false">초승달</button></div>
+<div class="group" id="rcOpt"><span class="glabel">학습 방법</span><button class="bt" data-v="adam" aria-pressed="true">Adam</button><button class="bt" data-v="sgd" aria-pressed="false">일반 경사하강</button></div>
+<div class="group" id="rcShow"><span class="glabel">경계선 보기</span><button class="bt" data-v="relu" aria-pressed="true">ReLU</button><button class="bt" data-v="tanh" aria-pressed="false">tanh</button><button class="bt" data-v="gelu" aria-pressed="false">GELU</button><button class="bt" data-v="silu" aria-pressed="false">SiLU</button></div>
+<button class="bt primary" id="rcRun">경주 시작</button></div>
+<div class="readout" id="rcOut"></div>
+<div class="pair" style="margin:0"><div style="padding:6px;background:#fff"><div class="cwrap"><canvas id="cvR1" aria-label="시험 정확도 곡선"></canvas></div></div><div style="padding:6px;background:#fff"><div class="cwrap"><canvas id="cvR2" aria-label="분류 경계선과 데이터"></canvas></div></div></div>
+<div class="legend" id="rcLeg"></div>
+<p class="msg" id="rcMsg">"경주 시작"을 눌러 주세요.</p>
+<p class="lim">이 종목의 한계: 점 160개짜리 작은 문제, 시드 하나의 결과입니다. 큰 데이터·큰 망에서는 순위가 달라질 수 있어요. 그래서 다음 종목에서 시드를 바꿔 다시 봅니다.</p>
+</div>
+<round no="3" title="종목 ③ 학습 경주 (나선·Adam) 1위는?" win="d" id="r3">
+<cu who="robo" e="e16">ReLU가 제일 먼저 95%에 골인!</cu>
+<cb who="fly" e="e09">부드러운 GELU가 먼저 닿을 거야.</cb>
+<verdict e="e10"><span class="vtext"></span></verdict>
+</round>
+<div class="quiz"><quiz q="정확도를 '학습에 쓰지 않은 시험 데이터'로 재는 이유는?" ans="c" ok="학습 데이터를 외운 것인지, 처음 보는 데이터에도 통하는지 구분하려는 것입니다." no="계산 속도와는 상관없고, 외운 것과 배운 것을 구분하려는 목적이에요."><o v="a">계산이 빨라서</o><o v="b">점수가 높게 나와서</o><o v="c">외운 것이 아니라 일반화했는지 보려고</o></quiz></div>
+<details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>torch.optim.Adam(model.parameters(), lr=0.01)</code> — 학습률 0.01로 Adam을 쓰겠다는 뜻입니다.</p></details>
+</section>
+
+<!-- 재경기 -->
+<section class="level" id="lv4">
+<div class="lvhead"><div class="lvno">4<small>재경기</small></div><h2>시드 재경기 — 한 번 이긴 문이 늘 이길까?</h2></div>
+<span class="lvtag g">일상: 한 경기와 시즌 성적</span><span class="lvtag">방법: 여러 번 재서 평균</span>
+<say who="doc" e="e07">축구에서 한 경기 이겼다고 시즌 우승팀은 아니죠. 신경망도 출발 가중치를 뽑는 난수(시드)가 바뀌면 결과가 흔들립니다. 같은 경주를 시드 다섯 개로 다시 해 봅니다.</say>
+<div class="wm">
+<div class="whybox"><h4>왜 이 방법을 쓰나</h4>
+<ol><li><b>문제 상황</b> — 신경망 학습에는 우연이 섞여 있습니다. 출발 가중치, 데이터 순서가 난수로 정해집니다.</li>
+<li><b>앞 방법의 한계</b> — 한 번 잰 기록은 실력인지 운인지 구분이 안 됩니다.</li>
+<li><b>해법</b> — 시드를 여러 개 바꿔 재고, 평균과 흩어짐을 함께 봅니다. 1위가 자주 바뀌면 "차이가 작다"는 뜻입니다.</li></ol>
+<p class="easy"><b>쉽게 말하면</b> 맛집 평가를 한 번 방문으로 정하지 않고 여러 번 가 보는 것과 같아요.</p></div>
+<div class="mathbox"><h4>수학 수식을 어려워하는 조수가 대신 물어봅니다</h4>
+<say who="asst" e="e09">평균만 보면 되지, 흩어짐은 왜 봐요?</say>
+<p class="school"><b>학교 수학으로 보면</b> 평균과 범위(최댓값 − 최솟값)예요. 평균이 같아도 흩어짐이 크면 믿기 어렵습니다.</p>
+<div class="tb"><table class="ftab">
+<tr><td>평균</td><td>다섯 기록을 더해 5로 나눔</td></tr>
+<tr><td>범위</td><td>가장 좋은 기록 − 가장 나쁜 기록</td></tr>
+</table></div>
+<p class="try"><b>숫자로 한 번 해 보기</b> 정확도 0.96, 0.98, 0.95, 0.99, 0.97<br>평균 = 4.85 ÷ 5 = <b>0.97</b>, 범위 = 0.99 − 0.95 = <b>0.04</b><br>두 문의 평균 차이가 0.01인데 범위가 0.04라면, 차이가 우연일 수 있어요.</p>
+<say who="asst" e="e10">평균 차이가 흩어짐보다 작으면 "확실히 이겼다"고 말하기 어렵겠네요.</say>
+</div></div>
+<div class="pair"><div class="life"><h4>일상으로 치면</h4><p>시험 한 번 점수로 반 1등을 정하지 않고, 여러 번의 평균으로 성적을 매기는 것과 같아요.</p></div>
+<div class="work"><h4>현장에서는</h4><p>논문과 사내 보고서에서 "시드 3~5개 평균 ± 표준편차"를 함께 적는 이유입니다. 차이가 흩어짐보다 작으면 "비슷하다"고 보고합니다.</p></div></div>
+<div class="talk">
+<say who="doc" e="e09">시드 다섯 개로 재경기하면 1위가 그대로일까요?</say>
+<say who="robo" e="e16">한 번 이긴 문은 계속 이겨요!</say>
+<say who="x3" e="e09">조건 하나만 바꿔 보자. 시드만 바꿔도 1위가 바뀔 수 있어.</say>
+<say who="asst" e="e07">도구 4는 시드 다섯 개 × 네 문, 모두 스무 번 학습해요. 조금 기다려 주세요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 4</span>시드 재경기표</h3>
+<p class="how">초승달 데이터(점 160개, 흩어짐 큼), 숨은 층 2개 × 12, Adam 60걸음. 시드마다 시험 정확도와 1위를 표시합니다.</p>
+<div class="ctrl"><button class="bt primary" id="sdRun">재경기 시작 (시드 5개)</button><span class="glabel" id="sdInfo"></span></div>
+<div class="tb" id="sdTab"></div>
+<p class="msg" id="sdMsg"></p>
+<p class="lim">이 도구의 한계: 시드 다섯 개도 많은 편은 아닙니다. 연구에서는 더 많이 재고, 차이가 우연인지 통계 검정으로도 확인합니다.</p>
+</div>
+<round no="4" title="재경기: 시드를 바꿔도 1위가 그대로일까?" win="d" id="r4">
+<cu who="robo" e="e16">한 번 이긴 문은 계속 이겨요!</cu>
+<cb who="x3" e="e09">시드만 바꿔도 1위가 바뀔 수 있어.</cb>
+<verdict e="e10"><span class="vtext"></span></verdict>
+</round>
+<div class="quiz"><quiz q="두 문의 평균 정확도 차이가 0.005이고, 시드마다 정확도 범위가 0.03이라면?" ans="b" ok="차이가 흩어짐보다 훨씬 작으니 '비슷하다'고 보는 것이 맞습니다." no="흩어짐(0.03)이 차이(0.005)보다 크면 우연일 가능성이 큽니다."><o v="a">확실히 한쪽이 낫다</o><o v="b">비슷하다고 보고 더 재 본다</o><o v="c">시드는 상관없다</o></quiz></div>
+</section>
+
+<!-- 종합 -->
+<section class="level" id="duel">
+<h2>종합 무대 — 최종 점수와 박사의 판정</h2>
+<say who="doc" e="e08">네 판의 결과를 모읍니다. 아직 측정하지 않은 종목은 "공식 기록 계산"을 누르면 같은 조건으로 계산해 채웁니다.</say>
+<div class="tool"><h3><span class="badge">도구 5</span>종합 점수판</h3>
+<div class="ctrl"><button class="bt primary" id="allRun">공식 기록 계산 (빈 종목 채우기)</button><span class="glabel" id="allInfo"></span></div>
+<div class="tb" id="allTab"></div>
+<div class="final" id="allFinal" style="margin-top:12px"></div>
+</div>
+<div class="aicheck"><h4>AI 판단 코너 — "GELU가 모든 면에서 최고입니다"</h4>
+<p>AI 챗봇에게 "어떤 활성화 함수가 제일 좋아?"라고 물었더니 "GELU가 모든 면에서 가장 우수합니다"라는 답을 받았다고 해 봐요.</p>
+<say who="robo" e="e16">AI가 그렇다면 그런 거죠! 우리 공장 검사기도 GELU로 바꿔요!</say>
+<say who="doc" e="e09">세 가지를 되물어 봅시다. ① "모든 면"이 무엇인가? 오늘 보듯 속도·전달·정확도 순위는 다릅니다. ② 어떤 조건에서 잰 결과인가? 큰 언어모델 결과를 작은 공장 검사기에 그대로 옮길 수는 없어요. ③ 시드 여러 개로 확인했나? 숫자 없이 "최고"라고 단정하는 답은 확인부터 해야 합니다.</say>
+</div>
+</section>
+
+<section class="level" id="sum">
+<h2>정리 — 업무에서 문을 고를 때</h2>
+<div class="tb"><table>
+<tr><th>상황</th><th>먼저 볼 것</th><th>흔한 출발점</th></tr>
+<tr><td>휴대폰·카메라 같은 작은 기기</td><td>계산 속도, 전력</td><td>ReLU 계열</td></tr>
+<tr><td>깊은 망을 처음 학습</td><td>출발 가중치와 신호 전달</td><td>ReLU + He 출발 가중치</td></tr>
+<tr><td>트랜스포머·언어모델</td><td>학습의 매끄러움, 정확도</td><td>GELU, SiLU(SwiGLU)</td></tr>
+<tr><td>값의 범위를 묶어야 하는 곳</td><td>출력 범위</td><td>tanh, 시그모이드</td></tr>
+<tr><td>둘 중 고민될 때</td><td>시드 여러 개 평균과 흩어짐</td><td>차이가 흩어짐보다 작으면 단순하고 빠른 쪽</td></tr>
+</table></div>
+<div class="recap"><b>오늘의 핵심 한 줄.</b> "가장 좋은 문"은 없고, <b>무엇을 재느냐에 따라 1위가 바뀝니다.</b> 그래서 같은 조건, 여러 번, 여러 기준으로 잽니다.</div>
+</section>
+
+<section class="level" id="outro">
+<h2>아웃트로</h2>
+<say who="robo" e="e20">세 종목을 다 가져간다고 했는데… 재경기는 생각도 못 했어요.</say>
+<say who="fly" e="e10">우리도 "요즘 쓰니까 최고"라고 할 뻔했지. 재 보니 조건마다 달랐어.</say>
+<say who="moa" e="e07">오늘 계속 나온 "신호가 끝 층에서 앞 층으로 전해진다"는 말, 그게 어떻게 계산되는지 궁금해요.</say>
+<say who="doc" e="e08">그게 3부 「역전파」입니다. 역전파를 쓸 때와 안 쓸 때를 직접 겨뤄 볼 거예요. 여기서 한 번 쉬어 가도 괜찮아요.</say>
+<div class="sernav"><a href="01_activation.html">← 1부 활성화 함수</a><a href="index.html">목차</a><a class="now" href="03_backprop.html">다음: 3부 역전파 →</a></div>
+</section>
+</main>
+<board/>
+
+<pagejs>
+var A=LAB.ACT, P4=['relu','tanh','gelu','silu'], TEAM={relu:'u',tanh:'u',gelu:'b',silu:'b'}, WHO={relu:'주판봇',tanh:'시아',gelu:'초파리 연구원',silu:'X1'};
+var COL={relu:'#2563eb',tanh:'#7c3aed',gelu:'#20222b',silu:'#15803d',sigmoid:'#ea580c'};
+var REC={};
+function tn(t){return t==='u'?'주판봇 USER팀':'블랙팀';}
+function nm(k){return A[k].ko;}
+/* 종목 1: 속도 */
+function speedRun(){
+  var N=1000000, x=new Float64Array(N), r=LAB.rng(3); for (var i=0;i<N;i++) x[i]=r.gauss()*3;
+  var F={relu:function(z){return z>0?z:0;},tanh:Math.tanh,gelu:A.gelu.f,silu:A.silu.f}, out={};
+  P4.forEach(function(k){ var f=F[k], best=1e9; for (var rep=0;rep<3;rep++){ var t0=performance.now(), s=0; for (var i=0;i<N;i++) s+=f(x[i]); var dt=performance.now()-t0; if (s===12345.678) console.log(s); best=Math.min(best,dt);} out[k]=best; });
+  REC.speed=out; return out;
+}
+function speedDraw(){
+  var o=REC.speed; if(!o) return; var mx=Math.max.apply(null,P4.map(function(k){return o[k];}));
+  var order=P4.slice().sort(function(a,b){return o[a]-o[b];});
+  document.getElementById('spBars').innerHTML=order.map(function(k,i){ return '<div class="bar"><span>'+(i+1)+'위 '+nm(k)+'</span><span class="track"><span class="fill" style="display:block;width:'+(o[k]/mx*100)+'%;background:'+COL[k]+'"></span></span><span>'+o[k].toFixed(1)+'ms</span></div>'; }).join('');
+  var m=document.getElementById('spMsg'); m.className='msg ok';
+  m.textContent='내 기기 기록: 1위 '+nm(order[0])+'('+tn(TEAM[order[0]])+'), 가장 느린 문은 '+nm(order[3])+'으로 1위보다 약 '+(o[order[3]]/o[order[0]]).toFixed(1)+'배 걸렸어요.';
+  document.getElementById('spInfo').textContent='100만 번 × 3회 중 가장 빠른 기록'; allDraw();
+}
+document.getElementById('spRun').onclick=function(){ var b=this; b.disabled=true; document.getElementById('spInfo').textContent='재는 중…'; setTimeout(function(){ speedRun(); speedDraw(); b.disabled=false; },30); };
+LAB.hooks.r1=function(){ if(!REC.speed){ speedRun(); speedDraw(); } var o=REC.speed, w=P4.slice().sort(function(a,b){return o[a]-o[b];})[0];
+  return {win:TEAM[w], html:'여러분 기기에서 잰 기록으로 판정합니다. 1위는 <b>'+nm(w)+'</b>('+WHO[w]+', '+tn(TEAM[w])+')입니다. 보통은 비교 한 번이면 끝나는 ReLU가 가장 빠르지만, 기기와 브라우저에 따라 순서가 바뀔 수 있어요. 그리고 실제 모델 전체 시간에서 문이 차지하는 비중은 작다는 것도 기억해 두세요.'}; };
+/* 종목 2: 신호 */
+function sigMeasure(act,D,init){
+  var sizes=[16]; for (var i=0;i<D;i++) sizes.push(32); sizes.push(1);
+  var net=new LAB.Net(sizes,act,{seed:11,init:init}), r=LAB.rng(5), norms=new Float64Array(sizes.length-1), G=net.zeroGrads();
+  for (var p=0;p<16;p++){ var x=new Float64Array(16); for (var k=0;k<16;k++) x[k]=r.gauss(); net.backward(net.forward(x),new Float64Array([1]),G.gW,G.gb,norms); }
+  var last=norms[norms.length-1]; return Array.prototype.map.call(norms,function(v){return v/last;});
+}
+var pct=LAB.pct;
+var sgInit='he';
+function sgDraw(){
+  var D=+document.getElementById('sgD').value, res={}, list=P4.concat(['sigmoid']);
+  list.forEach(function(k){ res[k]=sigMeasure(k,D,sgInit); });
+  var P=new LAB.Plot(document.getElementById('cvS'),{x0:1,x1:D+1,y0:-8,y1:3,ratio:0.46,minH:240,maxH:360,gy:1,gx:D>16?4:2,xlab:'층 (왼쪽 = 첫 층)',yfmt:function(v){return v===0?'100%':'10^'+v;}}); P.clear();
+  P.hline(0,'#b45309',[5,4]);
+  list.forEach(function(k){ P.line(res[k].map(function(v,i){return [i+1,Math.max(-8,Math.log10(Math.max(v,1e-30)))];}),COL[k],k==='sigmoid'?1.8:2.6,k==='sigmoid'?[4,4]:null); });
+  document.getElementById('sgLeg').innerHTML=list.map(function(k){return '<span><i style="background:'+COL[k]+'"></i>'+nm(k)+(k==='sigmoid'?' (번외)':' ('+(TEAM[k]==='u'?'USER':'블랙')+')')+'</span>';}).join('');
+  var dist=function(k){return Math.abs(Math.log10(res[k][0]));};
+  var order=P4.slice().sort(function(a,b){return dist(a)-dist(b);});
+  document.getElementById('sgOut').innerHTML=list.map(function(k){ var g=dist(k)<0.3; return '<div class="'+(g?'good':(dist(k)>1?'bad':''))+'">'+nm(k)+' · 첫 층<b>'+pct(res[k][0])+'</b></div>'; }).join('');
+  var m=document.getElementById('sgMsg'); m.className='msg ok';
+  m.textContent='숨은 층 '+D+'개 · '+{small:'고정 0.05',std:'표준 1/n',he:'He 2/n'}[sgInit]+': 100%에 가장 가까운 문은 '+nm(order[0])+'('+pct(res[order[0]][0])+')입니다. 시그모이드(번외)는 '+pct(res.sigmoid[0])+'로 가장 멀어요.';
+  if (D===12 && sgInit==='he'){ REC.signal={res:res,order:order}; }
+}
+function sgOfficial(){ var res={}; P4.forEach(function(k){res[k]=sigMeasure(k,12,'he');}); var d=function(k){return Math.abs(Math.log10(res[k][0]));}; REC.signal={res:res,order:P4.slice().sort(function(a,b){return d(a)-d(b);})}; }
+LAB.bindRange('sgD',sgDraw); LAB.seg('sgI',function(v){sgInit=v;sgDraw();}); sgDraw(); LAB.onResize(sgDraw);
+LAB.hooks.r2=function(){ if(!REC.signal) sgOfficial(); var o=REC.signal.order, w=o[0], R=REC.signal.res;
+  return {win:TEAM[w], html:'공식 조건(숨은 층 12개, He 출발 가중치)에서 첫 층에 남은 신호는 '+P4.map(function(k){return nm(k)+' '+pct(R[k][0]);}).join(', ')+'입니다. 100%에 가장 가까운 <b>'+nm(w)+'</b>('+WHO[w]+')의 '+tn(TEAM[w])+'이 이깁니다. 네 문 모두 시그모이드(번외)와 달리 사라지지 않았어요. He 출발 가중치 덕분입니다. 층 수를 바꾸면 순위가 바뀌는 것도 확인해 보세요.'}; };
+/* 종목 3: 학습 경주 */
+function spiral(n,seed,noise){ var r=LAB.rng(seed),X=[],Y=[],T=4.5; for (var c=0;c<2;c++) for (var i=0;i<n;i++){ var t=i/n*T+0.3,a=t*2+c*Math.PI; X.push([t*Math.cos(a)/(T+0.3)+r.gauss()*noise,t*Math.sin(a)/(T+0.3)+r.gauss()*noise]); Y.push(c);} return {X:X,Y:Y}; }
+function moons(n,seed,noise){ var d=LAB.moons(n,seed,noise); d.X=d.X.map(function(p){return [p[0]*0.8,p[1]*0.8];}); return d; }
+var rc={data:'spiral',opt:'adam',show:'relu',run:null};
+function rcSets(data){ return data==='spiral' ? {tr:spiral(80,3,0.04),te:spiral(80,9,0.04)} : {tr:moons(80,3,0.14),te:moons(80,9,0.14)}; }
+function rcMake(data,opt){ var S=rcSets(data), nets={}; P4.forEach(function(k){ nets[k]=new LAB.Net([2,16,16,16,1],k,{seed:21,init:'he',out:'sigmoid'}); });
+  return {S:S,nets:nets,t:0,max:200,acc:{relu:[],tanh:[],gelu:[],silu:[]},hit:{},opt:opt,data:data}; }
+function rcStep(R,k){ P4.forEach(function(a){ for (var j=0;j<k;j++) R.nets[a].step(R.S.tr.X,R.S.tr.Y,R.opt==='adam'?0.01:0.5,R.opt); var e=R.nets[a].evalSet(R.S.te.X,R.S.te.Y).acc; R.acc[a].push([R.t+k,e]); if(e>=0.95 && !R.hit[a]) R.hit[a]=R.t+k; }); R.t+=k; }
+function rcRank(R){ return P4.slice().sort(function(a,b){ var ha=R.hit[a]||1e9, hb=R.hit[b]||1e9; if(ha!==hb) return ha-hb; return R.acc[b][R.acc[b].length-1][1]-R.acc[a][R.acc[a].length-1][1]; }); }
+function rcDraw(){
+  var R=rc.run;
+  var P=new LAB.Plot(document.getElementById('cvR1'),{x0:0,x1:200,y0:0.4,y1:1.0,ratio:0.8,minH:220,maxH:320,xlab:'학습 걸음',ylab:'시험 정확도'}); P.clear(); P.hline(0.95,'#b45309',[5,4],'95%');
+  var P2=new LAB.Plot(document.getElementById('cvR2'),{x0:-1.15,x1:1.15,y0:-1.15,y1:1.15,ratio:0.8,minH:220,maxH:320,noXlab:true,noYlab:true,pad:{l:8,r:8,t:8,b:8}}); P2.clear();
+  if (!R){ var S=rcSets(rc.data); P2.dots(S.tr.X.filter(function(p,i){return S.tr.Y[i]===1;}),'#2563eb',2.6); P2.dots(S.tr.X.filter(function(p,i){return S.tr.Y[i]===0;}),'#20222b',2.6); return; }
+  P4.forEach(function(k){ P.line(R.acc[k],COL[k],2.4); });
+  var net=R.nets[rc.show]; P2.field(function(x,y){return net.forward([x,y]).y[0];},3);
+  P2.dots(R.S.te.X.filter(function(p,i){return R.S.te.Y[i]===1;}),'#2563eb',2.8,'#fff'); P2.dots(R.S.te.X.filter(function(p,i){return R.S.te.Y[i]===0;}),'#20222b',2.8,'#fff');
+  P2.text(-1.1,1.02,nm(rc.show)+' 경계선 · '+R.t+'걸음','#1d2230','left',12);
+  document.getElementById('rcLeg').innerHTML=P4.map(function(k){return '<span><i style="background:'+COL[k]+'"></i>'+nm(k)+'</span>';}).join('');
+  document.getElementById('rcOut').innerHTML=P4.map(function(k){ var a=R.acc[k].length?R.acc[k][R.acc[k].length-1][1]:0; return '<div class="'+(R.hit[k]?'good':'')+'">'+nm(k)+'<b>'+(a*100).toFixed(1)+'%</b>'+(R.hit[k]?'95% 도달: '+R.hit[k]+'걸음':'아직 95% 전')+'</div>'; }).join('');
+}
+function rcFinish(R){
+  var o=rcRank(R), m=document.getElementById('rcMsg'); m.className='msg ok';
+  m.textContent=(R.data==='spiral'?'나선':'초승달')+' · '+(R.opt==='adam'?'Adam':'일반 경사하강')+': '+(R.hit[o[0]]?'가장 먼저 95%에 닿은 문은 '+nm(o[0])+'('+R.hit[o[0]]+'걸음)':'200걸음 안에 95%에 닿은 문이 없어요. 최종 정확도 1위는 '+nm(o[0]))+'입니다.'+(R.opt==='sgd'?' 일반 경사하강은 Adam보다 훨씬 느리게 올라가죠?':'');
+  if (R.data==='spiral' && R.opt==='adam') REC.race={hit:R.hit,order:o,acc:P4.reduce(function(s,k){s[k]=R.acc[k][R.acc[k].length-1][1];return s;},{})};
+  allDraw();
+}
+function rcOfficial(){ var R=rcMake('spiral','adam'); while(R.t<R.max) rcStep(R,10); rcFinish(R); if(!rc.run){ rc.run=R; rcDraw(); } }
+document.getElementById('rcRun').onclick=function(){
+  var b=this; b.disabled=true; var R=rcMake(rc.data,rc.opt); rc.run=R; document.getElementById('rcMsg').textContent='학습 중…';
+  (function loop(){ rcStep(R,10); rcDraw(); if (R.t<R.max) setTimeout(loop, LAB.reduced?0:16); else { rcFinish(R); b.disabled=false; } })();
+};
+LAB.seg('rcData',function(v){rc.data=v; rc.run=null; rcDraw();}); LAB.seg('rcOpt',function(v){rc.opt=v;}); LAB.seg('rcShow',function(v){rc.show=v; rcDraw();});
+rcDraw(); LAB.onResize(rcDraw);
+LAB.hooks.r3=function(){ if(!REC.race) rcOfficial(); var o=REC.race.order, w=o[0], h=REC.race.hit;
+  return {win:TEAM[w], html:'공식 조건(나선, Adam, 시드 21)에서 95% 도달 걸음은 '+P4.map(function(k){return nm(k)+' '+(h[k]?h[k]+'걸음':'미도달');}).join(', ')+'입니다. 1위 <b>'+nm(w)+'</b>('+WHO[w]+')의 '+tn(TEAM[w])+' 승리! 다만 걸음 차이가 10~20걸음이라면 우연일 수도 있어요. 그걸 확인하는 게 다음 재경기입니다.'}; };
+/* 재경기 */
+function sdRunAll(){
+  var seeds=[1,2,3,4,5], tr=moons(80,13,0.22), te=moons(80,17,0.22), rows=[];
+  seeds.forEach(function(sd){ var row={seed:sd,acc:{}}; P4.forEach(function(k){ var net=new LAB.Net([2,12,12,1],k,{seed:100+sd,init:'he',out:'sigmoid'}); for (var t=0;t<60;t++) net.step(tr.X,tr.Y,0.01,'adam'); row.acc[k]=net.evalSet(te.X,te.Y).acc; });
+    row.win=P4.slice().sort(function(a,b){return row.acc[b]-row.acc[a];})[0]; rows.push(row); });
+  var mean={},rng={}; P4.forEach(function(k){ var v=rows.map(function(r){return r.acc[k];}); mean[k]=v.reduce(function(a,b){return a+b;})/v.length; rng[k]=Math.max.apply(null,v)-Math.min.apply(null,v); });
+  var winners={}; rows.forEach(function(r){winners[r.win]=1;});
+  REC.seeds={rows:rows,mean:mean,rng:rng,changed:Object.keys(winners).length>1,winners:Object.keys(winners)}; return REC.seeds;
+}
+function sdDraw(){
+  var S=REC.seeds; if(!S) return;
+  var h='<table><tr><th>시드</th>'+P4.map(function(k){return '<th>'+nm(k)+'</th>';}).join('')+'<th>1위</th></tr>';
+  S.rows.forEach(function(r){ h+='<tr><td>'+r.seed+'</td>'+P4.map(function(k){return '<td'+(r.win===k?' style="color:var(--ok);font-weight:700"':'')+'>'+(r.acc[k]*100).toFixed(1)+'%</td>';}).join('')+'<td>'+nm(r.win)+'</td></tr>'; });
+  h+='<tr><th>평균</th>'+P4.map(function(k){return '<th>'+(S.mean[k]*100).toFixed(1)+'%</th>';}).join('')+'<th></th></tr><tr><th>범위</th>'+P4.map(function(k){return '<th>'+(S.rng[k]*100).toFixed(1)+'%p</th>';}).join('')+'<th></th></tr></table>';
+  document.getElementById('sdTab').innerHTML=h;
+  var best=P4.slice().sort(function(a,b){return S.mean[b]-S.mean[a];}), gap=S.mean[best[0]]-S.mean[best[1]], m=document.getElementById('sdMsg');
+  m.className='msg ok'; m.textContent=(S.changed?'시드에 따라 1위가 바뀌었어요('+S.winners.map(nm).join(', ')+'). ':'다섯 시드 모두 '+nm(S.rows[0].win)+'이 1위였어요. ')+'평균 1·2위 차이는 '+(gap*100).toFixed(1)+'%p, 시드별 범위는 '+(S.rng[best[0]]*100).toFixed(1)+'%p입니다.'+(gap<S.rng[best[0]]?' 차이가 흩어짐보다 작으니 "비슷하다"고 보는 게 맞아요.':'');
+  allDraw();
+}
+document.getElementById('sdRun').onclick=function(){ var b=this; b.disabled=true; document.getElementById('sdInfo').textContent='학습 중… (스무 번)'; setTimeout(function(){ sdRunAll(); sdDraw(); b.disabled=false; document.getElementById('sdInfo').textContent='완료'; },30); };
+LAB.hooks.r4=function(){ if(!REC.seeds){ sdRunAll(); sdDraw(); } var S=REC.seeds;
+  return S.changed ? {win:'b', html:'시드 다섯 개 중 1위가 '+S.winners.map(nm).join(', ')+'(으)로 바뀌었습니다. 시드만 바꿔도 순위가 흔들려요. 블랙팀 X3의 말이 맞습니다. 한 번의 기록으로 "최고"라고 하면 안 되는 이유예요.'}
+   : {win:'u', html:'이번 조건에서는 다섯 시드 모두 '+nm(S.rows[0].win)+'이 1위였어요. 주판봇 말대로 결과가 안정적이었습니다. 다만 다른 데이터·조건에서는 바뀔 수 있으니, 늘 여러 번 재 보고 말해야 합니다.'}; };
+/* 종합 */
+function allDraw(){
+  var rows=[['① 계산 속도',REC.speed?P4.slice().sort(function(a,b){return REC.speed[a]-REC.speed[b];})[0]:null,'내 기기 실측'],
+            ['② 신호 전달',REC.signal?REC.signal.order[0]:null,'12층·He'],
+            ['③ 학습 경주',REC.race?REC.race.order[0]:null,'나선·Adam'],
+            ['재경기 (1위가 바뀌나)',REC.seeds?(REC.seeds.changed?'바뀜':'그대로'):null,'초승달·시드 5개']];
+  var u=0,b=0,h='<table><tr><th>종목</th><th>결과</th><th>점수 받은 팀</th><th>조건</th></tr>';
+  rows.forEach(function(r){ var t=null, label=r[1]; if(r[1]==='바뀜'){t='b';} else if(r[1]==='그대로'){t='u';} else if(r[1]){ t=TEAM[r[1]]; label=nm(r[1]); }
+    if(t==='u')u++; else if(t==='b')b++; h+='<tr><td>'+r[0]+'</td><td>'+(r[1]?label:'아직 안 잼')+'</td><td>'+(t?tn(t):'-')+'</td><td>'+r[2]+'</td></tr>'; });
+  document.getElementById('allTab').innerHTML=h+'</table>';
+  var done=rows.every(function(r){return r[1];}), f=document.getElementById('allFinal');
+  f.innerHTML = done ? '<b style="color:var(--judge)">박사의 최종 판정</b><p style="margin:.3em 0 0">공식 기록 기준 점수는 USER팀 '+u+' : 블랙팀 '+b+'입니다. '+(u===b?'동점이에요. ':(u>b?'USER팀이 앞섰어요. ':'블랙팀이 앞섰어요. '))+'하지만 진짜 결론은 따로 있어요. <b>종목마다 1위가 다를 수 있고, 같은 종목도 조건과 시드에 따라 바뀝니다.</b> "최고의 문" 대신 "이 조건에서 이 기준으로는 이 문"이라고 말하는 것이 오늘의 판정입니다.</p>'
+    : '<p style="margin:0">아직 재지 않은 종목이 있어요. 위 도구들을 돌리거나 "공식 기록 계산"을 눌러 주세요.</p>';
+}
+document.getElementById('allRun').onclick=function(){ var bt=this; bt.disabled=true; document.getElementById('allInfo').textContent='계산 중… 몇 초 걸려요';
+  setTimeout(function(){ if(!REC.speed){speedRun();speedDraw();} if(!REC.signal) sgOfficial(); if(!REC.race) rcOfficial(); if(!REC.seeds){sdRunAll();sdDraw();} allDraw(); bt.disabled=false; document.getElementById('allInfo').textContent='완료'; },30); };
+allDraw();
+document.querySelectorAll('.round .pick .bt').forEach(function(b){ b.addEventListener('click',function(){ setTimeout(allDraw,50); }); });
+</pagejs>

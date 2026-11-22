@@ -1,0 +1,568 @@
+<!--META {"title":"뉴런 반응 연구실 3부 · 역전파","ctitle":"역전파 — 학습 신호가 거꾸로 건너가는 길","file":"03_backprop.html","og":"og_v2_03.jpg","cite":"3부 역전파 — 학습 신호가 거꾸로 건너가는 길","desc":"손잡이가 수백만 개인 신경망이 어느 손잡이를 어느 쪽으로 돌릴지 아는 방법, 역전파. 쓸 때와 안 쓸 때를 비교하고, 쓰는 이유와 실제 사례를 주판봇 USER팀과 블랙팀의 대결과 여섯 개의 실험 도구로 확인합니다.","nav":"<a href=\"#three\">3줄 요약</a><a href=\"#cast\">팀 소개</a><a href=\"#big\">큰 그림</a><a href=\"#lv1\">단계 1</a><a href=\"#lv2\">단계 2</a><a href=\"#lv3\">단계 3</a><a href=\"#lv4\">단계 4</a><a href=\"#lv5\">단계 5</a><a href=\"#duel\">대결</a><a href=\"#sum\">정리</a><a href=\"#kg\">지식 색인</a>"} -->
+<cover/>
+<header class="hero" id="hero"><div class="wrap">
+<div class="kicker">뉴런 반응 연구실 · 3부 (비전공자판 v2.0 · 새 편)</div>
+<h1>역전파 — 학습 신호가 거꾸로 건너가는 길</h1>
+<p class="q">손잡이가 수백만 개인데, 어느 손잡이를 어느 쪽으로 돌려야 할지 어떻게 알까?</p>
+<p class="byline">글 · 안상선 ((주)M-Robo 대표) · 2026-11-22 · 읽는 시간 약 35분 · 실험 도구 6개</p>
+<div class="sernav"><a href="01_activation.html">1부 활성화 함수</a><a href="02_reaction_race.html">2부 반응속도 대회</a><a class="now" href="03_backprop.html">3부 역전파</a><a href="practice/index.html">실전 연습장</a></div>
+<say who="doc" e="e08">1부와 2부 내내 "학습 신호가 끝 층에서 앞 층으로 전해진다"고 했죠. 오늘은 그 길, <b>역전파</b>를 직접 걸어 봅니다. 그리고 역전파를 쓰는 쪽과 쓰지 않는 쪽이 겨룹니다.</say>
+<say who="robo" e="e16">손잡이를 하나씩 살짝 돌려 보면 다 알 수 있어요! 복잡한 역전파 없이도 우리 USER팀이 이깁니다!</say>
+<say who="fly" e="e09">답은 같을지 몰라도 시간이 문제야. 손잡이가 1억 개면? 재 보자.</say>
+</div></header>
+
+<main class="wrap">
+<section class="level" id="three">
+<h2>처음 오신 분께 — 이 페이지를 3줄로</h2>
+<div class="three">
+<div><b>무엇을</b><p>신경망이 틀린 만큼, 모든 손잡이(가중치)를 어느 쪽으로 얼마나 돌릴지 <b>한꺼번에</b> 계산하는 방법이 역전파입니다. 끝에서 앞으로 거꾸로 계산합니다.</p></div>
+<div><b>왜 중요한가</b><p>손잡이를 하나씩 흔들어 보는 방법도 답은 같지만, 손잡이 수만큼 계산을 반복해야 합니다. 역전파는 앞으로 계산 몇 번 분량이면 끝나서, 큰 모델 학습이 가능해졌습니다.</p></div>
+<div><b>업무에서는</b><p>번역, 챗봇, 이미지 검사, 추천 모델은 모두 역전파로 학습합니다. 반대로 의사결정나무나 손잡이가 몇 개뿐인 공정 설정은 역전파 없이 풉니다.</p></div>
+</div>
+<p class="calm">코드·수식을 몰라도 됩니다. 손계산은 작은 숫자로 한 번만 같이 해 봅니다.</p>
+<details class="abbr"><summary>이 페이지에 나오는 영어·전문 용어 풀이 (눌러서 펼치기)</summary>
+<div class="tb"><table>
+<tr><th>용어</th><th>뜻</th></tr>
+<tr><td>역전파 (Backpropagation)</td><td>손실에서 출발해 끝 층 → 앞 층 순서로 기울기를 계산하는 방법</td></tr>
+<tr><td>손실 (Loss)</td><td>예측이 정답에서 얼마나 틀렸는지 나타낸 숫자. 작을수록 좋음</td></tr>
+<tr><td>기울기 (Gradient)</td><td>손잡이를 조금 돌렸을 때 손실이 얼마나, 어느 쪽으로 바뀌는지</td></tr>
+<tr><td>연쇄법칙 (Chain rule)</td><td>이어진 계산의 기울기는 단계별 기울기를 곱하면 된다는 규칙</td></tr>
+<tr><td>흔들어 보기 (수치 미분)</td><td>손잡이를 아주 조금 바꿔 손실 변화를 직접 재는 방법</td></tr>
+</table></div></details>
+</section>
+
+<section class="level" id="cast">
+<h2>팀 소개와 오늘의 대결 구도</h2>
+<teams/>
+<div class="teams" style="margin-top:14px">
+<div class="teamcard u"><h4>USER팀의 작전 — "흔들어 보기"</h4><p style="margin:0">손잡이를 조금씩 바꿔 보고 손실이 줄면 그쪽으로 간다. 미분 같은 건 몰라도 된다.</p></div>
+<div class="teamcard b"><h4>블랙팀의 작전 — "역전파"</h4><p style="margin:0">끝에서 앞으로 거꾸로 계산해 모든 손잡이의 기울기를 한 번에 구한다.</p></div>
+</div>
+</section>
+
+<section class="level" id="why">
+<h2>왜 역전파인가</h2>
+<say who="doc" e="e07">상황 하나. 배송 시간 예측 모델이 30분이라고 했는데 실제로는 40분 걸렸어요. 모델 안에는 손잡이가 수만 개 있습니다. 어떤 손잡이를 얼마나 돌려야 다음엔 덜 틀릴까요? 이 질문에 답하는 계산법이 오늘의 주제예요.</say>
+<p>역전파의 기본 생각은 여러 연구자가 따로 내놓았고, 1986년 러멜하트·힌턴·윌리엄스의 논문이 신경망 학습법으로 널리 알렸습니다. 지금은 거의 모든 딥러닝 프로그램이 이 계산을 자동으로 합니다.</p>
+<div class="recap"><b>30초 복습.</b> ① 뉴런은 곱하고 더한 뒤 문(활성화 함수)을 지납니다(1부). ② 학습은 손실이 줄어드는 쪽으로 가중치를 조금씩 고치는 것(경사하강법)입니다. ③ 고칠 방향은 기울기가 알려 줍니다. 2부에서 "신호가 끝 층에서 첫 층까지 몇 % 남나"를 잰 것이 바로 이 기울기였어요.</div>
+</section>
+
+<section class="level" id="big">
+<h2>큰 그림 — 앞으로 계산하고, 거꾸로 따진다</h2>
+<div class="map"><span>1부 문의 모양</span><i>→</i><span>2부 문끼리 겨루기</span><i>→</i><span class="now">3부 학습 신호가 거꾸로 가는 길</span><i>→</i><span>실전 연습장</span></div>
+<div class="tool"><h3><span class="badge">개요</span>학습 한 번의 흐름</h3>
+<p class="how">① 앞으로 계산(입력 → 예측) → ② 손실 계산(예측과 정답 비교) → ③ 거꾸로 계산(손실 → 각 손잡이의 기울기) → ④ 손잡이 고치기. 이것을 수천~수백만 번 반복합니다.</p>
+<div class="cwrap"><canvas id="cvBig" aria-label="앞으로 계산과 거꾸로 계산의 흐름 그림"></canvas></div></div>
+<p class="sub">다섯 단계: ① 손잡이 하나 고치기 → ② 역전파 없이 흔들어 보기와 그 비용 → ③ 연쇄법칙으로 거꾸로 이어 가기 → ④ 깊어질 때 생기는 문제 → ⑤ 역전파를 쓸 때와 안 쓸 때. 그다음 두 팀이 같은 계산 예산으로 대결합니다.</p>
+</section>
+
+<!-- 단계 1 -->
+<section class="level" id="lv1">
+<div class="lvhead"><div class="lvno">1<small>단계</small></div><h2>손잡이 하나 — 틀린 만큼, 기울기 반대쪽으로</h2></div>
+<span class="lvtag g">일상: 샤워기 온도 맞추기</span><span class="lvtag">방법: 손실과 기울기</span>
+<say who="doc" e="e07">가장 작은 모델부터 볼게요. 거리(km)에 손잡이 w 하나를 곱해 배송 시간(분)을 예측합니다. 예측 시간 = w × 거리. w를 어떻게 정할까요?</say>
+<div class="wm">
+<div class="whybox"><h4>왜 이 방법을 쓰나</h4>
+<ol><li><b>문제 상황</b> — 손잡이 w를 바꾸면 예측이 바뀌고, 틀린 정도(손실)도 바뀝니다.</li>
+<li><b>앞 방법의 한계</b> — w를 아무렇게나 바꿔 보면 운에 맡기는 셈이고, 시간이 오래 걸립니다.</li>
+<li><b>해법</b> — 손실 곡선의 기울기를 봅니다. 기울기가 음수면 w를 키우고, 양수면 줄입니다. 기울기 반대 방향으로 조금씩 가면 손실의 바닥에 닿습니다(경사하강법).</li></ol>
+<p class="easy"><b>쉽게 말하면</b> 샤워기 물이 너무 차가우면 뜨거운 쪽으로, 너무 뜨거우면 찬 쪽으로 손잡이를 돌리죠. 얼마나 틀렸는지가 얼마나 돌릴지를 정합니다.</p></div>
+<div class="mathbox"><h4>수학 수식을 어려워하는 조수가 대신 물어봅니다</h4>
+<say who="asst" e="e09">손실 L = (wx − y)², 기울기 = 2(wx − y)·x… 이 기울기가 왜 이렇게 생겼어요?</say>
+<p class="school"><b>학교 수학으로 보면</b> 미분, 곧 접선의 기울기예요. (어떤 식)²을 미분하면 2 × (그 식) × (그 식 안쪽의 기울기)가 됩니다.</p>
+<div class="tb"><table class="ftab">
+<tr><td>x, y</td><td>거리, 실제 걸린 시간(정답)</td></tr>
+<tr><td>wx</td><td>예측 시간</td></tr>
+<tr><td>wx − y</td><td>오차(예측 − 정답)</td></tr>
+<tr><td>L = (wx − y)²</td><td>손실: 오차를 제곱해 늘 양수로</td></tr>
+<tr><td>dL/dw</td><td>"w를 아주 조금 늘리면 L이 얼마나 바뀌나". 디엘 디더블유라고 읽음</td></tr>
+</table></div>
+<p class="try"><b>숫자로 한 번 해 보기</b> 거리 x = 2, 정답 y = 6, 지금 w = 2<br>예측 2×2 = 4, 오차 4 − 6 = −2, 손실 (−2)² = <b>4</b><br>기울기 2 × (−2) × 2 = <b>−8</b> → 음수이니 w를 키워야 합니다.</p>
+<say who="asst" e="e10">기울기의 부호가 방향, 크기가 얼마나 급한지를 알려 주는군요!</say>
+</div></div>
+<div class="pair"><div class="life"><h4>일상으로 치면</h4><p>안개 낀 산에서 내려갈 때, 발밑이 기운 반대쪽(내리막)으로 한 걸음씩 가는 것과 같아요.</p></div>
+<div class="work"><h4>현장에서는</h4><p>배달 앱의 도착 시간 예측, 매장 수요 예측 모델은 매일 새 데이터로 이 과정을 되풀이하며 손잡이를 조금씩 고칩니다.</p></div></div>
+<div class="talk">
+<say who="doc" e="e09">기울기가 −8이면 손잡이 w를 어느 쪽으로 돌려야 할까요?</say>
+<say who="robo" e="e16">음수니까 줄여야죠! 마이너스는 줄이라는 뜻!</say>
+<say who="x2" e="e09">기울기 반대쪽으로 간다고 했잖아. 아래 도구에서 한 걸음 가 보자.</say>
+<say who="asst" e="e07">도구 1의 "한 걸음"을 누르면 w가 기울기 반대 방향으로 움직여요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 1</span>손잡이 하나 맞추기 — 배송 시간 예측</h3>
+<p class="how">왼쪽은 데이터(거리와 실제 시간)와 예측선, 오른쪽은 w에 따른 손실 곡선입니다. 슬라이더로 w를 바꾸거나 "한 걸음"으로 기울기를 따라가 보세요. 주황 선이 지금 위치의 기울기(접선)입니다.</p>
+<div class="ctrl"><label class="group"><span class="glabel">손잡이 w (분/km)</span><input type="range" id="k1w" min="0" max="8" step="0.05" value="1.5"><span class="val" id="k1wV">1.5</span></label>
+<label class="group"><span class="glabel">학습률(보폭)</span><input type="range" id="k1lr" min="0.002" max="0.04" step="0.002" value="0.01"><span class="val" id="k1lrV">0.01</span></label>
+<button class="bt primary" id="k1Step">기울기 따라 한 걸음</button><button class="bt" id="k1Ten">열 걸음</button></div>
+<div class="readout"><div>손실(평균 제곱 오차)<b id="k1L">-</b></div><div>기울기 dL/dw<b id="k1G">-</b></div><div>다음 방향<b id="k1D">-</b></div><div>평균 오차<b id="k1E">-</b></div></div>
+<div class="pair" style="margin:0"><div style="padding:6px;background:#fff"><div class="cwrap"><canvas id="cv1a" aria-label="거리와 배송 시간 데이터, 예측선"></canvas></div></div><div style="padding:6px;background:#fff"><div class="cwrap"><canvas id="cv1b" aria-label="w에 따른 손실 곡선과 접선"></canvas></div></div></div>
+<p class="msg" id="k1Msg"></p>
+<p class="lim">이 단계의 한계: 손잡이가 하나면 손실 곡선을 다 그려 볼 수 있습니다. 손잡이가 백만 개면 곡선을 그릴 수 없으니, 각 손잡이의 기울기를 어떻게 구할지가 문제가 됩니다.</p>
+</div>
+<round no="1" title="기울기가 −8이면 손잡이를 어느 쪽으로?" win="b">
+<cu who="robo" e="e16">마이너스니까 줄여야죠!</cu>
+<cb who="x2" e="e09">기울기 반대 방향, 곧 키워야 해.</cb>
+<verdict e="e10">기울기가 음수라는 건 "w를 키우면 손실이 줄어든다"는 뜻입니다. 그래서 반대 방향, 곧 w를 키웁니다. 도구 1에서 w = 1.5에서 한 걸음 가면 w가 커지고 손실이 줄어요. 블랙팀 승리입니다.</verdict>
+</round>
+<div class="quiz"><quiz q="손실 곡선에서 지금 위치의 기울기가 +5라면?" ans="a" ok="기울기가 양수면 손잡이를 키울수록 손실이 커지므로, 줄이는 쪽으로 갑니다." no="기울기의 반대 방향으로 간다는 규칙을 떠올려 보세요."><o v="a">손잡이를 줄인다</o><o v="b">손잡이를 키운다</o><o v="c">그대로 둔다</o></quiz></div>
+<details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>w = w - lr * grad</code> — 손잡이에서 "학습률 × 기울기"를 빼는 한 줄이 경사하강법의 전부입니다.</p></details>
+</section>
+
+<!-- 단계 2 -->
+<section class="level" id="lv2">
+<div class="lvhead"><div class="lvno">2<small>단계</small></div><h2>역전파 없이 — 손잡이를 하나씩 흔들어 보기</h2></div>
+<span class="lvtag g">일상: 리모컨 버튼 하나씩 눌러 보기</span><span class="lvtag">방법: 수치 미분(흔들어 보기)</span>
+<say who="doc" e="e07">손잡이가 많을 때 기울기를 구하는 가장 쉬운 방법은 USER팀 작전입니다. 손잡이 하나를 아주 조금 올려 보고, 손실이 얼마나 바뀌었는지 재는 거예요. 모든 손잡이에 대해 하나씩요.</say>
+<div class="wm">
+<div class="whybox"><h4>왜 이 방법을 쓰나 (그리고 왜 큰 모델에선 안 쓰나)</h4>
+<ol><li><b>장점</b> — 미분을 몰라도 됩니다. 앞으로 계산만 할 줄 알면 누구나 기울기를 잴 수 있어, 계산이 맞는지 검산할 때 아주 좋습니다.</li>
+<li><b>한계</b> — 손잡이 하나마다 앞으로 계산을 다시 해야 합니다. 손잡이가 N개면 앞으로 계산을 약 2N번(올려 보기·내려 보기) 해야 기울기 한 묶음이 나옵니다.</li>
+<li><b>그래서</b> — 손잡이가 수백만~수천억 개인 모델에서는 기울기 한 번 구하는 데 너무 오래 걸립니다. 역전파는 손잡이 수와 거의 상관없이 앞으로 계산 2~3번 분량이면 됩니다.</li></ol>
+<p class="easy"><b>쉽게 말하면</b> 설명서 없이 리모컨 버튼을 하나씩 눌러 보며 기능을 알아내는 셈이에요. 버튼이 10개면 괜찮지만 1억 개면 평생 걸립니다.</p></div>
+<div class="mathbox"><h4>수학 수식을 어려워하는 조수가 대신 물어봅니다</h4>
+<say who="asst" e="e09">[L(w + h) − L(w − h)] ÷ 2h… h는 뭐예요?</say>
+<p class="school"><b>학교 수학으로 보면</b> 평균변화율이에요. 두 점을 이은 직선의 기울기로 접선의 기울기를 어림합니다. h가 작을수록 접선에 가까워져요.</p>
+<div class="tb"><table class="ftab">
+<tr><td>h</td><td>살짝 흔드는 크기 (예: 0.0001)</td></tr>
+<tr><td>L(w + h)</td><td>손잡이를 살짝 올렸을 때 손실</td></tr>
+<tr><td>L(w − h)</td><td>살짝 내렸을 때 손실</td></tr>
+<tr><td>÷ 2h</td><td>바뀐 손실 ÷ 바꾼 크기 = 기울기 어림값</td></tr>
+</table></div>
+<p class="try"><b>숫자로 한 번 해 보기</b> 단계 1의 예 (x = 2, y = 6, w = 2), h = 0.1<br>L(2.1) = (4.2 − 6)² = 3.24, L(1.9) = (3.8 − 6)² = 4.84<br>(3.24 − 4.84) ÷ 0.2 = <b>−8</b> → 미분으로 구한 −8과 같습니다.</p>
+<say who="asst" e="e10">답은 같네요! 대신 손잡이마다 계산을 두 번씩 해야 하는 거고요.</say>
+</div></div>
+<div class="pair"><div class="life"><h4>일상으로 치면</h4><p>요리 맛을 맞출 때 소금·설탕·간장을 하나씩만 조금 바꿔 맛보는 방법이에요. 재료가 셋이면 할 만하지만 재료가 백만 개라면요?</p></div>
+<div class="work"><h4>현장에서는</h4><p>개발자는 새로 짠 역전파 코드가 맞는지 확인할 때 이 방법으로 검산합니다(기울기 검사). 실제 학습에는 쓰지 않습니다.</p></div></div>
+<div class="talk">
+<say who="doc" e="e09">흔들어 보기로 기울기를 구하면 역전파 없이도 되지 않을까요?</say>
+<say who="robo" e="e16">답이 똑같잖아요! 역전파는 필요 없어요!</say>
+<say who="fly" e="e09">답은 같아도 시간을 재 봐. 손잡이가 많으면 몇 번 계산해야 하지?</say>
+<say who="asst" e="e07">도구 2 위쪽은 비용 계산기, 아래쪽은 진짜 신경망에서 두 방법을 직접 재는 실험이에요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 2</span>기울기 구하는 비용 — 흔들어 보기 vs 역전파</h3>
+<p class="how">위: 손잡이 수를 바꾸면 기울기 한 묶음을 구하는 데 필요한 '앞으로 계산' 횟수가 나옵니다(앞으로 계산 1번 = 0.01초로 가정한 설명용 계산). 아래: 손잡이 1,185개짜리 작은 신경망에서 두 방법을 실제로 돌려 시간과 답을 비교합니다.</p>
+<div class="ctrl"><label class="group"><span class="glabel">손잡이 수</span><input type="range" id="k2n" min="1" max="11" step="1" value="4"><span class="val" id="k2nV"></span></label></div>
+<div class="bars" id="k2bars"></div>
+<p class="msg" id="k2Msg"></p>
+<div class="ctrl"><button class="bt primary" id="k2Run">실제로 재 보기 (손잡이 1,185개)</button><span class="glabel" id="k2Info"></span></div>
+<div class="readout" id="k2Out"></div>
+<p class="lim">이 단계의 한계: 위쪽 시간은 설명용 가정입니다. 실제 시간은 기기와 모델에 따라 다르지만, "흔들기는 손잡이 수에 비례해 늘어난다"는 관계는 같습니다.</p>
+</div>
+<round no="2" title="흔들어 보기만으로 역전파를 대신할 수 있을까?" win="d">
+<cu who="robo" e="e16">답이 똑같으니 역전파는 필요 없어요!</cu>
+<cb who="fly" e="e09">답은 같아도 손잡이가 많으면 너무 느려서 못 써.</cb>
+<verdict e="e09">둘 다 반만 맞았어요. 도구 2에서 두 방법의 기울기는 소수점 아래 여러 자리까지 같습니다(주판봇 말이 맞음). 그런데 손잡이 1,185개짜리 작은 망에서도 흔들기가 백 배 넘게 느리고, 손잡이가 늘수록 차이가 더 벌어집니다(초파리 말이 맞음). 그래서 무승부입니다. 흔들기는 "검산용", 역전파는 "학습용"이에요.</verdict>
+</round>
+<div class="quiz"><quiz q="손잡이가 1,000개인 모델에서 흔들어 보기(올리기·내리기)로 기울기를 한 번 구하려면 앞으로 계산을 대략 몇 번?" ans="b" ok="손잡이마다 두 번씩, 약 2,000번입니다." no="손잡이 하나마다 올리기·내리기 두 번 계산합니다."><o v="a">약 3번</o><o v="b">약 2,000번</o><o v="c">약 1번</o></quiz></div>
+<details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>torch.autograd.gradcheck(f, inputs)</code> — 역전파로 구한 기울기를 흔들어 보기 값과 비교해 검산하는 함수입니다.</p></details>
+</section>
+
+<!-- 단계 3 -->
+<section class="level" id="lv3">
+<div class="lvhead"><div class="lvno">3<small>단계</small></div><h2>연쇄법칙 — 끝에서부터 곱해 가며 거꾸로</h2></div>
+<span class="lvtag g">일상: 맞물린 톱니바퀴</span><span class="lvtag">방법: 역전파(연쇄법칙)</span>
+<say who="doc" e="e07">이제 블랙팀 작전입니다. 비밀은 "거꾸로 가면서 앞에서 구한 값을 재사용한다"는 데 있어요. 두 층짜리 작은 망으로 한 단계씩 따라가 봅시다.</say>
+<div class="wm">
+<div class="whybox"><h4>왜 이 방법을 쓰나</h4>
+<ol><li><b>문제 상황</b> — 앞쪽 손잡이를 돌리면 그 효과가 여러 층을 거쳐 손실에 닿습니다. 효과를 하나씩 따로 재면(흔들기) 너무 오래 걸립니다.</li>
+<li><b>핵심 생각</b> — 이어진 계산에서 "끝이 얼마나 바뀌나"는 단계별 변화 비율을 곱하면 됩니다(연쇄법칙).</li>
+<li><b>해법</b> — 손실 쪽 끝에서 시작해, 층마다 비율 하나만 곱하며 앞으로 거슬러 갑니다. 뒤에서 구한 값을 앞 층이 그대로 이어받으니, 전체 계산이 앞으로 계산 2~3번 분량이면 끝납니다.</li></ol>
+<p class="easy"><b>쉽게 말하면</b> 톱니바퀴 A가 한 바퀴 돌면 B가 3바퀴, B가 한 바퀴 돌면 C가 2바퀴. 그럼 A 한 바퀴에 C는 3 × 2 = 6바퀴예요. 비율을 곱해 이어 가는 것이 연쇄법칙입니다.</p></div>
+<div class="mathbox"><h4>수학 수식을 어려워하는 조수가 대신 물어봅니다</h4>
+<say who="asst" e="e04">dL/dw₁ = dL/dŷ × dŷ/dh × dh/dw₁… 분수가 줄줄이예요!</say>
+<p class="school"><b>학교 수학으로 보면</b> 합성함수의 미분이에요. 고등학교 미적분에서 "겉미분 × 속미분"으로 배운 것과 같습니다.</p>
+<div class="tb"><table class="ftab">
+<tr><td>h = ReLU(w₁x)</td><td>첫 층 뉴런의 반응</td></tr>
+<tr><td>ŷ = w₂h</td><td>예측(와이 햇). 둘째 층</td></tr>
+<tr><td>L = (ŷ − y)²</td><td>손실</td></tr>
+<tr><td>dL/dŷ = 2(ŷ − y)</td><td>예측이 손실에 주는 영향</td></tr>
+<tr><td>dŷ/dh = w₂, dh/dw₁ = x</td><td>단계별 변화 비율 (ReLU 양수 쪽 기울기 1)</td></tr>
+</table></div>
+<p class="try"><b>숫자로 한 번 해 보기</b> x = 2, w₁ = 1.5, w₂ = 2, 정답 y = 5<br>앞으로: h = 3, ŷ = 6, L = (6 − 5)² = <b>1</b><br>거꾸로: dL/dŷ = 2 → dL/dw₂ = 2 × h = <b>6</b>, dL/dh = 2 × w₂ = 4 → dL/dw₁ = 4 × 1 × x = <b>8</b></p>
+<say who="asst" e="e10">dL/dh = 4를 한 번 구해 두니 w₁ 쪽은 곱하기 하나로 끝나네요. 재사용이 핵심이군요!</say>
+</div></div>
+<div class="pair"><div class="life"><h4>일상으로 치면</h4><p>매출이 떨어진 원인을 찾을 때 "매출 ← 방문자 ← 광고 클릭 ← 광고비" 순서로 거꾸로 따져 가면, 각 단계의 비율만 알면 광고비가 매출에 미친 영향을 곱해서 알 수 있어요.</p></div>
+<div class="work"><h4>현장에서는</h4><p>딥러닝 프로그램(파이토치·텐서플로)은 앞으로 계산하면서 단계마다 필요한 값을 기록해 두고, <code>backward()</code> 한 번으로 이 거꾸로 계산을 자동으로 합니다(자동 미분).</p></div></div>
+<div class="talk">
+<say who="doc" e="e09">앞 층 손잡이 w₁의 기울기를 구할 때, 처음부터 다시 계산해야 할까요?</say>
+<say who="sia" e="e07">아니요. 뒤에서 구한 dL/dh에 곱 하나만 더하면 돼요.</say>
+<say who="x1" e="e09">층마다 처음부터 다시 계산해야 정확하지 않아? 단계별로 확인해 보자.</say>
+<say who="asst" e="e07">도구 3에서 "앞으로"와 "거꾸로" 버튼을 번갈아 눌러 계산 흐름을 따라가 보세요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 3</span>계산 그래프 따라가기 — 앞으로, 그리고 거꾸로</h3>
+<p class="how">상자 위 파란 숫자는 앞으로 계산한 값, 아래 주황 숫자는 거꾸로 구한 기울기(손실이 이 값에 얼마나 민감한가)입니다. 손잡이를 바꾼 뒤 버튼으로 한 단계씩 진행하세요.</p>
+<div class="ctrl">
+<label class="group"><span class="glabel">입력 x</span><input type="range" id="k3x" min="-3" max="3" step="0.5" value="2"><span class="val" id="k3xV">2</span></label>
+<label class="group"><span class="glabel">손잡이 w₁</span><input type="range" id="k3w1" min="-2" max="2" step="0.5" value="1.5"><span class="val" id="k3w1V">1.5</span></label>
+<label class="group"><span class="glabel">손잡이 w₂</span><input type="range" id="k3w2" min="-2" max="3" step="0.5" value="2"><span class="val" id="k3w2V">2</span></label>
+<label class="group"><span class="glabel">정답 y</span><input type="range" id="k3y" min="-4" max="8" step="0.5" value="5"><span class="val" id="k3yV">5</span></label></div>
+<div class="ctrl"><button class="bt" id="k3F">앞으로 한 단계 ▶</button><button class="bt dark" id="k3B">◀ 거꾸로 한 단계</button><button class="bt" id="k3All">한 번에 모두</button><button class="bt" id="k3R">처음부터</button></div>
+<div class="cwrap"><canvas id="cv3" aria-label="계산 그래프의 앞으로 값과 거꾸로 기울기"></canvas></div>
+<p class="msg" id="k3Msg"></p>
+<p class="lim">이 단계의 한계: 여기서는 뉴런 하나씩 두 층인 아주 작은 망으로 단순하게 봤어요. 실제 망은 층마다 뉴런이 수천 개이지만, 같은 계산을 숫자 묶음(행렬)으로 한꺼번에 합니다.</p>
+</div>
+<round no="3" title="앞 층 손잡이의 기울기, 뒤에서 구한 값을 재사용할 수 있을까?" win="u">
+<cu who="sia" e="e07">뒤에서 구한 dL/dh에 곱 하나만 더하면 돼요.</cu>
+<cb who="x1" e="e09">층마다 처음부터 다시 계산해야 정확할 거야.</cb>
+<verdict e="e10">도구 3에서 dL/dw₁은 이미 구한 dL/dh(= 4)에 ReLU 기울기(1)와 x(= 2)를 곱해 8이 나왔습니다. 처음부터 다시 계산하지 않아도 정확해요. 이 재사용 덕분에 역전파가 빠릅니다. USER팀 시아의 승리!</verdict>
+</round>
+<div class="quiz"><quiz q="톱니바퀴 A→B 비율이 4, B→C 비율이 0.5라면 A가 1바퀴 돌 때 C는?" ans="c" ok="비율을 곱해 4 × 0.5 = 2바퀴입니다. 연쇄법칙과 같은 원리예요." no="단계별 비율을 더하지 말고 곱해 보세요."><o v="a">4.5바퀴</o><o v="b">3.5바퀴</o><o v="c">2바퀴</o></quiz></div>
+<details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>loss.backward()</code> — 이 한 줄이 도구 3의 "거꾸로" 단계 전체를 모든 손잡이에 대해 자동으로 합니다. 결과는 각 손잡이의 <code>.grad</code>에 담깁니다.</p></details>
+</section>
+
+<!-- 단계 4 -->
+<section class="level" id="lv4">
+<div class="lvhead"><div class="lvno">4<small>단계</small></div><h2>깊어질수록 — 곱이 길어지면 사라지거나 터진다</h2></div>
+<span class="lvtag g">일상: 복사본의 복사본</span><span class="lvtag">방법: 지름길(잔차 연결), 기울기 자르기</span>
+<say who="doc" e="e07">연쇄법칙은 곱셈을 이어 가는 계산이었죠. 층이 50개면 50개의 비율을 곱합니다. 1부에서 본 시그모이드의 최대 기울기 0.25를 열 번만 곱해도 약 0.000001이에요. 곱이 길어지면 무슨 일이 생기는지 봅시다.</say>
+<div class="wm">
+<div class="whybox"><h4>왜 이 방법을 쓰나</h4>
+<ol><li><b>문제 상황</b> — 층마다 곱하는 비율이 1보다 작으면 신호가 사라지고(기울기 소실), 1보다 크면 폭발합니다(기울기 폭발).</li>
+<li><b>앞 방법의 한계</b> — 문을 ReLU로 바꾸고(1부), 출발 가중치를 맞춰도(2부) 아주 깊은 망에서는 여전히 흔들립니다.</li>
+<li><b>해법</b> — ① 지름길(잔차 연결): 층을 건너뛰는 길을 더해 비율이 "1 + 조금"이 되게 합니다. ② 기울기 자르기: 너무 큰 기울기는 상한을 둡니다. 요즘 큰 모델은 둘 다 씁니다.</li></ol>
+<p class="easy"><b>쉽게 말하면</b> 복사본을 다시 복사하면 글씨가 점점 흐려지죠. 지름길은 원본을 옆에 같이 넘겨주는 것과 같아요.</p></div>
+<div class="mathbox"><h4>수학 수식을 어려워하는 조수가 대신 물어봅니다</h4>
+<say who="asst" e="e09">0.25를 열 번 곱하면 정말 그렇게 작아져요?</say>
+<p class="school"><b>학교 수학으로 보면</b> 거듭제곱(지수함수)이에요. 1보다 작은 수를 거듭 곱하면 0으로, 1보다 큰 수는 끝없이 커집니다.</p>
+<div class="tb"><table class="ftab">
+<tr><td>r<sup>n</sup></td><td>층마다 비율 r을 n번 곱함</td></tr>
+<tr><td>0.25<sup>10</sup></td><td>≈ 0.00000095 (약 100만분의 1)</td></tr>
+<tr><td>1.5<sup>10</sup></td><td>≈ 57.7</td></tr>
+<tr><td>(1 + 0.025)<sup>50</sup></td><td>≈ 3.4 — 지름길이 있으면 1 근처를 유지</td></tr>
+</table></div>
+<p class="try"><b>숫자로 한 번 해 보기</b> 0.25 × 0.25 = 0.0625, × 0.25 = 0.0156 …<br>열 번 곱하면 <b>0.00000095</b>. 첫 층 손잡이는 거의 움직이지 않습니다.</p>
+<say who="asst" e="e10">1부의 "양 끝에서 둔해지는 문"이 깊은 망에서 왜 문제였는지 이제 알겠어요.</say>
+</div></div>
+<div class="pair"><div class="life"><h4>일상으로 치면</h4><p>소문이 여러 사람을 거치면 사라지거나 부풀려지죠. 원래 내용을 함께 전하는 지름길이 있으면 덜 변합니다.</p></div>
+<div class="work"><h4>현장에서는</h4><p>이미지 인식의 ResNet(He 외, 2015년 발표)은 지름길로 층을 100개 넘게 쌓는 길을 열었고, 지금의 트랜스포머 언어모델도 층마다 지름길을 둡니다. 학습 기록에서 기울기 크기가 갑자기 치솟으면 기울기 자르기를 겁니다.</p></div></div>
+<div class="talk">
+<say who="doc" e="e09">층이 아주 깊어도 지름길이 있으면 신호가 남을까요?</say>
+<say who="moa" e="e07">네! 지름길은 비율을 1 근처로 붙잡아 줘요.</say>
+<say who="x3" e="e09">지름길이 있어도 곱은 곱이잖아. 조건을 바꿔 가며 확인하자.</say>
+<say who="asst" e="e07">도구 4에서 층 수와 문, 지름길을 바꿔 첫 층까지 남는 신호를 볼 수 있어요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 4</span>곱셈 줄 — 첫 층까지 남는 신호</h3>
+<p class="how">층마다 곱해지는 비율 = (문의 기울기) × (가중치 크기)로 단순하게 봤어요. 지름길을 켜면 층마다 비율이 1 + 0.1 × (그 값)이 됩니다(설명용 단순화). 세로축은 10배마다 한 눈금입니다.</p>
+<div class="ctrl"><label class="group"><span class="glabel">층 수</span><input type="range" id="k4n" min="1" max="60" step="1" value="20"><span class="val" id="k4nV">20</span></label>
+<div class="group" id="k4f"><span class="glabel">문</span><button class="bt" data-v="0.25" aria-pressed="true">시그모이드(0.25)</button><button class="bt" data-v="1" aria-pressed="false">ReLU 양수 쪽(1)</button></div>
+<label class="group"><span class="glabel">가중치 크기</span><input type="range" id="k4w" min="0.5" max="2" step="0.05" value="1"><span class="val" id="k4wV">1</span></label>
+<div class="group" id="k4s"><span class="glabel">지름길</span><button class="bt" data-v="0" aria-pressed="true">끔</button><button class="bt" data-v="1" aria-pressed="false">켬</button></div>
+<div class="group" id="k4c"><span class="glabel">기울기 자르기(상한 10)</span><button class="bt" data-v="0" aria-pressed="true">끔</button><button class="bt" data-v="1" aria-pressed="false">켬</button></div></div>
+<div class="readout"><div>층마다 비율<b id="k4r">-</b></div><div>첫 층에 남은 신호<b id="k4o">-</b></div><div>상태<b id="k4st">-</b></div></div>
+<div class="cwrap"><canvas id="cv4" aria-label="층을 거꾸로 지나며 남는 신호"></canvas></div>
+<p class="msg" id="k4Msg"></p>
+<p class="lim">이 단계의 한계: 실제 망에서 층마다 비율은 뉴런과 입력에 따라 다른 숫자 묶음입니다. 여기서는 한 숫자로 줄여 경향만 봅니다.</p>
+</div>
+<round no="4" title="지름길이 있으면 아주 깊어도 신호가 남을까?" win="u">
+<cu who="moa" e="e07">네! 지름길이 비율을 1 근처로 붙잡아 줘요.</cu>
+<cb who="x3" e="e09">곱은 곱이니까 결국 사라질 거야.</cb>
+<verdict e="e10">도구 4에서 시그모이드·60층이면 지름길 없이 신호가 사실상 0이지만, 지름길을 켜면 비율이 1.025가 되어 첫 층까지 신호가 남습니다(오히려 조금 커져요). 모아의 말이 맞습니다. 다만 너무 커지는 쪽을 막으려 기울기 자르기를 함께 씁니다.</verdict>
+</round>
+<div class="quiz"><quiz q="층마다 비율이 1.5이고 층이 20개라면 첫 층 기울기는?" ans="a" ok="1.5를 20번 곱하면 약 3,300배로 폭발합니다. 그래서 기울기 자르기가 필요해요." no="1보다 큰 수를 거듭 곱하면 어떻게 되는지 떠올려 보세요."><o v="a">크게 불어난다(폭발)</o><o v="b">거의 0이 된다(소실)</o><o v="c">그대로 1이다</o></quiz></div>
+<details class="code"><summary>교안의 파이썬 코드로 보면 (몰라도 됩니다)</summary><p><code>out = x + block(x)</code> — 지름길(잔차 연결). <code>clip_grad_norm_(model.parameters(), 1.0)</code> — 기울기 크기에 상한을 두는 한 줄입니다.</p></details>
+</section>
+
+<!-- 단계 5 -->
+<section class="level" id="lv5">
+<div class="lvhead"><div class="lvno">5<small>단계</small></div><h2>역전파를 쓸 때와 안 쓸 때 — 실제 사례</h2></div>
+<span class="lvtag g">일상: 길 찾기 도구 고르기</span><span class="lvtag">비교: 역전파 / 기울기 없는 방법</span>
+<say who="doc" e="e07">역전파가 만능일까요? 아닙니다. 역전파를 쓰려면 두 조건이 필요해요. ① 계산의 모든 단계가 미분 가능해야 하고(기울기가 정의돼야 하고), ② 손잡이가 많아서 흔들기로는 감당이 안 돼야 이득이 큽니다. 조건이 안 맞으면 다른 방법을 씁니다.</say>
+<div class="wm">
+<div class="whybox"><h4>왜 구분해야 하나</h4>
+<ol><li><b>쓰는 경우</b> — 신경망처럼 매끄럽게 이어진 계산 + 손잡이 수천~수천억 개. 이미지 분류, 번역·챗봇, 음성 인식, 추천.</li>
+<li><b>안 쓰는 경우</b> — 의사결정나무처럼 "질문으로 나누는" 모델, 점수가 계단처럼 끊기는 시뮬레이터·게임, 손잡이가 몇 개뿐인 공정 설정. 이때는 나누는 규칙 찾기, 무작위·진화 탐색, 격자 탐색을 씁니다.</li>
+<li><b>대가</b> — 역전파는 앞으로 계산의 중간값을 모두 저장해야 해서 메모리를 많이 씁니다. 큰 모델은 일부를 버렸다가 다시 계산하는 방법(Chen 외 2016)으로 메모리를 아낍니다.</li></ol>
+<p class="easy"><b>쉽게 말하면</b> 내비게이션(역전파)은 도로 지도가 있을 때 최고예요. 지도가 없는 숲(미분 불가능)이나 골목 세 개(손잡이 몇 개)면 직접 걸어 보는 게 낫습니다.</p></div>
+<div class="mathbox"><h4>수학 수식을 어려워하는 조수가 대신 물어봅니다</h4>
+<say who="asst" e="e09">"미분 가능"이 뭐예요? 미분 못 하는 식도 있어요?</say>
+<p class="school"><b>학교 수학으로 보면</b> 그래프가 끊기거나 계단처럼 뛰면 그 점에서 접선의 기울기를 정할 수 없어요. 계단 위 평평한 곳은 기울기가 0이라 방향도 안 알려 줍니다.</p>
+<div class="tb"><table class="ftab">
+<tr><td>매끄러운 곡선</td><td>어디서나 기울기 있음 → 역전파 가능</td></tr>
+<tr><td>계단 함수 (합격/불합격)</td><td>대부분 기울기 0, 경계에서 정의 안 됨</td></tr>
+<tr><td>ReLU의 꺾인 점</td><td>z = 0 한 점만 예외. 실무에서는 0 또는 1로 정해 씀</td></tr>
+</table></div>
+<p class="try"><b>숫자로 한 번 해 보기</b> 점수 = (매출 ≥ 100이면 1, 아니면 0)<br>매출 80 → 점수 0, 매출 81 → 점수 0: 변화 0 ÷ 1 = 기울기 <b>0</b><br>매출을 조금 늘려도 점수가 안 바뀌니, 기울기로는 방향을 알 수 없어요.</p>
+<say who="asst" e="e10">계단 모양 점수에는 기울기가 도움이 안 되는군요. 그럴 땐 다른 방법을 쓰는 거고요.</say>
+</div></div>
+<div class="pair"><div class="life"><h4>일상으로 치면</h4><p>자물쇠 번호 맞추기는 "조금 가까워졌다"는 신호가 없어요(맞거나 틀리거나). 이런 문제에는 기울기가 쓸모없습니다.</p></div>
+<div class="work"><h4>현장에서는</h4><p>은행의 대출 심사는 설명이 쉬운 의사결정나무 계열(역전파 없음)을, 고객 상담 챗봇은 역전파로 학습한 언어모델을 씁니다. 한 회사 안에서도 문제마다 다릅니다.</p></div></div>
+<div class="talk">
+<say who="doc" e="e09">의사결정나무도 역전파로 학습할까요?</say>
+<say who="robo" e="e16">요즘 AI는 다 역전파죠! 나무도 마찬가지!</say>
+<say who="x2" e="e09">나무는 "나이 ≥ 30?" 같은 질문으로 나누잖아. 계단 모양인데 기울기가 있어?</say>
+<say who="asst" e="e07">도구 5에서 문제 조건을 고르면 어떤 방법이 맞는지 판정해 줘요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 5</span>방법 고르기 판정기 — 역전파를 쓸까?</h3>
+<p class="how">예시 문제를 고르거나, 조건 세 개를 직접 골라 보세요. 판정과 이유, 실제로 쓰는 방법이 나옵니다.</p>
+<div class="ctrl"><div class="group" id="k5ex"><span class="glabel">예시</span><button class="bt" data-v="img" aria-pressed="true">공장 사진 불량 검사</button><button class="bt" data-v="tree" aria-pressed="false">대출 심사 규칙</button><button class="bt" data-v="sim" aria-pressed="false">게임 점수 높이기</button><button class="bt" data-v="few" aria-pressed="false">가마 온도 설정 3개</button><button class="bt" data-v="llm" aria-pressed="false">상담 챗봇</button></div></div>
+<div class="ctrl"><div class="group" id="k5a"><span class="glabel">계산이 매끄럽게 이어지나(미분 가능)?</span><button class="bt" data-v="1" aria-pressed="true">예</button><button class="bt" data-v="0" aria-pressed="false">아니요</button></div>
+<div class="group" id="k5b"><span class="glabel">손잡이 수</span><button class="bt" data-v="few" aria-pressed="false">몇 개</button><button class="bt" data-v="many" aria-pressed="true">수천 개 이상</button></div>
+<div class="group" id="k5c"><span class="glabel">데이터 모양</span><button class="bt" data-v="table" aria-pressed="false">표(행·열)</button><button class="bt" data-v="raw" aria-pressed="true">사진·글·소리</button></div></div>
+<div class="final" id="k5Out"></div>
+<p class="lim">이 도구의 한계: 실제 선택은 데이터 양, 설명 필요성, 비용까지 함께 봅니다. 판정은 출발점으로만 쓰세요.</p>
+</div>
+<round no="5" title="의사결정나무도 역전파로 학습할까?" win="b">
+<cu who="robo" e="e16">요즘 AI는 다 역전파예요!</cu>
+<cb who="x2" e="e09">나무는 질문으로 나누는 계단 모양이라 기울기가 없어.</cb>
+<verdict e="e10">의사결정나무는 "어떤 질문으로 나누면 가장 깔끔하게 나뉘나"를 하나씩 찾아 만듭니다. 기울기도, 역전파도 쓰지 않아요. 표 데이터에서는 이런 나무 모델(랜덤 포레스트 등)이 지금도 많이 쓰입니다. 블랙팀 X2의 승리입니다.</verdict>
+</round>
+<div class="quiz"><quiz q="역전파를 쓰기 위해 꼭 필요한 조건은?" ans="b" ok="모든 단계에서 기울기를 구할 수 있어야(미분 가능해야) 거꾸로 곱해 갈 수 있습니다." no="데이터 종류보다 '기울기를 구할 수 있는가'가 핵심 조건이에요."><o v="a">데이터가 사진이어야 한다</o><o v="b">계산의 각 단계가 미분 가능해야 한다</o><o v="c">손잡이가 10개 이하여야 한다</o></quiz></div>
+<div class="tb"><table>
+<tr><th>사례</th><th>역전파</th><th>이유</th></tr>
+<tr><td>이미지 분류(불량 검사, 의료 영상 보조)</td><td>씀</td><td>합성곱 신경망, 손잡이 수백만 개, 모든 단계 미분 가능</td></tr>
+<tr><td>번역·챗봇(언어모델)</td><td>씀</td><td>트랜스포머, 손잡이 수십억 개 이상</td></tr>
+<tr><td>추천 시스템</td><td>대부분 씀</td><td>사용자·상품을 숫자 묶음(임베딩)으로 배움</td></tr>
+<tr><td>대출 심사 규칙, 표 데이터 예측</td><td>안 씀(나무 계열)</td><td>질문으로 나누는 계단 모양 모델</td></tr>
+<tr><td>게임·시뮬레이터 점수 최적화</td><td>안 쓰기도 함</td><td>점수가 미분 불가능 → 진화 전략(Salimans 외 2017)·무작위 탐색</td></tr>
+<tr><td>설정값 몇 개 조정(공정 온도·압력)</td><td>안 씀</td><td>격자 탐색·베이지안 최적화로 충분</td></tr>
+<tr><td>사람의 뇌</td><td>모름(연구 중)</td><td>뉴런이 역전파를 그대로 하는지는 논쟁 중(Lillicrap 외 2020). 역전파 없는 학습법(Hinton 2022의 Forward-Forward 등)도 연구됨</td></tr>
+</table></div>
+</section>
+
+<!-- 대결 -->
+<section class="level" id="duel">
+<h2>대결 — 같은 계산 예산으로 손실을 더 낮추는 쪽은?</h2>
+<say who="doc" e="e08">마지막 대결입니다. 손잡이 337개짜리 작은 분류 망(숨은 층 16 × 2)을 학습시킵니다. 계산 예산은 '앞으로 계산 몇 번 분량'으로 똑같이 줍니다. USER팀은 두 가지 흔들기 작전, 블랙팀은 역전파입니다.</say>
+<div class="tb"><table>
+<tr><th>팀</th><th>작전</th><th>한 번 고치는 데 드는 예산</th></tr>
+<tr><td style="color:var(--user);font-weight:700">USER팀 ①</td><td>하나씩 흔들기 → 기울기로 한 걸음</td><td>약 675 (손잡이 337 × 2 + 1)</td></tr>
+<tr><td style="color:var(--user);font-weight:700">USER팀 ②</td><td>전체를 무작위로 살짝 바꿔 보고 좋아지면 채택</td><td>1</td></tr>
+<tr><td style="font-weight:700">블랙팀</td><td>역전파로 기울기 → 한 걸음 (Adam)</td><td>약 3 (앞으로 1 + 거꾸로 약 2)</td></tr>
+</table></div>
+<div class="talk">
+<say who="robo" e="e16">무작위 작전은 한 번에 1만 써요! 횟수로 밀어붙이면 이깁니다!</say>
+<say who="fly" e="e09">횟수는 많아도 방향을 모르잖아. 역전파는 337개 손잡이 방향을 한 번에 알아.</say>
+<say who="asst" e="e07">예산을 정하고 "대결 시작"을 누르면 세 작전이 같은 출발점에서 학습해요.</say>
+</div>
+<div class="tool"><h3><span class="badge">도구 대결</span>계산 예산 대결장</h3>
+<p class="how">서로 감긴 나선 데이터(점 120개). 가로축은 쓴 예산, 세로축은 손실(낮을수록 좋음)입니다. 시드를 바꿔 다시 겨뤄 볼 수도 있어요.</p>
+<div class="ctrl"><label class="group"><span class="glabel">계산 예산</span><input type="range" id="duB" min="600" max="4800" step="600" value="3000"><span class="val" id="duBV">3000</span></label>
+<div class="group" id="duS"><span class="glabel">시드</span><button class="bt" data-v="1" aria-pressed="true">1</button><button class="bt" data-v="2" aria-pressed="false">2</button><button class="bt" data-v="3" aria-pressed="false">3</button></div>
+<button class="bt primary" id="duRun">대결 시작</button></div>
+<div class="readout" id="duOut"></div>
+<div class="cwrap"><canvas id="cvD" aria-label="예산에 따른 세 작전의 손실 곡선"></canvas></div>
+<div class="legend"><span><i style="background:#7c3aed"></i>USER ① 하나씩 흔들기</span><span><i style="background:#2563eb"></i>USER ② 무작위 바꿔 보기</span><span><i style="background:#20222b"></i>블랙 · 역전파</span></div>
+<p class="msg" id="duMsg">아직 시작하지 않았어요.</p>
+</div>
+<round no="6" title="대결: 같은 예산으로 손실을 더 낮추는 쪽은?" win="b">
+<cu who="robo" e="e16">무작위 작전은 횟수로 밀어붙이니 이겨요!</cu>
+<cb who="fly" e="e09">역전파는 모든 손잡이의 방향을 한 번에 알아. 같은 예산이면 역전파가 이겨.</cb>
+<verdict e="e10">예산 3000 기준으로 역전파는 손실을 가장 낮게 끌어내렸습니다. 하나씩 흔들기는 한 걸음에 예산 675를 써서 겨우 네 걸음만 갔고, 무작위 작전은 횟수는 많았지만 방향을 몰라 느리게 내려갔어요. 시드를 바꿔도 순서는 같습니다. 블랙팀 승리! 손잡이가 많을수록 이 차이는 더 커집니다.</verdict>
+</round>
+<div class="aicheck"><h4>AI 판단 코너 — AI가 짜 준 기울기 코드, 믿어도 될까?</h4>
+<p>새 손실 함수를 쓰려고 AI 코딩 도우미에게 "기울기 계산 코드를 짜 줘"라고 했어요. 코드는 깔끔하고 학습도 돌아갑니다. 그런데 손실이 이상하게 천천히 줄어요.</p>
+<say who="robo" e="e16">AI가 짰으니 맞겠죠! 학습률만 올려 볼게요!</say>
+<say who="doc" e="e09">학습률보다 먼저, 느리지만 확실한 방법으로 검산합시다. 2단계의 흔들어 보기로 손잡이 몇 개의 기울기를 직접 재서 AI 코드의 값과 비교하는 거예요(기울기 검사). 부호가 반대거나 두 배 차이가 나면 코드가 틀린 겁니다. 빠른 방법은 느린 방법으로 확인한다, 이게 오늘의 확인 습관입니다.</say>
+</div>
+</section>
+
+<section class="level" id="sum">
+<h2>정리 — 역전파 한 장 요약</h2>
+<div class="tb"><table>
+<tr><th>질문</th><th>답</th></tr>
+<tr><td>역전파는 무엇인가</td><td>손실에서 출발해 끝 층 → 앞 층 순서로, 단계별 비율을 곱해 가며 모든 손잡이의 기울기를 한 번에 구하는 방법</td></tr>
+<tr><td>왜 쓰나</td><td>흔들어 보기는 손잡이 수만큼 계산이 늘지만, 역전파는 앞으로 계산 2~3번 분량이면 끝남</td></tr>
+<tr><td>무엇을 조심하나</td><td>깊으면 곱이 길어져 소실·폭발 → 문(1부), 출발 가중치(2부), 지름길·기울기 자르기(4단계)</td></tr>
+<tr><td>대가는</td><td>중간값을 저장하느라 메모리를 많이 씀</td></tr>
+<tr><td>안 쓰는 때</td><td>미분 불가능한 계산(나무 모델·계단 점수), 손잡이가 몇 개뿐인 문제</td></tr>
+<tr><td>흔들어 보기는 쓸모없나</td><td>아님. 역전파 코드가 맞는지 확인하는 검산에 씀</td></tr>
+</table></div>
+<div class="recap"><b>업무에서 3줄.</b> ① 신경망을 학습한다면 역전파는 프로그램이 자동으로 해 준다(직접 짤 일은 드묾). ② 학습이 안 되면 층별 기울기 크기를 찍어 소실·폭발부터 본다. ③ 표 데이터·설정값 몇 개 문제라면 신경망과 역전파가 아닌 방법이 더 맞을 수 있다.</div>
+<say who="doc" e="e10">이번 편 점수는 블랙팀이 조금 앞섰지만, USER팀도 연쇄법칙의 재사용과 지름길 라운드를 정확히 맞혔어요. 결국 이긴 건 <b>재 보고 말한 쪽</b>입니다.</say>
+</section>
+
+<section class="level" id="outro">
+<h2>아웃트로</h2>
+<say who="robo" e="e15">흔들기 작전… 네 걸음밖에 못 갔어요. 그래도 검산용으로는 제가 최고죠?</say>
+<say who="fly" e="e16">맞아. 빠른 역전파도 느린 흔들기로 검산해야 믿을 수 있지. 오늘은 둘 다 필요했어.</say>
+<say who="sia" e="e12">1부의 문, 2부의 출발 가중치, 3부의 역전파가 한 줄로 이어졌어요!</say>
+<say who="doc" e="e08">이제 배운 것을 직접 써 볼 차례입니다. <b>실전 연습장</b>에서 배송 회사, 쇼핑몰, 공장의 모델을 운영해 보세요. 여기서 한 번 쉬어 가도 괜찮아요.</say>
+<div class="sernav"><a href="02_reaction_race.html">← 2부 반응속도 대회</a><a href="index.html">목차</a><a class="now" href="practice/index.html">마지막 장: 실전 연습장 →</a></div>
+</section>
+</main>
+<board/>
+
+<pagejs>
+var A=LAB.ACT;
+/* 큰 그림 */
+(function(){
+  var cv=document.getElementById('cvBig');
+  function draw(){
+    var P=new LAB.Plot(cv,{x0:0,x1:10,y0:0,y1:4,ratio:0.3,minH:180,maxH:250,pad:{l:6,r:6,t:6,b:6},noXlab:true,noYlab:true,gx:100,gy:100});
+    var c=P.ctx; c.clearRect(0,0,P.W,P.H);
+    var bx=[['입력',0.1],['층 1',2.1],['층 2',4.1],['예측',6.1],['손실',8.1]];
+    bx.forEach(function(b,i){ var X=P.X(b[1]),Y=P.Y(2.6),w=P.X(b[1]+1.6)-X; c.fillStyle=i===4?'#fff6e6':'#f7f8fb'; c.strokeStyle='#cfd5e2'; c.lineWidth=1.5; c.beginPath(); c.rect(X,Y-20,w,40); c.fill(); c.stroke(); c.fillStyle='#1d2230'; c.font='13px "IBM Plex Sans KR",sans-serif'; c.textAlign='center'; c.fillText(b[0],X+w/2,Y+5); });
+    c.textAlign='left';
+    for (var i=0;i<4;i++){ var x0=P.X(bx[i][1]+1.6),x1=P.X(bx[i+1][1]); c.strokeStyle='#2563eb'; c.lineWidth=2; c.beginPath(); c.moveTo(x0,P.Y(2.85)); c.lineTo(x1,P.Y(2.85)); c.stroke(); c.beginPath(); c.moveTo(x1,P.Y(2.85)); c.lineTo(x1-7,P.Y(2.85)-4); c.lineTo(x1-7,P.Y(2.85)+4); c.fillStyle='#2563eb'; c.fill();
+      c.strokeStyle='#ea580c'; c.beginPath(); c.moveTo(x1,P.Y(2.35)); c.lineTo(x0,P.Y(2.35)); c.stroke(); c.beginPath(); c.moveTo(x0,P.Y(2.35)); c.lineTo(x0+7,P.Y(2.35)-4); c.lineTo(x0+7,P.Y(2.35)+4); c.fillStyle='#ea580c'; c.fill(); }
+    c.font='13px "IBM Plex Sans KR",sans-serif'; c.fillStyle='#2563eb'; c.fillText('① 앞으로 계산: 입력 → 예측',P.X(0.1),P.Y(3.7)); c.fillStyle='#ea580c'; c.fillText('③ 거꾸로 계산: 손실 → 각 층 손잡이의 기울기',P.X(0.1),P.Y(1.1)); c.fillStyle='#b45309'; c.fillText('② 정답과 비교',P.X(7.6),P.Y(3.7)); c.fillStyle='#15803d'; c.fillText('④ 손잡이 고치기 → 다시 ①',P.X(0.1),P.Y(0.35));
+  }
+  draw(); LAB.onResize(draw);
+})();
+/* 도구 1 */
+(function(){
+  var r=LAB.rng(4), X=[], Y=[]; for (var i=0;i<12;i++){ var d=0.8+i*0.55; X.push(d); Y.push(4.2*d+3+r.gauss()*2.2); }
+  function L(w){ var s=0; for (var i=0;i<X.length;i++){ var e=w*X[i]-Y[i]; s+=e*e; } return s/X.length; }
+  function G(w){ var s=0; for (var i=0;i<X.length;i++){ s+=2*(w*X[i]-Y[i])*X[i]; } return s/X.length; }
+  var wEl=document.getElementById('k1w');
+  function draw(){
+    var w=+wEl.value, l=L(w), g=G(w);
+    var P=new LAB.Plot(document.getElementById('cv1a'),{x0:0,x1:7.5,y0:0,y1:40,ratio:0.75,minH:220,maxH:320,xlab:'거리(km)',ylab:'시간(분)'}); P.clear();
+    P.dots(X.map(function(x,i){return [x,Y[i]];}),'#9aa3b5',4.5); P.fn(function(x){return w*x;},'#2563eb',2.6);
+    var Q=new LAB.Plot(document.getElementById('cv1b'),{x0:0,x1:8,y0:0,y1:500,ratio:0.75,minH:220,maxH:320,xlab:'손잡이 w',ylab:'손실'}); Q.clear();
+    Q.fn(L,'#20222b',2.4); Q.fn(function(v){return l+g*(v-w);},'#ea580c',2,[6,4]); Q.dot(w,Math.min(l,500),'#ea580c',6);
+    var wb=0,lb=1e9; for (var v=0;v<=8;v+=0.01){ var lv=L(v); if(lv<lb){lb=lv;wb=v;} } Q.vline(wb,'#15803d',[3,4],'바닥');
+    document.getElementById('k1L').textContent=l.toFixed(1); document.getElementById('k1G').textContent=g.toFixed(1);
+    document.getElementById('k1D').textContent=Math.abs(g)<1?'거의 바닥':(g<0?'w 키우기 →':'← w 줄이기');
+    document.getElementById('k1E').textContent=Math.sqrt(l).toFixed(1)+'분';
+    var m=document.getElementById('k1Msg'); m.className='msg '+(Math.abs(g)<1?'ok':'');
+    m.textContent=Math.abs(g)<1?'손실 곡선의 바닥 근처예요. 1km에 약 '+w.toFixed(2)+'분으로 배웠어요. 평균 '+Math.sqrt(l).toFixed(1)+'분쯤 빗나갑니다(거리 말고도 신호·날씨 같은 요인이 있으니까요).':'기울기 '+g.toFixed(1)+': '+(g<0?'음수이니 w를 키우는 쪽이 내리막':'양수이니 w를 줄이는 쪽이 내리막')+'입니다. "한 걸음"을 눌러 보세요.';
+  }
+  function step(k){ var w=+wEl.value, lr=+document.getElementById('k1lr').value; for (var i=0;i<k;i++) w=w-lr*G(w); w=Math.max(0,Math.min(8,w)); wEl.value=w; document.getElementById('k1wV').textContent=w.toFixed(2); draw(); }
+  LAB.bindRange('k1w',draw,function(v){return v.toFixed(2);}); LAB.bindRange('k1lr',draw);
+  document.getElementById('k1Step').onclick=function(){step(1);}; document.getElementById('k1Ten').onclick=function(){step(10);};
+  draw(); LAB.onResize(draw);
+})();
+/* 도구 2 */
+(function(){
+  var NS=[10,100,1000,1e4,1e5,1e6,1e7,1e8,1e9,1e10,1e11];
+  function human(s){ if(s<60) return s.toFixed(s<1?2:1)+'초'; if(s<3600) return (s/60).toFixed(1)+'분'; if(s<86400) return (s/3600).toFixed(1)+'시간'; if(s<86400*365) return (s/86400).toFixed(1)+'일'; return (s/86400/365).toFixed(1)+'년'; }
+  function fmtN(n){ if(n>=1e8) return (n/1e8)+'억'; if(n>=1e4) return (n/1e4)+'만'; return n.toLocaleString('ko-KR'); }
+  function draw(){
+    var n=NS[+document.getElementById('k2n').value-1]; document.getElementById('k2nV').textContent=fmtN(n)+'개';
+    var shake=2*n, bp=3, mx=Math.log10(shake+1);
+    document.getElementById('k2bars').innerHTML='<div class="bar"><span>흔들어 보기</span><span class="track"><span class="fill" style="display:block;width:'+(100)+'%;background:#2563eb"></span></span><span>'+human(shake*0.01)+'</span></div>'
+      +'<div class="bar"><span>역전파</span><span class="track"><span class="fill" style="display:block;width:'+(Math.max(1.5,Math.log10(bp+1)/mx*100))+'%;background:#20222b"></span></span><span>'+human(bp*0.01)+'</span></div>';
+    var m=document.getElementById('k2Msg'); m.className='msg'; m.textContent='손잡이 '+fmtN(n)+'개: 흔들기는 앞으로 계산 약 '+fmtN(shake)+'번, 역전파는 약 3번 분량. 기울기 한 묶음에 '+human(shake*0.01)+' 대 '+human(0.03)+'입니다(막대는 로그 비율). 학습은 이것을 수천 번 반복해요.';
+  }
+  LAB.bindRange('k2n',draw); draw();
+  document.getElementById('k2Run').onclick=function(){
+    var b=this; b.disabled=true; document.getElementById('k2Info').textContent='재는 중…';
+    setTimeout(function(){
+      var d=LAB.moons(50,7,0.15), net=new LAB.Net([2,32,32,1],'tanh',{seed:3,init:'std',out:'sigmoid'});
+      function loss(){ return net.evalSet(d.X,d.Y).loss*d.X.length; }
+      var t0=performance.now(), G=net.zeroGrads();
+      for (var p=0;p<d.X.length;p++){ var fw=net.forward(d.X[p]), t=d.Y[p]; net.backward(fw,new Float64Array([fw.y[0]-t]),G.gW,G.gb); }
+      var tb=performance.now()-t0;
+      t0=performance.now(); var h=1e-5, num=[], maxd=0, maxg=0, cnt=0;
+      for (var l=0;l<net.W.length;l++){ [net.W[l],net.b[l]].forEach(function(Par,q){ var Gr=q?G.gb[l]:G.gW[l]; for (var i=0;i<Par.length;i++){ var o=Par[i]; Par[i]=o+h; var lp=loss(); Par[i]=o-h; var lm=loss(); Par[i]=o; var ng=(lp-lm)/(2*h); maxd=Math.max(maxd,Math.abs(ng-Gr[i])); maxg=Math.max(maxg,Math.abs(Gr[i])); cnt++; } }); }
+      var tn=performance.now()-t0;
+      document.getElementById('k2Out').innerHTML='<div>손잡이 수<b>'+cnt.toLocaleString('ko-KR')+'개</b></div><div class="good">역전파 시간<b>'+tb.toFixed(1)+'ms</b></div><div class="bad">흔들기 시간<b>'+(tn/1000).toFixed(2)+'초</b></div><div>흔들기 ÷ 역전파<b>약 '+Math.round(tn/Math.max(tb,0.1)).toLocaleString('ko-KR')+'배</b></div><div class="good">두 기울기의 최대 차이<b>'+LAB.small(maxd)+'</b></div>';
+      document.getElementById('k2Info').textContent='완료 — 가장 큰 기울기 '+maxg.toFixed(2)+'에 비해 차이는 '+LAB.small(maxd)+'로, 사실상 같은 답입니다.';
+      b.disabled=false;
+    },30);
+  };
+})();
+/* 도구 3: 계산 그래프 */
+(function(){
+  var stage=0, cv=document.getElementById('cv3');
+  function g(id){return +document.getElementById(id).value;}
+  function vals(){ var x=g('k3x'),w1=g('k3w1'),w2=g('k3w2'),y=g('k3y'); var z=w1*x, h=Math.max(0,z), yh=w2*h, L=(yh-y)*(yh-y);
+    var dyh=2*(yh-y), dw2=dyh*h, dh=dyh*w2, dz=dh*(z>0?1:0), dw1=dz*x; return {x:x,w1:w1,w2:w2,y:y,z:z,h:h,yh:yh,L:L,dyh:dyh,dw2:dw2,dh:dh,dz:dz,dw1:dw1}; }
+  function f(v){ return (Math.round(v*100)/100).toString(); }
+  var MSG=['손잡이를 정했어요. "앞으로 한 단계"를 눌러 계산을 시작하세요.',
+    '① z = w₁ × x. 곱하기를 했어요.','② h = ReLU(z). 문을 지났어요.','③ ŷ = w₂ × h. 예측이 나왔어요.','④ 손실 L = (ŷ − y)². 이제 거꾸로 갑니다. "거꾸로 한 단계"를 누르세요.',
+    '⑤ dL/dŷ = 2(ŷ − y). 손실이 예측에 얼마나 민감한지.','⑥ dL/dw₂ = dL/dŷ × h, dL/dh = dL/dŷ × w₂. 뒤의 값을 재사용해요.','⑦ dL/dz = dL/dh × (ReLU 기울기). z가 음수면 여기서 0이 돼 앞쪽 신호가 끊겨요.','⑧ dL/dw₁ = dL/dz × x. 앞 손잡이까지 도착! 이제 두 손잡이를 기울기 반대 방향으로 고치면 됩니다.'];
+  function draw(){
+    var v=vals(), P=new LAB.Plot(cv,{x0:0,x1:12,y0:0,y1:6,ratio:0.4,minH:240,maxH:320,pad:{l:4,r:4,t:4,b:4},noXlab:true,noYlab:true,gx:100,gy:100});
+    var c=P.ctx; c.clearRect(0,0,P.W,P.H); c.fillStyle='#fff'; c.fillRect(0,0,P.W,P.H);
+    var small=P.W<560, fs=small?11:13;
+    var nodes=[['x',0.2,3,v.x,null,0],['× w₁',2.6,3,v.z,v.dz,1],['ReLU',5.0,3,v.h,v.dh,2],['× w₂',7.4,3,v.yh,v.dyh,3],['손실',9.8,3,v.L,1,4]];
+    var w1n=['w₁',2.6,5.2,v.w1,v.dw1,1], w2n=['w₂',7.4,5.2,v.w2,v.dw2,3];
+    function box(n,fill){ var X=P.X(n[1]),Y=P.Y(n[2]),w=P.X(n[1]+2)-X; c.fillStyle=fill; c.strokeStyle='#cfd5e2'; c.lineWidth=1.5; c.beginPath(); c.rect(X,Y-17,w,34); c.fill(); c.stroke(); c.fillStyle='#1d2230'; c.font='bold '+fs+'px "IBM Plex Sans KR",sans-serif'; c.textAlign='center'; c.fillText(n[0],X+w/2,Y+5); return [X,Y,w]; }
+    var fwShown=function(i){ return stage>=i; }, bwShown=function(i){ return stage>=4+ (4-i); };
+    nodes.forEach(function(n,i){ var b=box(n, i===4?'#fff6e6':'#f7f8fb'); c.font=fs+'px "IBM Plex Sans KR",sans-serif';
+      if (fwShown(n[5])){ c.fillStyle='#2563eb'; c.fillText(f(n[3]),b[0]+b[2]/2,b[1]-24); }
+      if (i>0 && i<4 && bwShown(i)){ c.fillStyle='#ea580c'; c.fillText('기울기 '+f(n[4]),b[0]+b[2]/2,b[1]+34); }
+      if (i===4 && stage>=4){ c.fillStyle='#ea580c'; c.fillText('출발 1',b[0]+b[2]/2,b[1]+34); }
+      if (i<4){ var x0=b[0]+b[2], x1=P.X(nodes[i+1][1]); c.strokeStyle='#9aa3b5'; c.beginPath(); c.moveTo(x0,b[1]); c.lineTo(x1,b[1]); c.stroke(); } });
+    [w1n,w2n].forEach(function(n,k){ var b=box(n,'#eaf1ff'); c.font=fs+'px "IBM Plex Sans KR",sans-serif'; c.fillStyle='#2563eb'; c.textAlign='left'; c.fillText('= '+f(n[3]),b[0]+b[2]+4,b[1]+5);
+      var show = k===0 ? stage>=8 : stage>=6; if (show){ c.fillStyle='#ea580c'; c.font='bold '+fs+'px "IBM Plex Sans KR",sans-serif'; c.fillText('dL/d'+n[0]+' = '+f(n[4]),b[0]+b[2]+4,b[1]+22); }
+      c.strokeStyle='#9aa3b5'; c.beginPath(); c.moveTo(b[0]+b[2]/2,b[1]+17); c.lineTo(b[0]+b[2]/2,P.Y(3)-17); c.stroke(); c.textAlign='center'; });
+    c.textAlign='left'; c.fillStyle='#5d6577'; c.font=fs+'px "IBM Plex Sans KR",sans-serif'; c.fillText('정답 y = '+f(v.y),P.X(9.8),P.Y(1.4));
+    var m=document.getElementById('k3Msg'); m.className='msg'+(stage===8?' ok':''); m.textContent=MSG[stage]+(stage===8&&v.z<=0?' (지금은 z가 음수라 dL/dw₁ = 0 — 1부의 멈춘 뉴런이에요!)':'');
+  }
+  document.getElementById('k3F').onclick=function(){ if(stage<4) stage++; draw(); };
+  document.getElementById('k3B').onclick=function(){ if(stage<4) stage=4; else if(stage<8) stage++; draw(); };
+  document.getElementById('k3All').onclick=function(){ stage=8; draw(); };
+  document.getElementById('k3R').onclick=function(){ stage=0; draw(); };
+  ['k3x','k3w1','k3w2','k3y'].forEach(function(id){ LAB.bindRange(id,function(){ draw(); }); });
+  draw(); LAB.onResize(draw);
+})();
+/* 도구 4 */
+(function(){
+  var fct=0.25, skip=0, clip=0, cv=document.getElementById('cv4');
+  function draw(){
+    var n=+document.getElementById('k4n').value, w=+document.getElementById('k4w').value, r=fct*w; if (skip) r=1+0.1*r;
+    var pts=[], v=1; pts.push([n,0]); for (var i=n-1;i>=0;i--){ v*=r; if(clip && v>10) v=10; pts.push([i,Math.log10(v)]); }
+    var P=new LAB.Plot(cv,{x0:0,x1:Math.max(n,5),y0:-12,y1:4,ratio:0.42,minH:230,maxH:330,gy:2,xlab:'층 (0 = 첫 층, 오른쪽 끝 = 손실 쪽)',yfmt:function(v){return v===0?'1':'10^'+v;}}); P.clear();
+    P.hline(0,'#b45309',[5,4]); P.line(pts,'#20222b',2.6);
+    document.getElementById('k4r').textContent=r.toFixed(3); document.getElementById('k4o').textContent=LAB.small(v);
+    var st = v<1e-3?'소실':(v>100?'폭발':'안정'); var se=document.getElementById('k4st'); se.textContent=st; se.style.color=st==='안정'?'#15803d':'#c2410c';
+    var m=document.getElementById('k4Msg'); m.className='msg '+(st==='안정'?'ok':'bad');
+    m.textContent= st==='소실' ? '층마다 '+r.toFixed(3)+'씩 곱해져 첫 층에는 '+LAB.small(v)+'만 남았어요. 앞쪽 손잡이는 거의 배우지 못합니다.'
+      : st==='폭발' ? '층마다 '+r.toFixed(3)+'씩 곱해져 첫 층 기울기가 '+LAB.small(v)+'로 터졌어요. 손잡이가 한 번에 너무 크게 움직여 학습이 망가집니다. 기울기 자르기를 켜 보세요.'
+      : '첫 층에 '+v.toFixed(3)+'만큼 남았어요. 신호가 잘 전해집니다.'+(skip?' 지름길 덕분이에요.':'')+(clip&&v>=9.99?' (기울기 자르기로 10에서 멈췄어요)':'');
+  }
+  LAB.bindRange('k4n',draw); LAB.bindRange('k4w',draw);
+  LAB.seg('k4f',function(v){fct=+v;draw();}); LAB.seg('k4s',function(v){skip=+v;draw();}); LAB.seg('k4c',function(v){clip=+v;draw();});
+  draw(); LAB.onResize(draw);
+})();
+/* 도구 5 */
+(function(){
+  var st={a:'1',b:'many',c:'raw'};
+  var EX={img:{a:'1',b:'many',c:'raw',t:'공장 사진 불량 검사'},tree:{a:'0',b:'many',c:'table',t:'대출 심사 규칙'},sim:{a:'0',b:'many',c:'raw',t:'게임 점수 높이기'},few:{a:'1',b:'few',c:'table',t:'가마 온도 설정 3개'},llm:{a:'1',b:'many',c:'raw',t:'상담 챗봇'}};
+  function setSeg(id,v){ document.querySelectorAll('#'+id+' .bt').forEach(function(b){ b.setAttribute('aria-pressed',b.getAttribute('data-v')===v?'true':'false'); }); }
+  function draw(title){
+    var o=document.getElementById('k5Out'), h;
+    if (st.a==='0') h='<b style="color:var(--bad)">판정: 역전파를 쓰기 어렵습니다.</b><p>계산 중에 끊기거나 계단처럼 뛰는 단계가 있으면 기울기가 0이거나 정의되지 않아 거꾸로 곱해 갈 수 없어요.</p><p><b>실제로 쓰는 방법:</b> '+(st.c==='table'?'의사결정나무·랜덤 포레스트·그레이디언트 부스팅처럼 질문으로 나누는 모델':'진화 전략·무작위 탐색처럼 점수만 보고 고치는 방법, 또는 점수를 매끄러운 대리 손실로 바꿔 역전파를 쓰는 방법')+'.</p>';
+    else if (st.b==='few') h='<b style="color:var(--judge)">판정: 역전파 없이도 충분합니다.</b><p>미분은 가능하지만 손잡이가 몇 개뿐이면 흔들어 보기 비용이 작아요. 오히려 실험 한 번이 비싼 공정이라면 적은 실험으로 찾는 방법이 중요합니다.</p><p><b>실제로 쓰는 방법:</b> 격자 탐색, 베이지안 최적화, 실험계획법.</p>';
+    else if (st.c==='table') h='<b style="color:var(--ok)">판정: 역전파를 쓸 수 있습니다. 다만 비교해 보세요.</b><p>신경망으로 풀면 역전파로 학습합니다. 그런데 표 데이터에서는 나무 계열 모델이 더 정확하고 설명도 쉬운 경우가 많아요.</p><p><b>권장:</b> 나무 계열과 신경망을 같은 조건(시드 여러 개)으로 비교.</p>';
+    else h='<b style="color:var(--ok)">판정: 역전파가 정답입니다.</b><p>모든 단계가 매끄럽고 손잡이가 많아요. 흔들어 보기로는 감당이 안 되고, 역전파가 앞으로 계산 2~3번 분량으로 모든 기울기를 줍니다.</p><p><b>실제로 쓰는 방법:</b> 신경망(이미지는 합성곱, 글은 트랜스포머) + 역전파 + Adam.</p>';
+    o.innerHTML=(title?'<p style="margin:0 0 6px;color:var(--muted)">예시: '+title+'</p>':'')+h;
+  }
+  LAB.seg('k5ex',function(v){ var e=EX[v]; st={a:e.a,b:e.b,c:e.c}; setSeg('k5a',e.a); setSeg('k5b',e.b); setSeg('k5c',e.c); draw(e.t); });
+  LAB.seg('k5a',function(v){st.a=v;draw();}); LAB.seg('k5b',function(v){st.b=v;draw();}); LAB.seg('k5c',function(v){st.c=v;draw();});
+  draw(EX.img.t);
+})();
+/* 대결 */
+(function(){
+  var seed=1, res=null, cv=document.getElementById('cvD');
+  function run(budget){
+    var d=(function(){ var r=LAB.rng(11),X=[],Y=[],T=3.0; for (var c=0;c<2;c++) for (var i=0;i<60;i++){ var t=i/60*T+0.3,a=t*2+c*Math.PI; X.push([t*Math.cos(a)/(T+0.3)+r.gauss()*0.03,t*Math.sin(a)/(T+0.3)+r.gauss()*0.03]); Y.push(c);} return {X:X,Y:Y}; })(), mk=function(){ return new LAB.Net([2,16,16,1],'tanh',{seed:40+seed,init:'std',out:'sigmoid'}); };
+    var L0=mk().evalSet(d.X,d.Y).loss;
+    // 블랙: 역전파 + Adam, 한 걸음 = 3
+    var nb=mk(), cb=[[0,L0]], used=0; while(used+3<=budget){ nb.step(d.X,d.Y,0.02,'adam'); used+=3; if(used%60===0) cb.push([used,nb.evalSet(d.X,d.Y).loss]); }
+    cb.push([used,nb.evalSet(d.X,d.Y).loss]);
+    // USER ②: 무작위 바꿔 보기, 한 번 = 1
+    var nr=mk(), r=LAB.rng(900+seed), cur=L0, cr=[[0,L0]]; used=0;
+    while(used+1<=budget){ var saveW=nr.W.map(function(a){return a.slice();}), saveB=nr.b.map(function(a){return a.slice();});
+      for (var l=0;l<nr.W.length;l++){ for (var i=0;i<nr.W[l].length;i++) nr.W[l][i]+=r.gauss()*0.03; for (i=0;i<nr.b[l].length;i++) nr.b[l][i]+=r.gauss()*0.03; }
+      var lt=nr.evalSet(d.X,d.Y).loss; used+=1; if(lt<cur) cur=lt; else { nr.W=saveW; nr.b=saveB; } if(used%60===0) cr.push([used,cur]); }
+    // USER ①: 하나씩 흔들기 + 경사하강, 한 걸음 = 2N+1
+    var nf=mk(), N=nf.nParams(), cost=2*N+1, cf=[[0,L0]]; used=0; var hh=1e-4;
+    while(used+cost<=budget){ var grads=[];
+      for (l=0;l<nf.W.length;l++){ [nf.W[l],nf.b[l]].forEach(function(Par){ var gg=new Float64Array(Par.length); for (var i=0;i<Par.length;i++){ var o=Par[i]; Par[i]=o+hh; var lp=nf.evalSet(d.X,d.Y).loss; Par[i]=o-hh; var lm=nf.evalSet(d.X,d.Y).loss; Par[i]=o; gg[i]=(lp-lm)/(2*hh);} grads.push([Par,gg]); }); }
+      grads.forEach(function(pg){ for (var i=0;i<pg[0].length;i++) pg[0][i]-=0.5*pg[1][i]; }); used+=cost; cf.push([used,nf.evalSet(d.X,d.Y).loss]); }
+    cf.push([budget,cf[cf.length-1][1]]); cr.push([budget,cur]); cb.push([budget,cb[cb.length-1][1]]);
+    return {b:cb,r:cr,f:cf,N:N,budget:budget,steps:Math.floor(budget/cost)};
+  }
+  function draw(){
+    var B=+document.getElementById('duB').value;
+    var P=new LAB.Plot(cv,{x0:0,x1:B,y0:0,y1:0.75,ratio:0.44,minH:230,maxH:340,xlab:'쓴 예산(앞으로 계산 횟수)',ylab:'손실'}); P.clear();
+    if(!res) return; P.line(res.f,'#7c3aed',2.4); P.line(res.r,'#2563eb',2.4); P.line(res.b,'#20222b',2.8);
+  }
+  document.getElementById('duRun').onclick=function(){
+    var bt=this; bt.disabled=true; document.getElementById('duMsg').textContent='학습 중…';
+    setTimeout(function(){
+      var B=+document.getElementById('duB').value; res=run(B); draw();
+      var lb=res.b[res.b.length-1][1], lr=res.r[res.r.length-1][1], lf=res.f[res.f.length-1][1];
+      document.getElementById('duOut').innerHTML='<div class="good">블랙 · 역전파<b>'+lb.toFixed(3)+'</b>'+Math.floor(B/3)+'걸음</div><div>USER ② 무작위<b>'+lr.toFixed(3)+'</b>'+B+'번 시도</div><div class="bad">USER ① 하나씩 흔들기<b>'+lf.toFixed(3)+'</b>'+res.steps+'걸음</div>';
+      var best=[['역전파',lb],['무작위 바꿔 보기',lr],['하나씩 흔들기',lf]].sort(function(a,b){return a[1]-b[1];});
+      var m=document.getElementById('duMsg'); m.className='msg ok'; m.textContent='예산 '+B+', 시드 '+seed+': 손실이 가장 낮은 작전은 '+best[0][0]+'('+best[0][1].toFixed(3)+')입니다. 하나씩 흔들기는 손잡이 '+res.N+'개를 하나씩 재느라 '+res.steps+'걸음밖에 못 갔어요.';
+      bt.disabled=false;
+    },30);
+  };
+  LAB.bindRange('duB',function(){res=null;draw();}); LAB.seg('duS',function(v){seed=+v;res=null;draw();});
+  draw(); LAB.onResize(draw);
+})();
+</pagejs>

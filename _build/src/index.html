@@ -1,0 +1,55 @@
+<!--META {"title":"뉴런 반응 연구실 — 뉴런은 어떻게 반응하고 배울까 (비전공자판)","ctitle":"뉴런 반응 연구실 — 뉴런은 어떻게 반응하고 배울까","file":"index.html","og":"og_v2_index.jpg","cite":"목차","desc":"활성화 함수(1부), 연구실 반응속도 대회(2부), 역전파(3부), 실전 연습장까지. 주판봇 USER팀과 블랙팀이 겨루고 박사가 판정하는, 직접 돌려 보며 배우는 비전공자용 신경망 해설 시리즈.","nav":"<a href=\"#list\">차례</a><a href=\"#path\">배우는 길</a><a href=\"#teams\">두 팀</a><a href=\"#changes\">이번 개정</a>"} -->
+<style>
+.serlist{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.sercard{display:block;text-decoration:none;color:var(--text);border:1px solid var(--rule2);border-radius:16px;padding:16px;background:#fff;transition:border-color .2s}
+.sercard:hover{border-color:var(--user)}
+.sercard .no{font-size:13px;font-weight:700;color:var(--user)}
+.sercard h3{margin:.2em 0 .3em;font-size:20px}
+.sercard p{margin:.3em 0;font-size:15px;color:var(--muted)}
+.sercard .faces{display:flex;gap:4px;margin-bottom:6px}
+.sercard .faces img{width:52px;height:52px;object-fit:contain;border-radius:10px;background:var(--panel)}
+.sercard .meta{font-size:13px;color:var(--judge)}
+@media (max-width:760px){.serlist{grid-template-columns:1fr}}
+</style>
+<cover/>
+<header class="hero" id="hero"><div class="wrap">
+<div class="kicker">뉴런 반응 연구실 · 비전공자판 v2.0 (2026-11-22 개정)</div>
+<h1>뉴런 반응 연구실 — 뉴런은 어떻게 반응하고 배울까</h1>
+<p class="q">곱하고 더한 숫자에 '문'을 달면 무엇이 달라지고, 틀린 만큼 어떻게 거꾸로 고칠까?</p>
+<p class="byline">글 · 안상선 ((주)M-Robo 대표) · 3부 + 실전 연습장 · 실험 도구 20개 · <a href="https://adminmrobo.github.io/what_is_tensor/">텐서 연구실</a>에서 이어집니다</p>
+<say who="doc" e="e08">이 시리즈는 두 팀의 대결로 진행합니다. 주판봇이 이끄는 USER팀은 빨리 결론을 내고, 초파리 연구원이 이끄는 블랙팀은 의심하고 확인합니다. 저는 심판으로, 매 라운드 실험 결과를 보고 판정해요. 여러분도 판정 전에 어느 팀이 맞을지 골라 보세요.</say>
+</div></header>
+<main class="wrap">
+<section class="level" id="list" style="padding-top:48px">
+<h2>차례</h2>
+<div class="serlist">
+<a class="sercard" href="01_activation.html"><div class="faces"><img data-s="robo_e16" alt=""><img data-s="sia_e07" alt=""><img data-s="fly_e09" alt=""><img data-s="x2_e09" alt=""></div><span class="no">1부</span><h3>활성화 함수 — 뉴런의 반응을 정하는 문</h3><p>뉴런 하나 계산 → 문이 없으면 직선뿐 → S자 문의 포화 → ReLU와 멈춘 뉴런 → 마지막 문 고르기. 대결: 깊은 망에서 신호가 첫 층까지 남는 문은?</p><span class="meta">약 30분 · 도구 6개 · 라운드 6</span></a>
+<a class="sercard" href="02_reaction_race.html"><div class="faces"><img data-s="robo_e16" alt=""><img data-s="sia_e07" alt=""><img data-s="fly_e09" alt=""><img data-s="x1_e09" alt=""></div><span class="no">2부</span><h3>연구실 반응속도 대회</h3><p>ReLU·tanh(USER팀) 대 GELU·SiLU(블랙팀). 계산 속도, 학습 신호 전달(He 출발 가중치), 학습 경주(Adam), 시드 재경기. 모든 기록을 이 페이지에서 직접 잽니다.</p><span class="meta">약 30분 · 도구 5개 · 라운드 4 + 종합 판정</span></a>
+<a class="sercard" href="03_backprop.html"><div class="faces"><img data-s="robo_e15" alt=""><img data-s="moa_e07" alt=""><img data-s="fly_e16" alt=""><img data-s="x3_e09" alt=""></div><span class="no">3부 · 새 편</span><h3>역전파 — 학습 신호가 거꾸로 건너가는 길</h3><p>손잡이 하나 고치기 → 흔들어 보기의 비용 → 연쇄법칙 → 깊어질 때의 소실·폭발 → 역전파를 쓸 때와 안 쓸 때(실제 사례). 대결: 같은 계산 예산이면 누가 이길까?</p><span class="meta">약 35분 · 도구 6개 · 라운드 6</span></a>
+<a class="sercard" href="practice/index.html"><div class="faces"><img data-s="doc_e10" alt=""><img data-s="asst_e07" alt=""><img data-s="fly_e09" alt=""><img data-s="robo_e16" alt=""></div><span class="no">마지막 장</span><h3>실전 연습장</h3><p>배송 회사(도착 시간 예측), 쇼핑몰(상품 분류기 학습), 공장(학습 예산 운영)에서 직접 모델을 운영하고 미션 9개를 통과합니다.</p><span class="meta">약 20분 · 사업장 3곳 · 미션 9개</span></a>
+</div>
+</section>
+<section class="level" id="path">
+<h2>배우는 길</h2>
+<div class="steps">
+<div><b>① 모양 보기 (1부)</b><br>문 하나하나를 슬라이더로 움직여 반응과 기울기를 봅니다.</div>
+<div><b>② 겨뤄 보기 (2부)</b><br>같은 조건, 여러 기준, 여러 시드로 재야 공정하다는 것을 확인합니다.</div>
+<div><b>③ 거꾸로 건너가기 (3부)</b><br>틀린 만큼 모든 손잡이를 고치는 계산, 역전파를 한 단계씩 따라갑니다.</div>
+</div>
+<p class="sub" style="margin-top:12px">마지막으로 실전 연습장에서 세 편의 내용을 함께 씁니다. 처음이시면 1부부터, 학습 원리가 궁금하시면 3부부터 보셔도 됩니다.</p>
+</section>
+<section class="level" id="teams">
+<h2>두 팀과 심판</h2>
+<teams/>
+</section>
+<section class="level" id="changes">
+<h2>이번 개정 (v2.0) — 무엇이 바뀌었나</h2>
+<ul>
+<li>"어렵다"는 의견을 반영해 1·2부를 처음부터 다시 썼습니다. 단계마다 "왜 이 방법을 쓰나" 상자, 조수가 대신 묻는 수식 상자(학교 수학 연결, 숫자로 한 번 해 보기), 일상·현장 비유를 넣었습니다.</li>
+<li>진행 방식을 주판봇 USER팀(주판봇·조수 하루·인턴1 시아·인턴2 모아) 대 블랙팀(초파리 연구원·X1·X2·X3)의 라운드 대결로 바꾸고, 박사가 심판을 맡습니다.</li>
+<li>배경을 흰색으로 바꾸고, 배운 내용을 바로 시험하는 실험 도구를 늘렸습니다(1부 6개, 2부 5개, 3부 6개, 실전 연습장 3곳).</li>
+<li>3부 역전파와 실전 연습장을 새로 만들었습니다.</li>
+<li>예전 판(v1.1)은 <a href="old/v1/index.html">old/v1</a>에 그대로 남겨 두었습니다. 2부의 예전 주소(sp1_reaction_race.html)는 새 2부로 안내합니다.</li>
+</ul>
+</section>
+</main>

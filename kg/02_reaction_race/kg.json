@@ -1,0 +1,1410 @@
+{
+ "version": "1.0",
+ "page": "02_reaction_race",
+ "nodes": [
+  {
+   "id": "lab:concept/fair-comparison",
+   "type": "Concept",
+   "label": {
+    "ko": "공정한 비교 조건",
+    "en": "fair comparison"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#rule",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "evaluation",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "같은 데이터·구조·출발점·학습 방법에서 재야 비교가 된다."
+   }
+  },
+  {
+   "id": "lab:concept/compute-cost",
+   "type": "Concept",
+   "label": {
+    "ko": "문의 계산 비용",
+    "en": "activation compute cost"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv1",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "지수 계산이 들어간 문은 비교 한 번인 ReLU보다 무겁다."
+   }
+  },
+  {
+   "id": "lab:method/relu",
+   "type": "Method",
+   "label": {
+    "ko": "ReLU",
+    "en": "rectified linear unit"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#cast",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "max(0, z)."
+   }
+  },
+  {
+   "id": "lab:method/tanh",
+   "type": "Method",
+   "label": {
+    "ko": "tanh",
+    "en": "hyperbolic tangent"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#cast",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "−1~1 S자."
+   }
+  },
+  {
+   "id": "lab:method/gelu",
+   "type": "Method",
+   "label": {
+    "ko": "GELU",
+    "en": "Gaussian error linear unit"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#cast",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "z × 통과 비율."
+   }
+  },
+  {
+   "id": "lab:method/silu",
+   "type": "Method",
+   "label": {
+    "ko": "SiLU",
+    "en": "sigmoid linear unit"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#cast",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "z × σ(z)."
+   }
+  },
+  {
+   "id": "lab:method/he-init",
+   "type": "Method",
+   "label": {
+    "ko": "He 출발 가중치",
+    "en": "He initialization"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv2",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "가중치를 분산 2/n으로 뽑아 ReLU가 줄이는 신호를 보충한다."
+   }
+  },
+  {
+   "id": "lab:method/std-init",
+   "type": "Method",
+   "label": {
+    "ko": "표준 1/n 출발 가중치",
+    "en": "1/n initialization"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv2",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "분산 1/n으로 뽑는 방법."
+   }
+  },
+  {
+   "id": "lab:concept/gradient-signal-depth",
+   "type": "Concept",
+   "label": {
+    "ko": "첫 층까지 전해지는 학습 신호",
+    "en": "gradient signal through depth"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv2",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "끝 층 대비 첫 층 기울기 크기 비율."
+   }
+  },
+  {
+   "id": "lab:limitation/vanish-explode",
+   "type": "Limitation",
+   "label": {
+    "ko": "신호 소실·폭발",
+    "en": "vanishing/exploding gradients"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv2",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:method/adam",
+   "type": "Method",
+   "label": {
+    "ko": "Adam",
+    "en": "Adam optimizer"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv3",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "optimization",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "최근 기울기의 평균 방향을 평균 크기로 나눠 걸음을 고르게 맞추는 최적화 방법."
+   }
+  },
+  {
+   "id": "lab:method/gd",
+   "type": "Method",
+   "label": {
+    "ko": "일반 경사하강",
+    "en": "gradient descent"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv3",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "optimization",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "학습률 × 기울기만큼 움직인다."
+   }
+  },
+  {
+   "id": "lab:limitation/small-gradient-slow",
+   "type": "Limitation",
+   "label": {
+    "ko": "기울기가 작으면 일반 경사하강은 거의 멈춤",
+    "en": "slow with small gradients"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv3",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "optimization",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:concept/test-accuracy",
+   "type": "Concept",
+   "label": {
+    "ko": "시험 정확도",
+    "en": "test accuracy"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv3",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "evaluation",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "학습에 쓰지 않은 데이터로 잰 정확도."
+   }
+  },
+  {
+   "id": "lab:concept/seed-variance",
+   "type": "Concept",
+   "label": {
+    "ko": "시드에 따른 흩어짐",
+    "en": "seed variance"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv4",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "evaluation",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "출발 난수가 바뀌면 결과가 흔들린다. 평균과 범위를 함께 본다."
+   }
+  },
+  {
+   "id": "lab:limitation/single-run",
+   "type": "Limitation",
+   "label": {
+    "ko": "한 번 잰 기록은 운과 실력을 구분 못 함",
+    "en": "single-run limitation"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv4",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "evaluation",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:metric/time-1m",
+   "type": "Metric",
+   "label": {
+    "ko": "100만 번 계산 시간",
+    "en": "time per 1M evaluations"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv1",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:metric/first-layer-ratio",
+   "type": "Metric",
+   "label": {
+    "ko": "첫 층 신호 비율",
+    "en": "first-layer gradient ratio"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv2",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:metric/steps-to-95",
+   "type": "Metric",
+   "label": {
+    "ko": "95% 도달 걸음 수",
+    "en": "steps to 95% test accuracy"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv3",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:dataset/spiral",
+   "type": "Dataset",
+   "label": {
+    "ko": "나선 데이터(점 160개)",
+    "en": "two spirals"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv3",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:dataset/moons",
+   "type": "Dataset",
+   "label": {
+    "ko": "초승달 데이터",
+    "en": "two moons"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv4",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:analogy/checkout",
+   "type": "Analogy",
+   "label": {
+    "ko": "계산대 줄 ↔ 계산 속도",
+    "en": "checkout line"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv1",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:analogy/whisper",
+   "type": "Analogy",
+   "label": {
+    "ko": "말 전하기 놀이 ↔ 출발 가중치",
+    "en": "telephone game"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv2",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:analogy/hiker",
+   "type": "Analogy",
+   "label": {
+    "ko": "보폭을 조절하는 등산객 ↔ Adam",
+    "en": "hiker"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv3",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:analogy/season",
+   "type": "Analogy",
+   "label": {
+    "ko": "한 경기와 시즌 성적 ↔ 시드 재경기",
+    "en": "season record"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv4",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:claim/he-2n",
+   "type": "Claim",
+   "label": {
+    "ko": "He 출발 가중치는 분산 2/n으로 ReLU 망의 신호 크기를 유지한다",
+    "en": "He init keeps variance"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv2",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "source": [
+    {
+     "ref": "he2015delving",
+     "loc": ""
+    }
+   ]
+  },
+  {
+   "id": "lab:claim/adam-scale",
+   "type": "Claim",
+   "label": {
+    "ko": "Adam은 기울기 크기로 나눠 걸음을 맞춘다",
+    "en": "Adam normalizes step size"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv3",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "optimization",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "source": [
+    {
+     "ref": "kingma2015adam",
+     "loc": ""
+    }
+   ]
+  },
+  {
+   "id": "lab:claim/sigmoid-vanish",
+   "type": "Claim",
+   "label": {
+    "ko": "시그모이드 깊은 망은 학습 신호가 사라진다",
+    "en": "sigmoid nets vanish"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv2",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "source": [
+    {
+     "ref": "glorot2010understanding",
+     "loc": ""
+    }
+   ]
+  },
+  {
+   "id": "lab:claim/gelu-def",
+   "type": "Claim",
+   "label": {
+    "ko": "GELU는 z에 정규분포 누적 비율을 곱한 문이다",
+    "en": "GELU definition"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#cast",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "mentioned",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "source": [
+    {
+     "ref": "hendrycks2016gelu",
+     "loc": ""
+    }
+   ]
+  },
+  {
+   "id": "lab:claim/silu-def",
+   "type": "Claim",
+   "label": {
+    "ko": "SiLU는 z에 시그모이드(z)를 곱한 문이다",
+    "en": "SiLU definition"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#cast",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "mentioned",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "source": [
+    {
+     "ref": "elfwing2018sigmoid",
+     "loc": ""
+    }
+   ]
+  },
+  {
+   "id": "lab:claim/test-split",
+   "type": "Claim",
+   "label": {
+    "ko": "일반화는 학습에 쓰지 않은 시험 데이터로 잰다",
+    "en": "evaluate on held-out data"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv3",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "evaluation",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "source": [
+    {
+     "ref": "goodfellow2016deep",
+     "loc": ""
+    }
+   ]
+  },
+  {
+   "id": "lab:question/best-activation",
+   "type": "Question",
+   "label": {
+    "ko": "\"가장 좋은 문\"은 어떤 기준·조건에서 말할 수 있나?",
+    "en": "Which activation is best, under which conditions?"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#duel",
+   "level": 3,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:sim/p02-speed",
+   "type": "Simulation",
+   "label": {
+    "ko": "도구 1 문 속도 측정기",
+    "en": "도구 1 문 속도 측정기"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv1",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:sim/p02-signal",
+   "type": "Simulation",
+   "label": {
+    "ko": "도구 2 학습 신호 전달 레인",
+    "en": "도구 2 학습 신호 전달 레인"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv2",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:sim/p02-race",
+   "type": "Simulation",
+   "label": {
+    "ko": "도구 3 학습 경주장",
+    "en": "도구 3 학습 경주장"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv3",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:sim/p02-seeds",
+   "type": "Simulation",
+   "label": {
+    "ko": "도구 4 시드 재경기표",
+    "en": "도구 4 시드 재경기표"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv4",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:sim/p02-board",
+   "type": "Simulation",
+   "label": {
+    "ko": "도구 5 종합 점수판",
+    "en": "도구 5 종합 점수판"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#duel",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:quiz/p02-lv1-1",
+   "type": "QuizItem",
+   "label": {
+    "ko": "ReLU가 가벼운 이유",
+    "en": "ReLU가 가벼운 이유"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv1",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:quiz/p02-lv2-1",
+   "type": "QuizItem",
+   "label": {
+    "ko": "He가 2/n인 이유",
+    "en": "He가 2/n인 이유"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv2",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:quiz/p02-lv3-1",
+   "type": "QuizItem",
+   "label": {
+    "ko": "시험 데이터로 재는 이유",
+    "en": "시험 데이터로 재는 이유"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv3",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:quiz/p02-lv4-1",
+   "type": "QuizItem",
+   "label": {
+    "ko": "평균 차이와 흩어짐",
+    "en": "평균 차이와 흩어짐"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#lv4",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/he2015delving",
+   "type": "Work",
+   "label": {
+    "ko": "He 외 (2015) ICCV",
+    "en": "Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/kingma2015adam",
+   "type": "Work",
+   "label": {
+    "ko": "Kingma 외 (2015) ICLR",
+    "en": "Adam: A Method for Stochastic Optimization"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/glorot2010understanding",
+   "type": "Work",
+   "label": {
+    "ko": "Glorot 외 (2010) AISTATS",
+    "en": "Understanding the difficulty of training deep feedforward neural networks"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/hendrycks2016gelu",
+   "type": "Work",
+   "label": {
+    "ko": "Hendrycks 외 (2016) arXiv:1606.08415",
+    "en": "Gaussian Error Linear Units (GELUs)"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/elfwing2018sigmoid",
+   "type": "Work",
+   "label": {
+    "ko": "Elfwing 외 (2018) Neural Networks",
+    "en": "Sigmoid-weighted linear units for neural network function approximation in reinforcement learning"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/goodfellow2016deep",
+   "type": "Work",
+   "label": {
+    "ko": "Goodfellow 외 (2016) MIT Press",
+    "en": "Deep Learning"
+   },
+   "page": "02_reaction_race",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "s": "lab:concept/compute-cost",
+   "p": "lab:demonstratedBy",
+   "o": "lab:sim/p02-speed",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/gradient-signal-depth",
+   "p": "lab:demonstratedBy",
+   "o": "lab:sim/p02-signal",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/adam",
+   "p": "lab:demonstratedBy",
+   "o": "lab:sim/p02-race",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/seed-variance",
+   "p": "lab:demonstratedBy",
+   "o": "lab:sim/p02-seeds",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/fair-comparison",
+   "p": "lab:demonstratedBy",
+   "o": "lab:sim/p02-board",
+   "anchor": "#duel",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:quiz/p02-lv1-1",
+   "p": "lab:assesses",
+   "o": "lab:concept/compute-cost",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:quiz/p02-lv2-1",
+   "p": "lab:assesses",
+   "o": "lab:method/he-init",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:quiz/p02-lv3-1",
+   "p": "lab:assesses",
+   "o": "lab:concept/test-accuracy",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:quiz/p02-lv4-1",
+   "p": "lab:assesses",
+   "o": "lab:concept/seed-variance",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/he-2n",
+   "p": "lab:assertedIn",
+   "o": "lab:work/he2015delving",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/adam-scale",
+   "p": "lab:assertedIn",
+   "o": "lab:work/kingma2015adam",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/sigmoid-vanish",
+   "p": "lab:assertedIn",
+   "o": "lab:work/glorot2010understanding",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/gelu-def",
+   "p": "lab:assertedIn",
+   "o": "lab:work/hendrycks2016gelu",
+   "anchor": "#cast",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/silu-def",
+   "p": "lab:assertedIn",
+   "o": "lab:work/elfwing2018sigmoid",
+   "anchor": "#cast",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/test-split",
+   "p": "lab:assertedIn",
+   "o": "lab:work/goodfellow2016deep",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/fair-comparison",
+   "p": "lab:broader",
+   "o": "lab:topic/reproducibility",
+   "anchor": "#rule",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/compute-cost",
+   "p": "lab:broader",
+   "o": "lab:topic/activation-function",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/relu",
+   "p": "lab:broader",
+   "o": "lab:topic/activation-function",
+   "anchor": "#cast",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/tanh",
+   "p": "lab:broader",
+   "o": "lab:topic/activation-function",
+   "anchor": "#cast",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/gelu",
+   "p": "lab:broader",
+   "o": "lab:topic/activation-function",
+   "anchor": "#cast",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/silu",
+   "p": "lab:broader",
+   "o": "lab:topic/activation-function",
+   "anchor": "#cast",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/he-init",
+   "p": "lab:broader",
+   "o": "lab:topic/weights-and-biases",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/std-init",
+   "p": "lab:broader",
+   "o": "lab:topic/weights-and-biases",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/gradient-signal-depth",
+   "p": "lab:broader",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/vanish-explode",
+   "p": "lab:broader",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/adam",
+   "p": "lab:broader",
+   "o": "lab:topic/momentum-adam",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/gd",
+   "p": "lab:broader",
+   "o": "lab:topic/gradient-descent",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/small-gradient-slow",
+   "p": "lab:broader",
+   "o": "lab:topic/gradient-descent",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/test-accuracy",
+   "p": "lab:broader",
+   "o": "lab:topic/data-splitting",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/seed-variance",
+   "p": "lab:broader",
+   "o": "lab:topic/reproducibility",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/single-run",
+   "p": "lab:broader",
+   "o": "lab:topic/reproducibility",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/fair-comparison",
+   "p": "lab:prerequisiteOf",
+   "o": "lab:concept/compute-cost",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/compute-cost",
+   "p": "lab:prerequisiteOf",
+   "o": "lab:concept/gradient-signal-depth",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/gradient-signal-depth",
+   "p": "lab:prerequisiteOf",
+   "o": "lab:method/adam",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/adam",
+   "p": "lab:prerequisiteOf",
+   "o": "lab:concept/seed-variance",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/gradient-signal-depth",
+   "p": "lab:hasLimitation",
+   "o": "lab:limitation/vanish-explode",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/vanish-explode",
+   "p": "lab:addressedBy",
+   "o": "lab:method/he-init",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/gd",
+   "p": "lab:hasLimitation",
+   "o": "lab:limitation/small-gradient-slow",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/small-gradient-slow",
+   "p": "lab:addressedBy",
+   "o": "lab:method/adam",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/test-accuracy",
+   "p": "lab:hasLimitation",
+   "o": "lab:limitation/single-run",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/single-run",
+   "p": "lab:addressedBy",
+   "o": "lab:concept/seed-variance",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/he-init",
+   "p": "lab:contrastsWith",
+   "o": "lab:method/std-init",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/adam",
+   "p": "lab:contrastsWith",
+   "o": "lab:method/gd",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/relu",
+   "p": "lab:contrastsWith",
+   "o": "lab:method/gelu",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/tanh",
+   "p": "lab:contrastsWith",
+   "o": "lab:method/silu",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/compute-cost",
+   "p": "lab:evaluatedBy",
+   "o": "lab:metric/time-1m",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/gradient-signal-depth",
+   "p": "lab:evaluatedBy",
+   "o": "lab:metric/first-layer-ratio",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/adam",
+   "p": "lab:evaluatedBy",
+   "o": "lab:metric/steps-to-95",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/relu",
+   "p": "lab:evaluatedOn",
+   "o": "lab:dataset/spiral",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/seed-variance",
+   "p": "lab:evaluatedOn",
+   "o": "lab:dataset/moons",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:analogy/checkout",
+   "p": "lab:analogyOf",
+   "o": "lab:concept/compute-cost",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:analogy/whisper",
+   "p": "lab:analogyOf",
+   "o": "lab:method/he-init",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:analogy/hiker",
+   "p": "lab:analogyOf",
+   "o": "lab:method/adam",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:analogy/season",
+   "p": "lab:analogyOf",
+   "o": "lab:concept/seed-variance",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/he-2n",
+   "p": "lab:supports",
+   "o": "lab:method/he-init",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/adam-scale",
+   "p": "lab:supports",
+   "o": "lab:method/adam",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/sigmoid-vanish",
+   "p": "lab:supports",
+   "o": "lab:limitation/vanish-explode",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/fair-comparison",
+   "p": "lab:raises",
+   "o": "lab:question/best-activation",
+   "anchor": "#duel",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/gelu-def",
+   "p": "lab:supports",
+   "o": "lab:method/gelu",
+   "anchor": "#cast",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/silu-def",
+   "p": "lab:supports",
+   "o": "lab:method/silu",
+   "anchor": "#cast",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/test-split",
+   "p": "lab:supports",
+   "o": "lab:concept/test-accuracy",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/test-accuracy",
+   "p": "lab:partOf",
+   "o": "lab:concept/fair-comparison",
+   "anchor": "#lv3",
+   "confidence": "high"
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+{
+ "title": "활성화 함수 — 뉴런의 반응을 정하는 문",
+ "number": "1부",
+ "series": "뉴런 반응 연구실",
+ "about": [
+  "lab:topic/activation-function",
+  "lab:method/relu",
+  "lab:method/sigmoid",
+  "lab:method/softmax"
+ ],
+ "basedOn": [
+  "goodfellow2016deep"
+ ],
+ "educationalLevel": "입문",
+ "creator": [
+  {
+   "name": "안상선",
+   "role": "author"
+  }
+ ],
+ "contributor": [
+  {
+   "name": "AI 보조 제작",
+   "role": "assistant"
+  }
+ ],
+ "date": "2026-11-22",
+ "version": "2.0",
+ "language": [
+  "ko"
+ ],
+ "license": "",
+ "url": "https://adminmrobo.github.io/neuron_reaction/01_activation.html",
+ "registry": "KG_00_registry 0.2",
+ "learningResourceType": "interactive explainer",
+ "seeAlso": "",
+ "suggestedCitation": "안상선 (2026). 활성화 함수 — 뉴런의 반응을 정하는 문. 뉴런 반응 연구실 1부, v2.0."
+}

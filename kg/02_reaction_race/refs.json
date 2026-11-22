@@ -1,0 +1,264 @@
+[
+ {
+  "id": "he2015delving",
+  "type": "paper-conference",
+  "title": "Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification",
+  "author": [
+   {
+    "family": "He",
+    "given": "Kaiming"
+   },
+   {
+    "family": "Zhang",
+    "given": "Xiangyu"
+   },
+   {
+    "family": "Ren",
+    "given": "Shaoqing"
+   },
+   {
+    "family": "Sun",
+    "given": "Jian"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2015
+    ]
+   ]
+  },
+  "container-title": "ICCV",
+  "lab": {
+   "work": "lab:work/he2015delving",
+   "role": "primary",
+   "supports": [
+    "lab:claim/he-2n"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ },
+ {
+  "id": "kingma2015adam",
+  "type": "paper-conference",
+  "title": "Adam: A Method for Stochastic Optimization",
+  "author": [
+   {
+    "family": "Kingma",
+    "given": "Diederik P."
+   },
+   {
+    "family": "Ba",
+    "given": "Jimmy"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2015
+    ]
+   ]
+  },
+  "container-title": "ICLR",
+  "lab": {
+   "work": "lab:work/kingma2015adam",
+   "role": "primary",
+   "supports": [
+    "lab:claim/adam-scale"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ },
+ {
+  "id": "glorot2010understanding",
+  "type": "paper-conference",
+  "title": "Understanding the difficulty of training deep feedforward neural networks",
+  "author": [
+   {
+    "family": "Glorot",
+    "given": "Xavier"
+   },
+   {
+    "family": "Bengio",
+    "given": "Yoshua"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2010
+    ]
+   ]
+  },
+  "container-title": "AISTATS",
+  "lab": {
+   "work": "lab:work/glorot2010understanding",
+   "role": "background",
+   "supports": [
+    "lab:claim/sigmoid-vanish"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ },
+ {
+  "id": "hendrycks2016gelu",
+  "type": "article",
+  "title": "Gaussian Error Linear Units (GELUs)",
+  "author": [
+   {
+    "family": "Hendrycks",
+    "given": "Dan"
+   },
+   {
+    "family": "Gimpel",
+    "given": "Kevin"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2016
+    ]
+   ]
+  },
+  "container-title": "arXiv:1606.08415",
+  "lab": {
+   "work": "lab:work/hendrycks2016gelu",
+   "role": "background",
+   "supports": [
+    "lab:claim/gelu-def"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ },
+ {
+  "id": "elfwing2018sigmoid",
+  "type": "article-journal",
+  "title": "Sigmoid-weighted linear units for neural network function approximation in reinforcement learning",
+  "author": [
+   {
+    "family": "Elfwing",
+    "given": "Stefan"
+   },
+   {
+    "family": "Uchibe",
+    "given": "Eiji"
+   },
+   {
+    "family": "Doya",
+    "given": "Kenji"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  },
+  "container-title": "Neural Networks",
+  "lab": {
+   "work": "lab:work/elfwing2018sigmoid",
+   "role": "background",
+   "supports": [
+    "lab:claim/silu-def"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ },
+ {
+  "id": "goodfellow2016deep",
+  "type": "book",
+  "title": "Deep Learning",
+  "author": [
+   {
+    "family": "Goodfellow",
+    "given": "Ian"
+   },
+   {
+    "family": "Bengio",
+    "given": "Yoshua"
+   },
+   {
+    "family": "Courville",
+    "given": "Aaron"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2016
+    ]
+   ]
+  },
+  "container-title": "MIT Press",
+  "lab": {
+   "work": "lab:work/goodfellow2016deep",
+   "role": "background",
+   "supports": [
+    "lab:claim/test-split"
+   ],
+   "locs": [],
+   "verified": {
+    "title": true,
+    "author": true,
+    "year": true,
+    "container": true,
+    "pages": false,
+    "doi": false
+   },
+   "checkedBy": "저자가 알려진 서지 정보로 작성 (쪽수·DOI 대조 안 함)",
+   "checkedSource": "page"
+  }
+ }
+]

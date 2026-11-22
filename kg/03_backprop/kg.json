@@ -1,0 +1,1664 @@
+{
+ "version": "1.0",
+ "page": "03_backprop",
+ "nodes": [
+  {
+   "id": "lab:concept/loss",
+   "type": "Concept",
+   "label": {
+    "ko": "손실",
+    "en": "loss"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv1",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "예측이 정답에서 틀린 정도. 여기서는 오차 제곱의 평균."
+   }
+  },
+  {
+   "id": "lab:concept/gradient",
+   "type": "Concept",
+   "label": {
+    "ko": "기울기",
+    "en": "gradient"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv1",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "optimization",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "손잡이를 조금 돌렸을 때 손실이 바뀌는 방향과 크기."
+   }
+  },
+  {
+   "id": "lab:method/gradient-descent",
+   "type": "Method",
+   "label": {
+    "ko": "경사하강법",
+    "en": "gradient descent"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv1",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "optimization",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "기울기 반대 방향으로 학습률만큼 움직인다."
+   }
+  },
+  {
+   "id": "lab:method/numerical-gradient",
+   "type": "Method",
+   "label": {
+    "ko": "흔들어 보기(수치 미분)",
+    "en": "numerical (finite-difference) gradient"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv2",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "optimization",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "손잡이를 ±h만큼 바꿔 손실 변화 ÷ 2h로 기울기를 어림한다."
+   }
+  },
+  {
+   "id": "lab:limitation/cost-scales-with-params",
+   "type": "Limitation",
+   "label": {
+    "ko": "흔들기 비용은 손잡이 수에 비례(약 2N번)",
+    "en": "cost scales with parameter count"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv2",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "optimization",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:concept/gradient-check",
+   "type": "Concept",
+   "label": {
+    "ko": "기울기 검사",
+    "en": "gradient checking"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv2",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "역전파 기울기를 흔들어 보기 값과 비교해 검산한다."
+   }
+  },
+  {
+   "id": "lab:concept/chain-rule",
+   "type": "Concept",
+   "label": {
+    "ko": "연쇄법칙",
+    "en": "chain rule"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv3",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "math",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "이어진 계산의 변화 비율은 단계별 비율의 곱이다."
+   }
+  },
+  {
+   "id": "lab:concept/computational-graph",
+   "type": "Concept",
+   "label": {
+    "ko": "계산 그래프",
+    "en": "computational graph"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv3",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "곱하기·문·손실을 상자로 이은 계산 흐름."
+   }
+  },
+  {
+   "id": "lab:concept/reuse",
+   "type": "Concept",
+   "label": {
+    "ko": "뒤에서 구한 기울기 재사용",
+    "en": "reuse of upstream gradients"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv3",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "앞 층 기울기는 뒤에서 구한 값에 곱 하나를 더해 얻는다."
+   }
+  },
+  {
+   "id": "lab:method/autodiff",
+   "type": "Method",
+   "label": {
+    "ko": "자동 미분",
+    "en": "automatic differentiation"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv3",
+   "level": 3,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "mentioned",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "프로그램이 앞으로 계산을 기록해 두고 거꾸로 계산을 자동으로 한다."
+   }
+  },
+  {
+   "id": "lab:limitation/vanish-explode",
+   "type": "Limitation",
+   "label": {
+    "ko": "기울기 소실·폭발",
+    "en": "vanishing/exploding gradients"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv4",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "비율의 곱이 길어지면 0으로 사라지거나 끝없이 커진다."
+   }
+  },
+  {
+   "id": "lab:method/residual",
+   "type": "Method",
+   "label": {
+    "ko": "지름길(잔차 연결)",
+    "en": "residual connection"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv4",
+   "level": 3,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "vision",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "층을 건너뛰는 길을 더해 층마다 비율을 1 + 조금으로 만든다."
+   }
+  },
+  {
+   "id": "lab:method/grad-clip",
+   "type": "Method",
+   "label": {
+    "ko": "기울기 자르기",
+    "en": "gradient clipping"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv4",
+   "level": 3,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "optimization",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "너무 큰 기울기에 상한을 둔다."
+   }
+  },
+  {
+   "id": "lab:concept/differentiable",
+   "type": "Concept",
+   "label": {
+    "ko": "미분 가능",
+    "en": "differentiability"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv5",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "math",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "모든 단계에서 기울기를 정할 수 있다는 조건."
+   }
+  },
+  {
+   "id": "lab:limitation/memory-cost",
+   "type": "Limitation",
+   "label": {
+    "ko": "중간값 저장으로 메모리를 많이 씀",
+    "en": "memory cost of backprop"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv5",
+   "level": 3,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:method/checkpointing",
+   "type": "Method",
+   "label": {
+    "ko": "다시 계산하며 메모리 아끼기",
+    "en": "gradient checkpointing"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv5",
+   "level": 4,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "mentioned",
+   "family": "systems",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:method/decision-tree",
+   "type": "Method",
+   "label": {
+    "ko": "의사결정나무",
+    "en": "decision tree"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv5",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "classical",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "질문으로 나누는 계단 모양 모델. 역전파를 쓰지 않는다."
+   }
+  },
+  {
+   "id": "lab:method/evolution-strategies",
+   "type": "Method",
+   "label": {
+    "ko": "진화 전략·무작위 탐색",
+    "en": "evolution strategies / random search"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv5",
+   "level": 3,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "mentioned",
+   "family": "optimization",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "점수만 보고 손잡이를 바꿔 보며 고친다."
+   }
+  },
+  {
+   "id": "lab:method/random-search",
+   "type": "Method",
+   "label": {
+    "ko": "무작위 바꿔 보기",
+    "en": "random search"
+   },
+   "page": "03_backprop",
+   "anchor": "#duel",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "optimization",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "definition": {
+    "ko": "손잡이 전체를 살짝 무작위로 바꿔 보고 좋아지면 채택."
+   }
+  },
+  {
+   "id": "lab:question/brain-backprop",
+   "type": "Question",
+   "label": {
+    "ko": "뇌는 역전파를 하는가?",
+    "en": "Does the brain do backprop?"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv5",
+   "level": 4,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:analogy/shower",
+   "type": "Analogy",
+   "label": {
+    "ko": "샤워기 온도 맞추기 ↔ 경사하강",
+    "en": "shower knob"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv1",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:analogy/remote",
+   "type": "Analogy",
+   "label": {
+    "ko": "리모컨 버튼 하나씩 눌러 보기 ↔ 흔들어 보기",
+    "en": "remote control"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv2",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:analogy/gears",
+   "type": "Analogy",
+   "label": {
+    "ko": "맞물린 톱니바퀴 ↔ 연쇄법칙",
+    "en": "gears"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv3",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:analogy/photocopy",
+   "type": "Analogy",
+   "label": {
+    "ko": "복사본의 복사본 ↔ 기울기 소실",
+    "en": "photocopy"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv4",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:analogy/navigation",
+   "type": "Analogy",
+   "label": {
+    "ko": "지도가 있을 때의 내비게이션 ↔ 역전파의 조건",
+    "en": "navigation"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv5",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:metric/compute-budget",
+   "type": "Metric",
+   "label": {
+    "ko": "계산 예산(앞으로 계산 횟수)",
+    "en": "compute budget"
+   },
+   "page": "03_backprop",
+   "anchor": "#duel",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:dataset/delivery-toy",
+   "type": "Dataset",
+   "label": {
+    "ko": "거리·배송 시간 설명용 데이터",
+    "en": "toy delivery data"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv1",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:claim/rumelhart",
+   "type": "Claim",
+   "label": {
+    "ko": "1986년 러멜하트·힌턴·윌리엄스 논문이 역전파를 신경망 학습법으로 널리 알렸다",
+    "en": "Rumelhart et al. popularized backprop"
+   },
+   "page": "03_backprop",
+   "anchor": "#why",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "mentioned",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "source": [
+    {
+     "ref": "rumelhart1986learning",
+     "loc": ""
+    }
+   ]
+  },
+  {
+   "id": "lab:claim/resnet",
+   "type": "Claim",
+   "label": {
+    "ko": "잔차 연결(ResNet)로 층을 100개 넘게 쌓을 수 있게 됐다",
+    "en": "ResNet enables very deep nets"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv4",
+   "level": 3,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "mentioned",
+   "family": "vision",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "source": [
+    {
+     "ref": "he2016deep",
+     "loc": ""
+    }
+   ]
+  },
+  {
+   "id": "lab:claim/clip-explode",
+   "type": "Claim",
+   "label": {
+    "ko": "기울기 폭발에는 기울기 자르기를 쓴다",
+    "en": "clipping for exploding gradients"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv4",
+   "level": 3,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "mentioned",
+   "family": "optimization",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "source": [
+    {
+     "ref": "pascanu2013difficulty",
+     "loc": ""
+    }
+   ]
+  },
+  {
+   "id": "lab:claim/es-alternative",
+   "type": "Claim",
+   "label": {
+    "ko": "진화 전략은 미분 없이도 쓸 수 있는 대안이다",
+    "en": "ES as alternative"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv5",
+   "level": 3,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "mentioned",
+   "family": "optimization",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "source": [
+    {
+     "ref": "salimans2017evolution",
+     "loc": ""
+    }
+   ]
+  },
+  {
+   "id": "lab:claim/brain-debate",
+   "type": "Claim",
+   "label": {
+    "ko": "뇌가 역전파를 그대로 하는지는 논쟁 중이고 대안 학습법이 연구된다",
+    "en": "brain and backprop debated"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv5",
+   "level": 4,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "mentioned",
+   "family": "neuro",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "source": [
+    {
+     "ref": "lillicrap2020backpropagation",
+     "loc": ""
+    },
+    {
+     "ref": "hinton2022forward",
+     "loc": ""
+    }
+   ]
+  },
+  {
+   "id": "lab:claim/checkpoint",
+   "type": "Claim",
+   "label": {
+    "ko": "중간값 일부를 버리고 다시 계산해 메모리를 아낀다",
+    "en": "sublinear memory"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv5",
+   "level": 4,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "mentioned",
+   "family": "systems",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "source": [
+    {
+     "ref": "chen2016training",
+     "loc": ""
+    }
+   ]
+  },
+  {
+   "id": "lab:claim/trees-no-backprop",
+   "type": "Claim",
+   "label": {
+    "ko": "랜덤 포레스트 같은 나무 모델은 기울기 없이 학습한다",
+    "en": "tree ensembles without gradients"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv5",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "mentioned",
+   "family": "ensemble",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "source": [
+    {
+     "ref": "breiman2001random",
+     "loc": ""
+    }
+   ]
+  },
+  {
+   "id": "lab:claim/bp-wins-budget",
+   "type": "Claim",
+   "label": {
+    "ko": "같은 예산에서 역전파가 흔들기·무작위보다 손실을 더 낮춘다(이 페이지 모형)",
+    "en": "backprop wins under equal budget"
+   },
+   "page": "03_backprop",
+   "anchor": "#duel",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "optimization",
+   "match": [],
+   "domain": [
+    "ai"
+   ],
+   "source": [
+    {
+     "ref": "goodfellow2016deep",
+     "loc": ""
+    }
+   ]
+  },
+  {
+   "id": "lab:sim/p03-knob",
+   "type": "Simulation",
+   "label": {
+    "ko": "도구 1 손잡이 하나 맞추기",
+    "en": "도구 1 손잡이 하나 맞추기"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv1",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:sim/p03-cost",
+   "type": "Simulation",
+   "label": {
+    "ko": "도구 2 흔들기 vs 역전파 비용",
+    "en": "도구 2 흔들기 vs 역전파 비용"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv2",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:sim/p03-graph",
+   "type": "Simulation",
+   "label": {
+    "ko": "도구 3 계산 그래프 따라가기",
+    "en": "도구 3 계산 그래프 따라가기"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv3",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:sim/p03-chain",
+   "type": "Simulation",
+   "label": {
+    "ko": "도구 4 곱셈 줄",
+    "en": "도구 4 곱셈 줄"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv4",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:sim/p03-chooser",
+   "type": "Simulation",
+   "label": {
+    "ko": "도구 5 방법 고르기 판정기",
+    "en": "도구 5 방법 고르기 판정기"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv5",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:sim/p03-duel",
+   "type": "Simulation",
+   "label": {
+    "ko": "대결 계산 예산 대결장",
+    "en": "대결 계산 예산 대결장"
+   },
+   "page": "03_backprop",
+   "anchor": "#duel",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:quiz/p03-lv1-1",
+   "type": "QuizItem",
+   "label": {
+    "ko": "기울기 +5일 때 방향",
+    "en": "기울기 +5일 때 방향"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv1",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:quiz/p03-lv2-1",
+   "type": "QuizItem",
+   "label": {
+    "ko": "흔들기 계산 횟수",
+    "en": "흔들기 계산 횟수"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv2",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:quiz/p03-lv3-1",
+   "type": "QuizItem",
+   "label": {
+    "ko": "톱니바퀴 비율",
+    "en": "톱니바퀴 비율"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv3",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:quiz/p03-lv4-1",
+   "type": "QuizItem",
+   "label": {
+    "ko": "비율 1.5, 20층",
+    "en": "비율 1.5, 20층"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv4",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:quiz/p03-lv5-1",
+   "type": "QuizItem",
+   "label": {
+    "ko": "역전파의 조건",
+    "en": "역전파의 조건"
+   },
+   "page": "03_backprop",
+   "anchor": "#lv5",
+   "level": 1,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/rumelhart1986learning",
+   "type": "Work",
+   "label": {
+    "ko": "Rumelhart 외 (1986) Nature",
+    "en": "Learning representations by back-propagating errors"
+   },
+   "page": "03_backprop",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/goodfellow2016deep",
+   "type": "Work",
+   "label": {
+    "ko": "Goodfellow 외 (2016) MIT Press",
+    "en": "Deep Learning"
+   },
+   "page": "03_backprop",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/he2016deep",
+   "type": "Work",
+   "label": {
+    "ko": "He 외 (2016) CVPR",
+    "en": "Deep Residual Learning for Image Recognition"
+   },
+   "page": "03_backprop",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/pascanu2013difficulty",
+   "type": "Work",
+   "label": {
+    "ko": "Pascanu 외 (2013) ICML",
+    "en": "On the difficulty of training recurrent neural networks"
+   },
+   "page": "03_backprop",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/salimans2017evolution",
+   "type": "Work",
+   "label": {
+    "ko": "Salimans 외 (2017) arXiv:1703.03864",
+    "en": "Evolution Strategies as a Scalable Alternative to Reinforcement Learning"
+   },
+   "page": "03_backprop",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/hinton2022forward",
+   "type": "Work",
+   "label": {
+    "ko": "Hinton (2022) arXiv:2212.13345",
+    "en": "The Forward-Forward Algorithm: Some Preliminary Investigations"
+   },
+   "page": "03_backprop",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/chen2016training",
+   "type": "Work",
+   "label": {
+    "ko": "Chen 외 (2016) arXiv:1604.06174",
+    "en": "Training Deep Nets with Sublinear Memory Cost"
+   },
+   "page": "03_backprop",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/lillicrap2020backpropagation",
+   "type": "Work",
+   "label": {
+    "ko": "Lillicrap 외 (2020) Nature Reviews Neuroscience",
+    "en": "Backpropagation and the brain"
+   },
+   "page": "03_backprop",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  },
+  {
+   "id": "lab:work/breiman2001random",
+   "type": "Work",
+   "label": {
+    "ko": "Breiman (2001) Machine Learning",
+    "en": "Random Forests"
+   },
+   "page": "03_backprop",
+   "anchor": "#export",
+   "level": 2,
+   "status": "known",
+   "confidence": "high",
+   "coverage": "explained",
+   "family": "nn-basics",
+   "match": [],
+   "domain": [
+    "ai"
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "s": "lab:method/gradient-descent",
+   "p": "lab:demonstratedBy",
+   "o": "lab:sim/p03-knob",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/numerical-gradient",
+   "p": "lab:demonstratedBy",
+   "o": "lab:sim/p03-cost",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/chain-rule",
+   "p": "lab:demonstratedBy",
+   "o": "lab:sim/p03-graph",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/vanish-explode",
+   "p": "lab:demonstratedBy",
+   "o": "lab:sim/p03-chain",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/differentiable",
+   "p": "lab:demonstratedBy",
+   "o": "lab:sim/p03-chooser",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:topic/backpropagation",
+   "p": "lab:demonstratedBy",
+   "o": "lab:sim/p03-duel",
+   "anchor": "#duel",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:quiz/p03-lv1-1",
+   "p": "lab:assesses",
+   "o": "lab:method/gradient-descent",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:quiz/p03-lv2-1",
+   "p": "lab:assesses",
+   "o": "lab:limitation/cost-scales-with-params",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:quiz/p03-lv3-1",
+   "p": "lab:assesses",
+   "o": "lab:concept/chain-rule",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:quiz/p03-lv4-1",
+   "p": "lab:assesses",
+   "o": "lab:limitation/vanish-explode",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:quiz/p03-lv5-1",
+   "p": "lab:assesses",
+   "o": "lab:concept/differentiable",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/rumelhart",
+   "p": "lab:assertedIn",
+   "o": "lab:work/rumelhart1986learning",
+   "anchor": "#why",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/resnet",
+   "p": "lab:assertedIn",
+   "o": "lab:work/he2016deep",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/clip-explode",
+   "p": "lab:assertedIn",
+   "o": "lab:work/pascanu2013difficulty",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/es-alternative",
+   "p": "lab:assertedIn",
+   "o": "lab:work/salimans2017evolution",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/brain-debate",
+   "p": "lab:assertedIn",
+   "o": "lab:work/lillicrap2020backpropagation",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/brain-debate",
+   "p": "lab:assertedIn",
+   "o": "lab:work/hinton2022forward",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/checkpoint",
+   "p": "lab:assertedIn",
+   "o": "lab:work/chen2016training",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/trees-no-backprop",
+   "p": "lab:assertedIn",
+   "o": "lab:work/breiman2001random",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/bp-wins-budget",
+   "p": "lab:assertedIn",
+   "o": "lab:work/goodfellow2016deep",
+   "anchor": "#duel",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/loss",
+   "p": "lab:broader",
+   "o": "lab:topic/loss-function",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/gradient",
+   "p": "lab:broader",
+   "o": "lab:topic/gradient-descent",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/gradient-descent",
+   "p": "lab:broader",
+   "o": "lab:topic/gradient-descent",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/numerical-gradient",
+   "p": "lab:broader",
+   "o": "lab:topic/calculus-optimization-math",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/cost-scales-with-params",
+   "p": "lab:broader",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/gradient-check",
+   "p": "lab:broader",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/chain-rule",
+   "p": "lab:broader",
+   "o": "lab:topic/calculus-optimization-math",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/computational-graph",
+   "p": "lab:broader",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/reuse",
+   "p": "lab:broader",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/autodiff",
+   "p": "lab:broader",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/vanish-explode",
+   "p": "lab:broader",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/residual",
+   "p": "lab:broader",
+   "o": "lab:topic/residual-connections",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/grad-clip",
+   "p": "lab:broader",
+   "o": "lab:topic/gradient-descent",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/differentiable",
+   "p": "lab:broader",
+   "o": "lab:topic/calculus-optimization-math",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/memory-cost",
+   "p": "lab:broader",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/checkpointing",
+   "p": "lab:broader",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/decision-tree",
+   "p": "lab:broader",
+   "o": "lab:topic/decision-tree",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/evolution-strategies",
+   "p": "lab:broader",
+   "o": "lab:topic/policy-gradient",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/random-search",
+   "p": "lab:broader",
+   "o": "lab:topic/gradient-descent",
+   "anchor": "#duel",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/loss",
+   "p": "lab:prerequisiteOf",
+   "o": "lab:concept/gradient",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/gradient",
+   "p": "lab:prerequisiteOf",
+   "o": "lab:method/numerical-gradient",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/numerical-gradient",
+   "p": "lab:prerequisiteOf",
+   "o": "lab:concept/chain-rule",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/chain-rule",
+   "p": "lab:prerequisiteOf",
+   "o": "lab:limitation/vanish-explode",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/vanish-explode",
+   "p": "lab:prerequisiteOf",
+   "o": "lab:concept/differentiable",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/numerical-gradient",
+   "p": "lab:hasLimitation",
+   "o": "lab:limitation/cost-scales-with-params",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/cost-scales-with-params",
+   "p": "lab:addressedBy",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:topic/backpropagation",
+   "p": "lab:hasLimitation",
+   "o": "lab:limitation/vanish-explode",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/vanish-explode",
+   "p": "lab:addressedBy",
+   "o": "lab:method/residual",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/vanish-explode",
+   "p": "lab:addressedBy",
+   "o": "lab:method/grad-clip",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:topic/backpropagation",
+   "p": "lab:hasLimitation",
+   "o": "lab:limitation/memory-cost",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:limitation/memory-cost",
+   "p": "lab:addressedBy",
+   "o": "lab:method/checkpointing",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/numerical-gradient",
+   "p": "lab:contrastsWith",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/random-search",
+   "p": "lab:contrastsWith",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#duel",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/decision-tree",
+   "p": "lab:contrastsWith",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/computational-graph",
+   "p": "lab:partOf",
+   "o": "lab:concept/chain-rule",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/reuse",
+   "p": "lab:partOf",
+   "o": "lab:concept/chain-rule",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/gradient-check",
+   "p": "lab:partOf",
+   "o": "lab:method/numerical-gradient",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:analogy/shower",
+   "p": "lab:analogyOf",
+   "o": "lab:method/gradient-descent",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:analogy/remote",
+   "p": "lab:analogyOf",
+   "o": "lab:method/numerical-gradient",
+   "anchor": "#lv2",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:analogy/gears",
+   "p": "lab:analogyOf",
+   "o": "lab:concept/chain-rule",
+   "anchor": "#lv3",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:analogy/photocopy",
+   "p": "lab:analogyOf",
+   "o": "lab:limitation/vanish-explode",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:analogy/navigation",
+   "p": "lab:analogyOf",
+   "o": "lab:concept/differentiable",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/rumelhart",
+   "p": "lab:supports",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#why",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/resnet",
+   "p": "lab:supports",
+   "o": "lab:method/residual",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/clip-explode",
+   "p": "lab:supports",
+   "o": "lab:method/grad-clip",
+   "anchor": "#lv4",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/es-alternative",
+   "p": "lab:supports",
+   "o": "lab:method/evolution-strategies",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/brain-debate",
+   "p": "lab:supports",
+   "o": "lab:question/brain-backprop",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/checkpoint",
+   "p": "lab:supports",
+   "o": "lab:method/checkpointing",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/trees-no-backprop",
+   "p": "lab:supports",
+   "o": "lab:method/decision-tree",
+   "anchor": "#lv5",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:claim/bp-wins-budget",
+   "p": "lab:supports",
+   "o": "lab:topic/backpropagation",
+   "anchor": "#duel",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:topic/backpropagation",
+   "p": "lab:evaluatedBy",
+   "o": "lab:metric/compute-budget",
+   "anchor": "#duel",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:method/gradient-descent",
+   "p": "lab:evaluatedOn",
+   "o": "lab:dataset/delivery-toy",
+   "anchor": "#lv1",
+   "confidence": "high"
+  },
+  {
+   "s": "lab:concept/differentiable",
+   "p": "lab:raises",
+   "o": "lab:question/brain-backprop",
+   "anchor": "#lv5",
+   "confidence": "high"
+  }
+ ]
+}
